@@ -1,4 +1,4 @@
-package com.math.controller;
+package com.principal.math.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.math.controller.services.AlunoService;
-import com.math.model.entity.Aluno;
+import com.principal.math.controller.services.AlunoService;
+import com.principal.math.model.entity.Aluno;
 
 @Controller
 @RequestMapping("/aluno")

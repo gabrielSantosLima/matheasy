@@ -1,4 +1,4 @@
-package com.math.model.entity;
+package com.principal.math.model.entity;
 
 import java.sql.Date;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.math.model.repository;
+package com.principal.math.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
