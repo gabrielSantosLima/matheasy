@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Formacao {
 
-	private String nome;
+	private String nome_formacao;
 	private String descricao;
 
 	public String getDescricao() {
@@ -17,10 +17,10 @@ public class Formacao {
 	}
 
 	public String getNome() {
-		return nome;
+		return nome_formacao;
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome_formacao = nome;
 	}
 }
