@@ -1,0 +1,116 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+    font-family: sans-serif;
+}
+
+#nav-bar{
+    position: sticky;
+    top: 0;
+    z-index: 10;/**/
+}
+/*------- CONFIGURAÇÕES DO MENU--------*/
+.navbar{
+    background-image: linear-gradient(to right,#514A9D,#36D1DC);
+    padding: 0 !important; /**/
+}
+
+.nav-brand img{
+height: 40px;
+padding-left: 20px;
+}
+
+.navbar-nav li{
+    padding: 0 10px;
+}
+
+.navbar-nav li a{
+    color: white !important;
+    font-weight: 600;
+    text-align: left;
+}
+
+.fa-bars{
+    color: white;
+    font-size: 30px !important;
+}
+
+.navbar-toggler{
+    outline: none !important;
+}
+
+/*--------Seção Banner (Principal)--------*/
+
+#principal{
+    background-image:  linear-gradient(to right,#514A9D,#36D1DC);
+    color: white;
+    padding-top: 0%;
+}
+
+.chamado{
+    font-size: 50px;
+    font-weight: 600;
+    margin-top: 60px;
+} 
+
+/*----- BOTÃO INSCREVA-SE ------*/
+
+.inscrever{
+    width: 110px;
+    margin: 20px;
+    margin-left: 150px;
+    margin-top: 0px;
+
+}
+
+
+
+.img-home{
+    margin-top: -70px;
+    width: 400;
+    margin: 400;
+
+}
+
+.img-fluid#borda{
+    width: 100%;
+}
+  
+
+/* Section de SOBRE */
+
+#sobre{
+    padding: 80px 0;
+}
+
+#img-sobre{
+    width: 300px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.sobre{
+    padding: 20px;
+}
+.sobre h4{
+    padding: 5px;
+    margin-top: 25px;
+}
+
+.titulo{
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.btn-primary{
+    margin-left: 350px;
+}
+
+/*
+ANOTAÇÃO: verificar class::before pra seção sobre
+}*/
