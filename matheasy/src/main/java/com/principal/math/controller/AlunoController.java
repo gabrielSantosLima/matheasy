@@ -1,6 +1,7 @@
 package com.principal.math.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,24 +16,37 @@ import com.principal.math.model.entity.Aluno;
 public class AlunoController {
 
 	AlunoService service;
-	
+
 	@PostMapping("/salvar")
-	public String salvar(Aluno aluno) {
+	public String salvar(Model model, Aluno aluno) {
+
+		service.salvar(aluno);
+		model.addAttribute(aluno);
+
 		return "redirect:/";
 	}
 
-	@GetMapping("/retornar-alunos")
-	public String entrar(Aluno aluno) {
-		if(service.verificaAluno(aluno)) {
-			return "tela-logado";			
-		}else {
+	@GetMapping("/login")
+	public String entrar(Model model, Aluno aluno) {
+
+		if (service.verificaEntidade(aluno)) {
+			model.addAllAttributes(service.retornarLista());
+
+			return "tela-logado";
+		} else {
 			return "tela-erro";
 		}
 	}
 
 	@DeleteMapping("/deletar/{id}")
 	public String deletar(@PathVariable("id") Integer id) {
-		
-		return "redirect:/";
+
+		if (service.existePorId(id)) {
+			service.deletar(id);
+
+			return "redirect:/";
+		} else {
+			return "redirect:/aluno/deletar";
+		}
 	}
 }
