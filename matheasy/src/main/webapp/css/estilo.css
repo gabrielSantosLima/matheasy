@@ -1,3 +1,11 @@
+
+@font-face{
+
+font-family: 'FonteChamado';
+src: url("../fonts/Clootie.otf");
+}
+
+/*                 CONFIGURAÇÕES GERAIS                */
 *{
     margin: 0;
     padding: 0;
@@ -9,19 +17,20 @@ body{
 }
 
 #nav-bar{
-    position: sticky;
+    position: sticky; 
     top: 0;
-    z-index: 10;/**/
+    z-index: 3; /*profundidade dos itens do site, não mudar pois "impede" que as seções ultrapassem o menu*/
 }
-/*------- CONFIGURAÇÕES DO MENU--------*/
+
+/*                 CONFIGURAÇÕES DO MENU               */
+
 .navbar{
     background-image: linear-gradient(to right,#514A9D,#36D1DC);
-    padding: 0 !important; /**/
+    padding: 0 !important; /*!important "ignora" cascata, define como prioridade onde foi atribuido*/
 }
 
 .nav-brand img{
 height: 40px;
-padding-left: 20px;
 }
 
 .navbar-nav li{
@@ -43,21 +52,27 @@ padding-left: 20px;
     outline: none !important;
 }
 
-/*--------Seção Banner (Principal)--------*/
+/*               PRINCIPAL              */
 
 #principal{
     background-image:  linear-gradient(to right,#514A9D,#36D1DC);
     color: white;
     padding-top: 0%;
 }
-
+.chamado p{
+    /*font-family: 'Shadows Into Light', cursive;
+    font-family: 'Comfortaa', cursive;*/
+    font-family: 'FonteChamado', sans-serif;
+}
 .chamado{
-    font-size: 50px;
+	
+    font-size: 40px;
     font-weight: 600;
-    margin-top: 60px;
+    margin-top: 110px;
+    padding-left: 15px;
 } 
 
-/*----- BOTÃO INSCREVA-SE ------*/
+/*              BOTÃO INSCREVA-SE                */
 
 .inscrever{
     width: 110px;
@@ -78,6 +93,7 @@ padding-left: 20px;
 
 .img-fluid#borda{
     width: 100%;
+
 }
   
 
@@ -91,26 +107,45 @@ padding-left: 20px;
     width: 300px;
     margin-top: 20px;
     margin-bottom: 10px;
+    /*Configurações das imagens*/
 }
 
 .sobre{
     padding: 20px;
+
 }
 .sobre h4{
     padding: 5px;
     margin-top: 25px;
+    /*Tamanho e posição do texto Título*/
 }
 
 .titulo{
     text-align: center;
     margin-top: 0;
     margin-bottom: 20px;
+    /*Tamanho e posição do texto*/
 }
 
-.btn-primary{
-    margin-left: 350px;
+.btn-mais{
+ text-align: center; /*Centralizar Botão*/
 }
 
 /*
 ANOTAÇÃO: verificar class::before pra seção sobre
 }*/
+
+/*Fale Conosco*/
+
+#contato{
+    background: #f8f9fa;
+    padding: 100px 0; /*Tamanho do "Quadrado" onde a seção 'Fale Conosco' está inserida*/
+    
+}
+
+#contato p{
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    /*Tamanho e posição do texto*/
+}
