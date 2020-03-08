@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.principal.math.controller.services.AlunoService;
 import com.principal.math.model.entity.Aluno;
@@ -17,6 +18,11 @@ public class AlunoController {
 
 	AlunoService service;
 
+	@GetMapping("/")
+	public ModelAndView redireciona() {
+		return new ModelAndView("form-cadastro");
+	}
+	
 	@PostMapping("/salvar")
 	public String salvar(Model model, Aluno aluno) {
 
@@ -29,7 +35,7 @@ public class AlunoController {
 	@GetMapping("/login")
 	public String entrar(Model model, Aluno aluno) {
 
-		if (service.verificaEntidade(aluno)) {
+		if (service.verificaEntidade(aluno.getId())) {
 			model.addAllAttributes(service.retornarLista());
 
 			return "tela-logado";

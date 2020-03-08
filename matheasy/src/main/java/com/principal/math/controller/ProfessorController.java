@@ -29,7 +29,7 @@ public class ProfessorController {
 	@GetMapping("/login")
 	public String entrar(Model model, Professor professor) {
 
-		if (service.verificaEntidade(professor)) {
+		if (service.verificaEntidade(professor.getId())) {
 			model.addAllAttributes(service.retornarLista());
 
 			return "tela-logado";
