@@ -64,4 +64,13 @@ public class Aluno extends Usuario{
 	public void setProfessores(List<Professor> professores) {
 		this.professores = professores;
 	}
+	
+	public boolean comparaAtributosLogin(String email, String senha) {
+		if(email.equals(this.getEmail())) {
+			if(senha.equals(this.getSenha())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

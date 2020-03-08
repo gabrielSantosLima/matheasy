@@ -21,11 +21,11 @@ public class AnoCurso {
 	private Integer qtdeModulos;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ano_cursoId")
+	@JoinColumn(name = "ano_id")
 	private List<Modulo> modulos;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ano_cursoId")
+	@JoinColumn(name = "ano_id")
 	private List<Aluno> alunos;
 
 	

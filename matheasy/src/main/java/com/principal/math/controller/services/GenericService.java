@@ -3,10 +3,12 @@ package com.principal.math.controller.services;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public class GenericService<E, Repository extends JpaRepository<E, Integer>> {
 
+	@Autowired
 	private Repository r;
 
 	public boolean verificaEntidade(Integer id) throws HibernateException {
@@ -17,7 +19,7 @@ public class GenericService<E, Repository extends JpaRepository<E, Integer>> {
 			return true;
 		}
 	}
-
+	
 	public void salvar(E e) throws HibernateException {
 		r.save(e);
 	}

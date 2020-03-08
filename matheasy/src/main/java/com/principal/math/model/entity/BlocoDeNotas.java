@@ -1,7 +1,7 @@
 package com.principal.math.model.entity;
 
 import java.sql.Blob;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "bloco_de_notas")
@@ -18,9 +21,15 @@ public class BlocoDeNotas {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotEmpty
 	private String texto;
+	
+	@NotEmpty
 	private String corHex;
 	private Blob anexo;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataAlarme;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

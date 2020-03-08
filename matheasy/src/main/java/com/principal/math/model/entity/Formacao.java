@@ -1,20 +1,17 @@
 package com.principal.math.model.entity;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotEmpty;
 
 @Embeddable
 public class Formacao {
 
+	@NotEmpty
 	private String nome_formacao;
-	private String descricao;
+	
+	@NotEmpty
+	private String descricao_formacao;
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
 
 	public String getNome() {
 		return nome_formacao;
@@ -22,5 +19,13 @@ public class Formacao {
 
 	public void setNome(String nome) {
 		this.nome_formacao = nome;
+	}
+
+	public String getDescricao_formacao() {
+		return descricao_formacao;
+	}
+
+	public void setDescricao_formacao(String descricao_formacao) {
+		this.descricao_formacao = descricao_formacao;
 	}
 }

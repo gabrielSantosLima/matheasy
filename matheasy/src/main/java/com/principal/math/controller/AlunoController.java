@@ -1,9 +1,14 @@
 package com.principal.math.controller;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,46 +18,48 @@ import com.principal.math.controller.services.AlunoService;
 import com.principal.math.model.entity.Aluno;
 
 @Controller
-@RequestMapping("/aluno")
+@RequestMapping("/aluno/")
 public class AlunoController {
 
-	AlunoService service;
+	@Autowired
+	private AlunoService service;
 
-	@GetMapping("/")
-	public ModelAndView redireciona() {
-		return new ModelAndView("form-cadastro");
+	@GetMapping("login")
+	public String formLogar(Model model) {
+		model.addAttribute("aluno", new Aluno());
+		return "form-login";
 	}
-	
-	@PostMapping("/salvar")
-	public String salvar(Model model, Aluno aluno) {
+
+	@GetMapping("cadastrar")
+	public String formCadastrar(Model model) {
+		model.addAttribute("aluno", new Aluno());
+		return "form-cadastro";
+	}
+
+	@PostMapping("/cadastrar/salvar")
+	public String salvar(@Valid @ModelAttribute("aluno") Aluno aluno, BindingResult results, Model model) {
+
+		if (results.hasErrors()) {
+			return "/";
+		}
 
 		service.salvar(aluno);
 		model.addAttribute(aluno);
-
 		return "redirect:/";
 	}
 
-	@GetMapping("/login")
-	public String entrar(Model model, Aluno aluno) {
+	@PostMapping("login/entrar")
+	public ModelAndView entrar(@Valid @ModelAttribute("aluno") Aluno aluno, Model model) {
+	ModelAndView mv = new ModelAndView("area-aluno");
 
-		if (service.verificaEntidade(aluno.getId())) {
-			model.addAllAttributes(service.retornarLista());
-
-			return "tela-logado";
-		} else {
-			return "tela-erro";
+		if (service.verificarAtributosParaLogin(aluno)) {
+			return new ModelAndView("/aluno/login");
 		}
-	}
 
-	@DeleteMapping("/deletar/{id}")
-	public String deletar(@PathVariable("id") Integer id) {
-
-		if (service.existePorId(id)) {
-			service.deletar(id);
-
-			return "redirect:/";
-		} else {
-			return "redirect:/aluno/deletar";
-		}
+//		Aluno alunoLogado = service.retornaAluno(aluno);
+		Iterable<Aluno> alunos = service.retornarLista();
+		
+		mv.addObject("alunos", alunos);
+		return mv;
 	}
 }

@@ -1,12 +1,15 @@
 package com.principal.math.model.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "modulo")
@@ -15,8 +18,14 @@ public class Modulo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotEmpty
 	private String nome;
+	
+	@NotEmpty
 	private String conteudo;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataFinalizado;
 
 	@ManyToOne
