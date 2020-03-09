@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <title>Login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">    
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../css/estilo-login.css">
     <link rel="stylesheet" href="../fontawesome/css/all.min.css">
 </head>
@@ -19,7 +18,7 @@
             <div class="col-md-10">
                 <form action="#" th:action="@{/aluno/login/logar}" th:object="${aluno}" method="POST">
                     <legend>Login</legend>
-                    
+
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
@@ -29,7 +28,7 @@
                         </div>
                         <small class="small">Ex: user@gmail.com</small>
                     </div>
-                    
+
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -39,7 +38,7 @@
                         </div>
                         <small class="small">*Mínimo de 8 caracteres</small>
                     </div>
-                    
+
                     <div class="form-group">
                         <small class="small">Não tem nenhuma conta? <a href="/aluno/cadastrar">Clique aqui para criar uma.</a></small>
                         <button type="submit" class="btn btn-primary btn-block">Enviar</button>
