@@ -24,7 +24,7 @@
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon1">@</span>
                             </div>
-                            <input type="email" name="email" placeholder="E-mail">
+                            <input type="email" name="email" placeholder="E-mail" th:field="*{email}">
                         </div>
                         <small class="small">Ex: user@gmail.com</small>
                     </div>
@@ -34,7 +34,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" name="senha" placeholder="Digite sua senha...">
+                            <input type="password" name="senha" placeholder="Digite sua senha..." th:field="*{senha}">
                         </div>
                         <small class="small">*Mínimo de 8 caracteres</small>
                     </div>

@@ -48,18 +48,15 @@ public class AlunoController {
 		return "redirect:/";
 	}
 
-	@PostMapping("login/entrar")
-	public ModelAndView entrar(@Valid @ModelAttribute("aluno") Aluno aluno, Model model) {
-	ModelAndView mv = new ModelAndView("area-aluno");
-
+	@PostMapping("/login/entrar")
+	public String entrar(@Valid @ModelAttribute("aluno") Aluno aluno, Model model) {
 		if (service.verificarAtributosParaLogin(aluno)) {
-			return new ModelAndView("/aluno/login");
+			Iterable<Aluno> alunos = service.retornarLista();
+			model.addAttribute("alunos", alunos);
+			return "area-aluno";
 		}
 
 //		Aluno alunoLogado = service.retornaAluno(aluno);
-		Iterable<Aluno> alunos = service.retornarLista();
-		
-		mv.addObject("alunos", alunos);
-		return mv;
+		return "redirect:/";
 	}
 }
