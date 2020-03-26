@@ -1,8 +1,9 @@
 package com.principal.math.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 
-public interface GenericRepository<E, Id> extends JpaRepository<E, Id> {
-	
-	<S extends E> boolean exists(S s);
+@NoRepositoryBean
+public interface GenericRepository<E, Id> extends JpaRepository<E, Id>{
+
 }
