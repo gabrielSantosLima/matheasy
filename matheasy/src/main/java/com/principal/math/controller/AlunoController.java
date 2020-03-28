@@ -35,7 +35,6 @@ public class AlunoController {
 
 	@PostMapping("/cadastrar/salvar")
 	public String salvar(@Valid @ModelAttribute("aluno") Aluno aluno, BindingResult results, Model model) {
-
 		if (results.hasErrors()) {
 			return "/";
 		}
@@ -45,15 +44,8 @@ public class AlunoController {
 		return "redirect:/";
 	}
 
-	@PostMapping("/login/entrar")
+	/*@PostMapping("/login/entrar")
 	public String entrar(@Valid @ModelAttribute("aluno") Aluno aluno, Model model) {
-		if (service.verificarAtributosParaLogin(aluno)) {
-			Iterable<Aluno> alunos = service.retornarLista();
-			model.addAttribute("alunos", alunos);
-			return "area-aluno";
-		}
-
-//		Aluno alunoLogado = service.retornaAluno(aluno);
-		return "redirect:/";
-	}
+		
+	}*/
 }
