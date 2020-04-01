@@ -23,6 +23,9 @@ public class BlocoDeNotas {
 	private Integer id;
 	
 	@NotEmpty
+	private String titulo;
+	
+	@NotEmpty
 	private String texto;
 	
 	@NotEmpty
@@ -49,6 +52,14 @@ public class BlocoDeNotas {
 
 	public void setTexto(String texto) {
 		this.texto = texto;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public String getCorHex() {

@@ -29,8 +29,8 @@ public class ProfessorController {
 	@GetMapping("/login")
 	public String entrar(Model model, Professor professor) {
 
-		if (service.verificaEntidade(professor.getId())) {
-			model.addAllAttributes(service.retornarLista());
+		if (service.existsById(professor.getId())) {
+			model.addAllAttributes(service.listar());
 
 			return "tela-logado";
 		} else {
@@ -39,14 +39,9 @@ public class ProfessorController {
 	}
 
 	@DeleteMapping("/deletar/{id}")
-	public String deletar(@PathVariable("id") Integer id) {
-
-		if (service.existePorId(id)) {
+	public void deletar(@PathVariable("id") Integer id) {
+		if (service.existsById(id)) {
 			service.deletar(id);
-
-			return "redirect:/";
-		} else {
-			return "redirect:/professor/deletar";
 		}
 	}
 }

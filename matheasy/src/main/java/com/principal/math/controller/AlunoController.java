@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.principal.math.controller.services.AlunoService;
 import com.principal.math.model.entity.Aluno;
+import com.principal.math.utils.EntidadeLogin;
 
 @Controller
 @RequestMapping("/aluno/")
@@ -23,10 +24,27 @@ public class AlunoController {
 
 	@GetMapping("login")
 	public String formLogar(Model model) {
-		model.addAttribute("aluno", new Aluno());
+		model.addAttribute("entidade", new EntidadeLogin());
 		return "form-login";
 	}
 
+	@PostMapping("/login")
+	public String entrar(@ModelAttribute("entidade") EntidadeLogin entidade, Model model) {
+		boolean status = service.verificarAtributosParaLogin(entidade);
+		
+		if(status){
+			return "/area-aluno";
+		}
+		
+		System.out.println("Email: " + entidade.getEmail() + ", Senha: "+ entidade.getSenha());
+		return "form-login";
+	}
+	
+	@GetMapping("/login/area-aluno")
+	public String entrarAreaLogado() {
+		return "tela-logado";
+	}
+	
 	@GetMapping("cadastrar")
 	public String formCadastrar(Model model) {
 		model.addAttribute("aluno", new Aluno());
@@ -44,8 +62,4 @@ public class AlunoController {
 		return "redirect:/";
 	}
 
-	/*@PostMapping("/login/entrar")
-	public String entrar(@Valid @ModelAttribute("aluno") Aluno aluno, Model model) {
-		
-	}*/
 }

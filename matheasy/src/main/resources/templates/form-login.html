@@ -8,22 +8,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/estilo-login.css}">
-    <link rel="stylesheet" th:href="@{/fontawesome/all.min.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
     <div class="main-container">
         <div class="container">
             <div class="col-md-10">
-                <form action="#" th:action="@{/aluno/login/logar}" th:object="${aluno}" method="POST">
-                    <legend>Login</legend>
-
+                <form action="#" th:action="@{/aluno/login}" th:object="${entidade}" method="POST">
+                    <legend>Login v</legend>
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon1">@</span>
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="large material-icons">email</i>
+                                </span>
                             </div>
-                            <input type="email" name="email" placeholder="E-mail" th:field="*{email}">
+                            <input type="email" placeholder="E-mail" th:field="*{email}">
                         </div>
                         <small class="small">Ex: user@gmail.com</small>
                     </div>
@@ -31,9 +32,11 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <span class="input-group-text">
+                                    <i class="large material-icons">vpn_key</i>
+                                </span>
                             </div>
-                            <input type="password" name="senha" placeholder="Digite sua senha..." th:field="*{senha}">
+                            <input type="password" placeholder="Digite sua senha..." th:field="*{senha}">
                         </div>
                         <small class="small">*Mínimo de 8 caracteres</small>
                     </div>

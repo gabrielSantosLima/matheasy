@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathEasy</title>
+    <link rel="stylesheet" type="text/css" href="sass/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="sass/estilo-logo.css">
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+</head>
+<body>
+  <input type="checkbox" id="check">
+  <label for="check">
+    <i class="fas fa-bars" id="menu"></i>
+    <i class="fas fa-times" id="sair"></i>
+  </label>
+  <div class="sidebar">
+    <header>MENU</header>
+    <ul>
+      <li><a href="#"><i class="fas fa-qrcode"></i> Alguma Coisa</a></li>
+      <li><a href="#"><i class="fas fa-link"></i> Alguma Coisa</a></li>
+      <li><a href="#"><i class="fas fa-calendar"></i> Planejamento</a></li>
+      <li><a href="#"><i class="fas fa-user-circle"></i> Perfil</a></li>
+      <li><a href="#"><i class="fas fa-question-circle"></i> Ajuda</a></li>
+      <li><a href="#"><i class="far fa-envelope"></i> Fale Conosco</a></li>
+      
+    </ul>
+  </div>
+
+ 
+
+  <section id="nav-bar">
+   <nav class="navbar navbar-expand-lg navbar-light" id="gadient">
+        <a class="navbar-brand" href="#"><img src="img/logouno.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+         <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../webapp/tela-logado.html">CONTEÚDO</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">MENSAGENS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">CALENDÁRIO</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">ANOTAÇÕES</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar..." aria-label="Search">
+            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+          </form>
+        </div>
+    </nav> 
+  
+     
+</section>
+  
+<h1>CLIQUE EM UM CARD</h1>
+<div class="wrapper" id="card">
+  <section id="section1">
+    <a class="pular" href="#section3">‹</a>
+      <div class="item" >
+        <a id="sexto-ano" href="../webapp/modulo-geometria.html"><img src="img/1card-geometria.png"></a>
+      </div>
+      <div class="item">
+        <img src="img/2card-grandezas.png"/>
+      </div>
+      <div class="item">
+        <img src="img/3card-angulo.png"/>
+      </div>
+    <a class="pular" href="#section2">›</a>
+  </section>
+  <section id="section2">
+    <a class="pular" href="#section1">‹</a>
+      <div class="item">
+        <img src="img/4card-algebra.png"/>
+      </div>
+      <div class="item">
+        <img src="img/5card-expressao.png"/>
+      </div>
+      <div class="item">
+        <img src="img/6card-trigonome.png"/>
+      </div>
+    <a class="pular" href="#section3">›</a>
+  </section>
+  <section id="section3">
+    <a class="pular" href="#section2">‹</a>
+      <div class="item">
+        <img src="img/7card-equacao.png"/>
+      </div>
+      <div class="item">
+        <img src="img/8card-numero.png"/>
+      </div>
+      <div class="item">
+        <img src="img/9card-estatistica.png"/>
+      </div>
+    <a class="pular" href="#section1">›</a>
+  </section>
+
+</div>
+<p class><img src="img/dica-image.png" >Para começar é bem simples, você só precisa clicar em um card da série que deseja e logo terá acesso a todos os conteúdos dessa série!</p>
+<p class> <img src="img/dica-image.png" >Se estiver procurando por um assunto específico clique em pesquisar! Caso queira retornar os estudos de onde parou, vá em Menu > Meus Conteúdos</p>
+    <script src="sass/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="sass/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="sass/node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="js/tela-logado.js"></script>
+    <script src="fontawesome/js/all.min.js"></script>
+</body>
+</html>
