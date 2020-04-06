@@ -6,8 +6,6 @@ import com.principal.math.controller.services.BlocoService;
 import com.principal.math.model.entity.BlocoDeNotas;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,36 +41,36 @@ public class BlocoController {
   }
 
   @PostMapping
-  public ResponseEntity adicionar(@Valid @ModelAttribute("card") BlocoDeNotas bloco){
+  public String adicionar(@Valid @ModelAttribute("card") BlocoDeNotas bloco){
     
     if(service.existsById(bloco.getId())){
-      return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+      return "/";
     }
 
     service.salvar(bloco);
-    return new ResponseEntity(HttpStatus.OK);
+    return "/";
   }
 
   @DeleteMapping("/delete/{id}")
-  public ResponseEntity deletar(@RequestParam("id") Integer id) {
+  public String deletar(@RequestParam("id") Integer id) {
     
     if(!service.existsById(id)){
-      return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+      return "/";
     }
 
     service.deletar(id);
-    return new ResponseEntity(HttpStatus.OK);
+    return "/";
   }
 
   @PutMapping("/atualizar")
-  public ResponseEntity atualizar(BlocoDeNotas bloco){
+  public String atualizar(BlocoDeNotas bloco){
     
     if(!service.existsById(bloco.getId())){
-      return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+      return "/";
     }
     
     service.atualizar(bloco, bloco.getId());
-    return new ResponseEntity(HttpStatus.OK);
+    return "/";
   }
 
 }
