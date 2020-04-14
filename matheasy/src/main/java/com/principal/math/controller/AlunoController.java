@@ -1,7 +1,6 @@
 package com.principal.math.controller;
 
-import java.util.List;
-
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.principal.math.controller.services.AlunoService;
 import com.principal.math.model.entity.Aluno;
-import com.principal.math.model.entity.BlocoDeNotas;
 import com.principal.math.utils.EntidadeLogin;
 
 @Controller
@@ -23,11 +21,6 @@ public class AlunoController {
 
 	@Autowired
 	private AlunoService service;
-
-	@Autowired
-	public List<BlocoDeNotas> getBlocoDeNotas(Aluno aluno){
-		return service.getBlocoDeNotas(aluno);
-	}
 
 	@GetMapping("/login")
 	public String setEntity(Model model) {
@@ -38,21 +31,24 @@ public class AlunoController {
 
 	@GetMapping("/cadastrar")
 	public String setAluno(Model model) {
-		model.addAttribute("aluno", new Aluno());
-
 		return "cadastrar";
 	}
 
 	@PostMapping("/login")
-	public String login(@ModelAttribute("entidade") EntidadeLogin entidade, Model model) {
+	public String login(@ModelAttribute("entidade") EntidadeLogin entidade, HttpSession session) {
 
 		boolean status = service.login(entidade);
 
 		if (status) {
-			return "homepage";
+			
+			session.setAttribute("alunoLogado", 
+				service.getAlunoByEmailAndSenha(entidade.getEmail(), entidade.getSenha()).getId()
+			);
+
+			return "redirect:/card";
 		}
 
-		return "login";
+		return "redirect:/aluno/login";
 	}
 
 	@PostMapping("/cadastrar")
@@ -66,6 +62,11 @@ public class AlunoController {
 		model.addAttribute(aluno);
 
 		return "redirect:/";
+	}
+
+	@GetMapping("/cardTeste")
+	public String homepage(){
+		return "cardTeste";
 	}
 
 }

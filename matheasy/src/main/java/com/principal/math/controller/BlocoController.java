@@ -1,5 +1,7 @@
 package com.principal.math.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.principal.math.controller.services.BlocoService;
@@ -11,12 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 /**
  * BlocoController
  */
@@ -27,50 +26,40 @@ public class BlocoController {
   @Autowired
   private BlocoService service;
   
+  private List<BlocoDeNotas> findAll(){
+	  return service.listar();
+  }
+  
   @GetMapping
   public String prepareCard(Model model){
+    model.addAttribute("cards", findAll()); 
     model.addAttribute("card", new BlocoDeNotas()); 
-    return "card";
+    return "cardTeste";
   }
-
-  @GetMapping("/listar")
-  public ModelAndView listar(){
-    ModelAndView mv = new ModelAndView("card");
-    mv.addObject("cards", service.listar());
-    return mv;
-  }
-
+  
   @PostMapping
-  public String adicionar(@Valid @ModelAttribute("card") BlocoDeNotas bloco){
+  public void adicionarOuAtualizar(@Valid @ModelAttribute("card") BlocoDeNotas bloco){
     
     if(service.existsById(bloco.getId())){
-      return "/";
+      	service.atualizar(bloco, bloco.getId());
     }
-
     service.salvar(bloco);
-    return "/";
   }
 
-  @DeleteMapping("/delete/{id}")
-  public String deletar(@RequestParam("id") Integer id) {
+  @DeleteMapping("/deletar/{id}")
+  public String deletar(@PathVariable("id") Integer id, Model model) {
     
-    if(!service.existsById(id)){
-      return "/";
-    }
-
-    service.deletar(id);
-    return "/";
-  }
-
-  @PutMapping("/atualizar")
-  public String atualizar(BlocoDeNotas bloco){
-    
-    if(!service.existsById(bloco.getId())){
-      return "/";
+	System.out.println("Passou por aqui");
+	System.out.println(id);
+	  
+    if(service.existsById(id)){
+    	
+    	service.deletar(id);
+    	model.addAttribute("cards", service.listar()); 
+    	
+    	return "redirect:/card";
     }
     
-    service.atualizar(bloco, bloco.getId());
-    return "/";
+    return "redirect:/card";
   }
-
 }

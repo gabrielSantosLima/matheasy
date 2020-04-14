@@ -3,13 +3,13 @@ let arrayOfCards = [];
 let arrayOfFrag = [];
 let drag;
 
-// Objetos 
+// Objetos
 
-//Obejto Fragment
+// Obejto Fragment
 function Fragment() {
     this.id = arrayOfFrag.length + 1;
 }
-//função que retorna o fragmento de código
+// função que retorna o fragmento de código
 Fragment.prototype.fragment = function(id) {
     const fragText =
         '<div class="card" id="card_' + id + '">' +
@@ -40,7 +40,7 @@ Fragment.prototype.fragment = function(id) {
     return fragElm;
 }
 
-//Objeto Card
+// Objeto Card
 function Card(title, color, img, text, frag) {
     this.id = arrayOfCards.length + 1;
     this.title = title;
@@ -52,12 +52,11 @@ function Card(title, color, img, text, frag) {
 }
 
 // Função que inicia a tela do grid
-function start(/*array*/) {
+function start(/* array */) {
     drag = dragula([document.querySelector(".container-cards")]);
-    //restartComponents(array);
 }
 
-//Adicionar Cards
+// Adicionar Cards
 function createCardElement() {
     const frag = new Fragment();
 
@@ -69,30 +68,17 @@ function createCardElement() {
         frag.fragment(frag.id)
     );
 
-    //adiciona ao conteúdo da página
+    // adiciona ao conteúdo da página
     $('.container-cards').append(block.frag);
     drag.containers.push(block.frag);
 
 }
 
-//cria objeto Card
+// cria objeto Card
 function createCardObject(title, color, img, text, frag) {
     const card = new Card(title, color, img, text, frag);
     arrayOfCards.push(card);
     return card;
-}
-
-//Restarta/Inicia Array/Componentes em tela
-function restartComponents(array) {
-    drag.containers = [];
-    arrayOfCards = [];
-
-    for (card of array) {
-        $('.container-cards').append(card.frag);
-        arrayOfCards.push(card);
-        drag.containers.push(card.frag);
-    }
-    return;
 }
 
 // função de filtro
@@ -106,7 +92,7 @@ function filterCards() {
         });
         return;
     }
-    //captura todos os elementos do filtro
+    // captura todos os elementos do filtro
     let arrayOfValues = $(".container-cards p").map(function() {
         if ($(this).text().toLowerCase().includes(conteudo)) {
             return $(this).parents(".card")[0];
@@ -114,18 +100,18 @@ function filterCards() {
         $(this).parents(".card").css("display", "none");
     });
 
-    //efeito quando encontrado
+    // efeito quando encontrado
     arrayOfValues.map(function() {
         $(this).css("display", "flex");
     });
 
-    //retorna valor do campo de pesquisa
+    // retorna valor do campo de pesquisa
     function getContent() {
         return $('#campo_pesquisar').val().toLowerCase();
     }
 }
 
-//Deleta Cards
+// Deleta Cards
 function deleteCard(id) {
     $('#' + id).hide(5000).remove();
 
@@ -134,7 +120,7 @@ function deleteCard(id) {
     });
 }
 
-//Editar
+// Editar
 function prepareForEdit(idCard) {
     const elm = findCardById(idCard);
 
@@ -147,7 +133,7 @@ function findCardById(idCard) {
     return cardFound;
 }
 
-//Salva 
+// Salva
 function save(id) {
     const oldCard = findCardById(id);
     const newCard = oldCard;
@@ -159,7 +145,7 @@ function save(id) {
     $('#' + id + ' p').html(newCard.text);
 
     updateArrayOfCards(oldCard, newCard);
-    //Fecha card de edição
+    // Fecha card de edição
     $('.container-opened').css("display", "none");
 }
 
@@ -172,20 +158,24 @@ function updateArrayOfCards(oldCard, newCard) {
 
 // ------------------- EVENTOS -----------------------
 
-//Deleta card clicado
-$('.container-cards').on("click", "#bt-deletar", function() {
-
-    deleteCard($(this).parents('.card').attr('id'));
+// Deleta card clicado
+$('.container-cards').on("click", ".bt-deletar", function(event) {
+	const id = $(this).parents('.card').attr('id');
+//	const idNum = id.replace(/\D+/g, "");
+	
+//	console.log(idNum);
+	
+    deleteCard(id);
 });
 
-//Salva card edição
+// Salva card edição
 $('.container-opened').on("click", "#bt-salvar", function() {
     const id = $(this).parents('.container-opened').attr('id');
 
     save(id);
 });
 
-//Abre Card de edição
+// Abre Card de edição
 $('.container-cards').on("click", ".card-content", function() {
     const id = $(this).parents('.card').attr('id');
     $('.container-opened').css("display", "flex").attr('id', id);
@@ -193,8 +183,7 @@ $('.container-cards').on("click", ".card-content", function() {
     prepareForEdit(id);
 });
 
-//Inicia grid
+// Inicia grid
 $(document).ready(function() {
-    //const array = ;
-    start(/*JSON.parse(array)*/);
+    start();
 });

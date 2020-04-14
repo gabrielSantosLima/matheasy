@@ -11,4 +11,5 @@ import com.principal.math.model.entity.BlocoDeNotas;
 public interface BlocoRepository extends GenericRepository<BlocoDeNotas, Integer>{
 
   List<BlocoDeNotas> findByAluno(Aluno aluno);
+  
 }

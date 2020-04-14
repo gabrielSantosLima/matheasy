@@ -53,7 +53,7 @@ button {
     margin-left: 40px;
 }
 
-#bt-deletar:hover,
+.bt-deletar:hover,
 #bt-salvar:hover,
 #bt-adicionar:hover {
     color: black;
@@ -136,8 +136,20 @@ h2 {
     height: 100%;
 }
 
-.card {
+.card-edicao {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    color: white;
+    background-color: #ececeb;
+    box-shadow: 0.5px 0px 3px 0.3px #ececeb;
+    margin: 10px 1% 10px 6%;
+    animation: animacao-card 0.5s linear;
+}
+
+.card{
+	display: flex;
     flex-direction: column;
     align-items: center;
     width: 40%;
@@ -150,6 +162,25 @@ h2 {
     box-shadow: 0.5px 0px 3px 0.3px #ececeb;
     margin: 10px 1% 10px 6%;
     animation: animacao-card 0.5s linear;
+}
+
+.card-edicao{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    color: white;
+    background-color: #ececeb;
+    box-shadow: 0.5px 0px 3px 0.3px #ececeb;
+    margin: 10px 1% 10px 6%;
+    animation: animacao-card 0.5s linear;
+}
+
+#form-edicao{
+	width: 40%;
+    height: 50%;
+    max-width: 45%;
+    max-height: 55%;
 }
 
 .card:hover {
@@ -167,11 +198,6 @@ h2 {
     height: 100%;
     z-index: 90;
     background: rgba(0, 0, 0, 0.6);
-}
-
-#card_edicao {
-    transition: 1s;
-    animation: animacao-ed 0.7s forwards;
 }
 
 @keyframes animacao-card {

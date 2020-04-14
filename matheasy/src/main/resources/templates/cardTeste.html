@@ -12,10 +12,22 @@
 </head>
 
 <body>
-    <div th:insert="fragments/card :: card">...</div>
+    <div th:replace="fragments/card :: card"></div>
     <script th:src="@{/js/jquery/jquery-3.4.1.min.js}"></script>
     <script th:src="@{node_modules/dragula/dist/dragula.min.js}"></script>
     <script th:src="@{/js/card.js}"></script>
+    <script th:inline="javascript">
+		/*<![CDATA[*/
+
+		let cards = /*[[${cards}]]*/ [];
+		const cardsLength = cards.length;
+		
+		for(let cont = 0; cont < cardsLength; cont++){
+			console.log(cards[cont]);
+		}
+		
+		/*]]>*/
+	</script>
 </body>
 
 </html>

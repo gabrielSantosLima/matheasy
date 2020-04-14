@@ -15,7 +15,10 @@ import com.principal.math.utils.EntidadeLogin;
 public class AlunoService extends GenericService<Aluno, AlunoRepository> {
 
 	@Autowired
-	private BlocoRepository blocoRepository;
+	private BlocoService blocoService;
+
+	@Autowired
+	private AlunoRepository repository;
 
 	public boolean login(EntidadeLogin entidade) {
 		try {
@@ -31,7 +34,11 @@ public class AlunoService extends GenericService<Aluno, AlunoRepository> {
 		}
 	}
 
-	public List<BlocoDeNotas> getBlocoDeNotas(Aluno aluno){
-		return blocoRepository.findByAluno(aluno);
+	public Aluno getAlunoByEmailAndSenha(String email, String senha) {
+		return repository.findByEmailAndSenha(email, senha);
+	}
+
+	public List<BlocoDeNotas> getBlocoDeNotas(Aluno aluno) {
+		return blocoService.findByAluno(aluno);
 	}
 }
