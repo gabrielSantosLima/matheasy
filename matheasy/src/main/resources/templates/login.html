@@ -14,7 +14,7 @@
 <body>
     <div class="main-container">
         <div class="container">
-            <div class="col-md-10">
+            <div class="container-fluid">
                 <form action="#" th:action="@{/aluno/login}" th:object="${entidade}" method="POST">
                     <legend>Login</legend>
                     <div class="form-group">
@@ -24,7 +24,7 @@
                                     <i class="large material-icons">email</i>
                                 </span>
                             </div>
-                            <input type="email" placeholder="E-mail" th:field="*{email}">
+                            <input type="email" placeholder="E-mail" th:field="*{email}" required>
                         </div>
                         <small class="small">Ex: user@gmail.com</small>
                     </div>
@@ -36,7 +36,7 @@
                                     <i class="large material-icons">vpn_key</i>
                                 </span>
                             </div>
-                            <input type="password" placeholder="Digite sua senha..." th:field="*{senha}">
+                            <input type="password" placeholder="Digite sua senha..." th:field="*{senha}" required>
                         </div>
                         <small class="small">*Mínimo de 8 caracteres</small>
                     </div>

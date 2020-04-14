@@ -3,7 +3,6 @@ package com.principal.math.model.entity;
 import java.sql.Blob;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +34,7 @@ public class BlocoDeNotas {
 	@Temporal(TemporalType.DATE)
 	private Date dataAlarme;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Aluno aluno;
 
 	public Integer getId() {

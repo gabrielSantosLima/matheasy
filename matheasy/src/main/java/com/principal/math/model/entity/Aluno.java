@@ -15,7 +15,7 @@ import com.principal.math.model.entity.Usuario;
 @Table(name = "aluno")
 public class Aluno extends Usuario{
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	@JoinColumn(name = "aluno_id")
 	private List<BlocoDeNotas> blocos;
 	

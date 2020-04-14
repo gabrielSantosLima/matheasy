@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * BlocoController
  */
@@ -46,20 +47,24 @@ public class BlocoController {
     service.salvar(bloco);
   }
 
-  @DeleteMapping("/deletar/{id}")
+  @RequestMapping(value="/deletar/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
   public String deletar(@PathVariable("id") Integer id, Model model) {
-    
+  
+    model.addAttribute("cards", findAll()); 
+    model.addAttribute("card", new BlocoDeNotas()); 
+
 	System.out.println("Passou por aqui");
 	System.out.println(id);
 	  
     if(service.existsById(id)){
     	
     	service.deletar(id);
-    	model.addAttribute("cards", service.listar()); 
+    	model.addAttribute("cards", findAll()); 
     	
     	return "redirect:/card";
     }
     
+    model.addAttribute("cards", findAll()); 
     return "redirect:/card";
   }
 }

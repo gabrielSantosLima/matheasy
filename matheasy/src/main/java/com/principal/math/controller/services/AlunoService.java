@@ -8,7 +8,6 @@ import java.util.List;
 import com.principal.math.model.entity.Aluno;
 import com.principal.math.model.entity.BlocoDeNotas;
 import com.principal.math.model.repository.AlunoRepository;
-import com.principal.math.model.repository.BlocoRepository;
 import com.principal.math.utils.EntidadeLogin;
 
 @Service

@@ -25,12 +25,14 @@ public class AlunoController {
 	@GetMapping("/login")
 	public String setEntity(Model model) {
 		model.addAttribute("entidade", new EntidadeLogin());
-
+		
 		return "login";
 	}
-
+	
 	@GetMapping("/cadastrar")
 	public String setAluno(Model model) {
+		model.addAttribute("aluno", new Aluno());
+		
 		return "cadastrar";
 	}
 

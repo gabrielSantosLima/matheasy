@@ -9,12 +9,13 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/fontawesome/all.min.css}">
     <link rel="stylesheet" th:href="@{/css/estilo-login.css}">
+    <link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet">
 </head>
 
 <body>
     <div class="main-container">
         <div class="container">
-            <div class="col-md-10">
+            <div class="container-fluid">
                 <form th:action="@{/aluno/cadastrar}" th:object="${aluno}" th:method="POST">
                     <legend>Cadastro</legend>
 
@@ -22,10 +23,11 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text"><i
-									class="fas fa-signature"></i></span>
+                                <span class="input-group-text">
+                                    <i class="large material-icons">person</i>
+                                </span>
                             </div>
-                            <input type="text" name="nome" placeholder="Digite seu nome" th:field="*{nome}">
+                            <input type="text" name="nome" placeholder="Digite seu nome" th:field="*{nome}" required>
                         </div>
                     </div>
 
@@ -33,9 +35,11 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="far fa-user"></i></span>
+                                <span class="input-group-text">
+                                    <i class="large material-icons">assignment_ind</i>
+                                </span>
                             </div>
-                            <input type="text" name="usuario" placeholder="Digite o nome do seu usuário" th:field="*{usuario}">
+                            <input type="text" name="usuario" placeholder="Digite o nome do seu usuário" th:field="*{usuario}" required>
                         </div>
                     </div>
 
@@ -43,10 +47,11 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon1"><i
-									class="fas fa-at"></i></span>
+                                <span class="input-group-text">
+                                    <i class="large material-icons">email</i>
+                                </span>
                             </div>
-                            <input type="email" name="email" placeholder="Digite seu e-mail" th:field="*{email}">
+                            <input type="email" name="email" placeholder="Digite seu e-mail" th:field="*{email}" required>
                         </div>
                     </div>
 
@@ -54,9 +59,11 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <span class="input-group-text">
+                                    <i class="large material-icons">vpn_key</i>
+                                </span>
                             </div>
-                            <input type="password" placeholder="Digite sua senha">
+                            <input type="password" placeholder="Digite sua senha" required>
                         </div>
                     </div>
 
@@ -64,9 +71,11 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <span class="input-group-text">
+                                    <i class="large material-icons">remove_red_eye</i>
+                                </span>
                             </div>
-                            <input type="password" name="senha" placeholder="Digite sua novamente sua senha" th:field="*{senha}">
+                            <input type="password" name="senha" placeholder="Digite sua novamente sua senha" th:field="*{senha}" required>
                         </div>
                     </div>
 
