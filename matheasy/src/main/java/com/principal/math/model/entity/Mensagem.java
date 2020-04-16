@@ -19,20 +19,32 @@ public class Mensagem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotEmpty
 	private String mensagem;
-	
+
 	@NotEmpty
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
-	
+
 	@ManyToOne
 	private Aluno aluno;
 
 	@ManyToOne
 	private Professor professor;
+
+	public Mensagem() {
+		
+	}
 	
+	public Mensagem(Integer id, String mensagem, Date data, Aluno aluno, Professor professor) {
+		this.id = id;
+		this.mensagem = mensagem;
+		this.data = data;
+		this.aluno = aluno;
+		this.professor = professor;
+	}
+
 	public Integer getId() {
 		return id;
 	}

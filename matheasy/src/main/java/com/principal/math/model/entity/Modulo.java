@@ -18,18 +18,31 @@ public class Modulo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotEmpty
 	private String nome;
-	
+
 	@NotEmpty
 	private String conteudo;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataFinalizado;
 
 	@ManyToOne
 	private AnoCurso ano;
+
+	public Modulo() {
+		
+	}
+	
+	public Modulo(Integer id, String nome, String conteudo, Date dataFinalizado, AnoCurso ano) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.conteudo = conteudo;
+		this.dataFinalizado = dataFinalizado;
+		this.ano = ano;
+	}
 
 	public Integer getId() {
 		return id;

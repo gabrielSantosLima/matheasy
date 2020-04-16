@@ -28,7 +28,17 @@ public class AnoCurso {
 	@JoinColumn(name = "ano_id")
 	private List<Aluno> alunos;
 
+	public AnoCurso() {
+		
+	}
 	
+	public AnoCurso(Integer id, Integer qtdeModulos, List<Modulo> modulos, List<Aluno> alunos) {
+		this.id = id;
+		this.qtdeModulos = qtdeModulos;
+		this.modulos = modulos;
+		this.alunos = alunos;
+	}
+
 	public Integer getId() {
 		return id;
 	}

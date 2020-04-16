@@ -1,6 +1,5 @@
 package com.principal.math.model.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,21 +13,31 @@ import javax.validation.constraints.NotEmpty;
 public abstract class Usuario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@NotEmpty
 	private String nome;
-	
+
 	@NotEmpty
 	private String usuario;
-	
+
 	@NotEmpty
-	@Column(unique=true)
 	private String email;
-	
+
 	@NotEmpty
 	private String senha;
+
+	public Usuario() {
+
+	}
+
+	public Usuario(String nome, String usuario, String email, String senha) {
+		this.nome = nome;
+		this.usuario = usuario;
+		this.email = email;
+		this.senha = senha;
+	}
 
 	public Integer getId() {
 		return id;

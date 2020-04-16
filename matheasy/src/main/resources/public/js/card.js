@@ -12,7 +12,7 @@ function Fragment() {
 // função que retorna o fragmento de código
 Fragment.prototype.fragment = function(id) {
     const fragText =
-        '<div class="card" id="card_' + id + '">' +
+        '<div class="card" id="' + id + '">' +
         '<div class="card-body">' +
         '<div class="card-nav">' +
         '<h2 class="title">Titulo</h2>' +
@@ -116,7 +116,7 @@ function deleteCard(id) {
     $('#' + id).hide(5000).remove();
 
     arrayOfCards = $.grep(arrayOfCards, function(elm) {
-        return "card_" + elm.id !== id;
+        return elm.id !== id;
     });
 }
 
@@ -124,12 +124,17 @@ function deleteCard(id) {
 function prepareForEdit(idCard) {
     const elm = findCardById(idCard);
 
-    $('#title').val(elm.title);
-    $('#area').val(elm.text);
+    if(elm){    	
+    	$('#form-edicao').attr('action', '/card/'+ idCard);
+    	$('#title').val(elm.title);
+    	$('#area').val(elm.text);
+    }else{
+    	$('#form-edicao').attr('action', '/card/'+ idCard);    	
+    }
 }
 
 function findCardById(idCard) {
-    let cardFound = arrayOfCards.find(elm => "card_" + elm.id === idCard);
+    let cardFound = arrayOfCards.find(elm => elm.id === idCard);
     return cardFound;
 }
 
@@ -161,9 +166,9 @@ function updateArrayOfCards(oldCard, newCard) {
 // Deleta card clicado
 $('.container-cards').on("click", ".bt-deletar", function(event) {
 	const id = $(this).parents('.card').attr('id');
-//	const idNum = id.replace(/\D+/g, "");
+// const idNum = id.replace(/\D+/g, "");
 	
-//	console.log(idNum);
+// console.log(idNum);
 	
     deleteCard(id);
 });
@@ -179,7 +184,7 @@ $('.container-opened').on("click", "#bt-salvar", function() {
 $('.container-cards').on("click", ".card-content", function() {
     const id = $(this).parents('.card').attr('id');
     $('.container-opened').css("display", "flex").attr('id', id);
-
+    
     prepareForEdit(id);
 });
 

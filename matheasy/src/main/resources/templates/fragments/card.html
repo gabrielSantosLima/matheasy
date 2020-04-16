@@ -2,78 +2,73 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fragmento - Bloco de Notas</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fragmento - Bloco de Notas</title>
 </head>
 
 <body>
-	<!-- Container Principal -->
-	<div th:fragment="card" class="container">
-		<div class="container-sec">
-			<nav class="nav">
-				<div class="nav-items">
-					<button id="bt-adicionar" onclick="createCardElement()">
+    <!-- Container Principal -->
+    <div th:fragment="card" class="container">
+        <div class="container-sec">
+            <nav class="nav">
+                <div class="nav-items">
+                    <button id="bt-adicionar" onclick="createCardElement()">
 						<i class="large material-icons">add_circle_outline</i>
 					</button>
-					<input type="search" id="campo_pesquisar" oninput="filterCards()"
-						placeholder="Pesquisar conteúdo...">
-				</div>
-			</nav>
+                    <input type="search" id="campo_pesquisar" oninput="filterCards()" placeholder="Pesquisar conteúdo...">
+                </div>
+            </nav>
 
-			<!-- Container - Cards -->
-			<div class="container-cards">
-				<div th:each="card : ${cards}" class="card" th:id="${card.id}">
-					<div class="card-body">
-						<div class="card-nav">
-							<h2 class="title" th:text="${card.titulo}">Titulo</h2>
-						</div>
-						<div class="card-content">
-							<p class="area" th:text="${card.texto}">Digite aqui...</p>
-						</div>
-						<div class="card-footer">
-							<footer>
-								<a class="bt-deletar" th:href="@{'/card/deletar/' + ${card.id}}">
-									<i class="large material-icons">delete</i>
-								</a>
-							</footer>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Container - Card de Edição -->
-		<div class="container-opened">
+            <!-- Container - Cards -->
+            <div class="container-cards">
+                <div th:each="card : ${cards}" class="card" th:id="${card.id}">
+                    <div class="card-body">
+                        <div class="card-nav">
+                            <h2 class="title" th:text="${card.titulo}">Titulo</h2>
+                        </div>
+                        <div class="card-content">
+                            <p class="area" th:text="${card.texto}">Digite aqui...</p>
+                        </div>
+                        <div class="card-footer">
+                            <footer>
+                                <a class="bt-deletar" th:href="@{'/card/deletar/' + ${card.id}}">
+                                    <i class="large material-icons">delete</i>
+                                </a>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Container - Card de Edição -->
+        <div class="container-opened">
 
-			<form id="form-edicao" th:action="@{/card}" th:object="${card}"
-				th:method="POST">
-				<div class="card-edicao">
-					<div class="card-body">
-						<div class="card-nav">
-							<div class="card-title">
-								<input th:field="*{titulo}" maxlength="30" id="title"
-									placeholder="Título">
-							</div>
-						</div>
-						<div class="card-content">
-							<textarea class="textarea" th:field="*{texto}" id="area"
-								cols="30" rows="10" placeholder="Digite algo.."></textarea>
-						</div>
-						<footer>
-							<button class="bt-colors" value="gabriel" id="bt-cor"
-								th:field="*{corHex}">
+            <form id="form-edicao" th:action="@{/card}" th:object="${card}" th:method="POST">
+                <div class="card-edicao">
+                    <div class="card-body">
+                        <div class="card-nav">
+                            <div class="card-title">
+                                <input th:field="*{titulo}" maxlength="30" id="title" placeholder="Título">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <textarea class="textarea" th:field="*{texto}" id="area" cols="30" rows="10" placeholder="Digite algo.."></textarea>
+                        </div>
+                        <footer>
+                            <button class="bt-colors" id="bt-cor">
 								<i class="large material-icons">color_lens</i>
 							</button>
-							<button type="submit" id="bt-salvar">
+                            <button type="submit" id="bt-salvar">
 								<i class="large material-icons">save</i>
 							</button>
-						</footer>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+                        </footer>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -10,12 +10,22 @@ import com.principal.math.model.entity.BlocoDeNotas;
 import com.principal.math.model.repository.BlocoRepository;
 
 @Service
-public class BlocoService extends GenericService<BlocoDeNotas, BlocoRepository>{
-  
-  @Autowired
-  private BlocoRepository repository;
+public class BlocoService extends GenericService<BlocoDeNotas, BlocoRepository> {
 
-  public List<BlocoDeNotas> findByAluno(Aluno aluno){
-    return repository.findByAluno(aluno);
-  }
+	@Autowired
+	private BlocoRepository repository;
+
+	public List<BlocoDeNotas> findByAluno(Aluno aluno) {
+		return repository.findByAluno(aluno);
+	}
+
+	public void salvarBlocoDeNotas(BlocoDeNotas bloco, Aluno aluno) {
+		bloco.setAluno(aluno);
+		this.salvar(bloco);
+	}
+
+	public void deletarBlocoDeNotas(BlocoDeNotas bloco) {
+		this.deletar(bloco.getId());
+	}
+
 }

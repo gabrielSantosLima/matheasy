@@ -12,8 +12,10 @@ public class GenericService<E, Repository extends JpaRepository<E, Integer>> {
 	@Autowired
 	private Repository r;
 	
-	public void salvar(E e) throws HibernateException {
+	public E salvar(E e) throws HibernateException {
 		r.save(e);
+		
+		return e;
 	}
 
 	public List<E> listar() throws HibernateException {
@@ -24,15 +26,22 @@ public class GenericService<E, Repository extends JpaRepository<E, Integer>> {
 		r.deleteById(id);
 	}
 
-	public void atualizar(E e, Integer id) {
+	public E atualizar(E e, Integer id) {
 
 		if (r.existsById(id)) {
 
-			E novoE = r.getOne(id);
+			E novoE = this.retornarEntidadePorId(id).get();
+			
+			//Deletar antigo
+			r.delete(novoE);
+
 			novoE = e;
+			
+			//Adiciona novo
 			r.save(novoE);
+			return e;
 		} else {
-			return;
+			return null;
 		}
 	}
 	

@@ -3,8 +3,6 @@ package com.principal.math.controller.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 import com.principal.math.model.entity.Aluno;
 import com.principal.math.model.entity.BlocoDeNotas;
 import com.principal.math.model.repository.AlunoRepository;
@@ -14,30 +12,26 @@ import com.principal.math.utils.EntidadeLogin;
 public class AlunoService extends GenericService<Aluno, AlunoRepository> {
 
 	@Autowired
-	private BlocoService blocoService;
-
-	@Autowired
 	private AlunoRepository repository;
 
 	public boolean login(EntidadeLogin entidade) {
 		try {
+
 			for (Aluno aluno : this.listar()) {
 				if (aluno.comparaAtributosLogin(entidade.getEmail(), entidade.getSenha())) {
 					return true;
 				}
 			}
-			return false;
+
 		} catch (Exception e) {
+
 			System.out.println("Erro : " + e.getMessage());
-			return false;
+
 		}
+		return false;
 	}
 
 	public Aluno getAlunoByEmailAndSenha(String email, String senha) {
 		return repository.findByEmailAndSenha(email, senha);
-	}
-
-	public List<BlocoDeNotas> getBlocoDeNotas(Aluno aluno) {
-		return blocoService.findByAluno(aluno);
 	}
 }

@@ -25,14 +25,14 @@ public class AlunoController {
 	@GetMapping("/login")
 	public String setEntity(Model model) {
 		model.addAttribute("entidade", new EntidadeLogin());
-		
+
 		return "login";
 	}
-	
+
 	@GetMapping("/cadastrar")
 	public String setAluno(Model model) {
 		model.addAttribute("aluno", new Aluno());
-		
+
 		return "cadastrar";
 	}
 
@@ -42,14 +42,13 @@ public class AlunoController {
 		boolean status = service.login(entidade);
 
 		if (status) {
-			
-			session.setAttribute("alunoLogado", 
-				service.getAlunoByEmailAndSenha(entidade.getEmail(), entidade.getSenha()).getId()
-			);
+
+			Aluno aluno = service.getAlunoByEmailAndSenha(entidade.getEmail(), entidade.getSenha());
+
+			session.setAttribute("aluno", aluno);
 
 			return "redirect:/card";
 		}
-
 		return "redirect:/aluno/login";
 	}
 
@@ -67,7 +66,7 @@ public class AlunoController {
 	}
 
 	@GetMapping("/cardTeste")
-	public String homepage(){
+	public String homepage() {
 		return "cardTeste";
 	}
 

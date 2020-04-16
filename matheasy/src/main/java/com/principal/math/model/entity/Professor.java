@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "professor")
-public class Professor extends Usuario{
+public class Professor extends Usuario {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "professor_id")
@@ -19,6 +19,17 @@ public class Professor extends Usuario{
 
 	@Embedded
 	private Formacao formacao;
+
+	public Professor() {
+		super();
+	}
+
+	public Professor(List<Mensagem> mensagens, Formacao formacao, String nome, String usuario, String email,
+			String senha) {
+		super(nome, usuario, email, senha);
+		this.mensagens = mensagens;
+		this.formacao = formacao;
+	}
 
 	public List<Mensagem> getMensagens() {
 		return mensagens;

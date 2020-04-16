@@ -4,38 +4,57 @@ import java.sql.Blob;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name = "bloco_de_notas")
 public class BlocoDeNotas {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
-	@NotEmpty
+
 	private String titulo;
-	
-	@NotEmpty
+
 	private String texto;
-	
-	@NotEmpty
+
 	private String corHex;
+
 	private Blob anexo;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataAlarme;
-	
+
 	@ManyToOne
+	@JoinColumn(name = "aluno_id")
 	private Aluno aluno;
+
+	public BlocoDeNotas() {
+		
+	}
+	
+	public BlocoDeNotas(Integer id, String titulo, String texto, String corHex, Blob anexo, Date dataAlarme,
+			Aluno aluno) {
+		this.id = id;
+		this.titulo = titulo;
+		this.texto = texto;
+		this.corHex = corHex;
+		this.anexo = anexo;
+		this.dataAlarme = dataAlarme;
+		this.aluno = aluno;
+	}
 
 	public Integer getId() {
 		return id;
