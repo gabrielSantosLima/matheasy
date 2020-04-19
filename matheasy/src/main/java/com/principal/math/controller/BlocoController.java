@@ -1,12 +1,10 @@
 package com.principal.math.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import com.principal.math.controller.services.AlunoService;
 import com.principal.math.controller.services.BlocoService;
 import com.principal.math.model.entity.Aluno;
 import com.principal.math.model.entity.BlocoDeNotas;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * BlocoController
@@ -43,17 +42,20 @@ public class BlocoController {
 
 		model.addAttribute("cards", findByAluno());
 		model.addAttribute("card", new BlocoDeNotas());
+		model.addAttribute("fragmento", "fragments/card :: card");
+		
+		
 		return "cardTeste";
 	}
 
 	@PostMapping("/{id}")
 	public String adicionar(@PathVariable("id") Integer id, @Valid @ModelAttribute("card") BlocoDeNotas bloco) {
-		
-		if(service.existsById(id)) {
+
+		if (service.existsById(id)) {
 			service.atualizar(bloco, id);
 		}
 
-		service.salvarBlocoDeNotas(bloco, alunoLogado);			
+		service.salvarBlocoDeNotas(bloco, alunoLogado);
 		return "redirect:/card";
 	}
 

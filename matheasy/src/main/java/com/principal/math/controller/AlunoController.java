@@ -47,7 +47,7 @@ public class AlunoController {
 
 			session.setAttribute("aluno", aluno);
 
-			return "redirect:/card";
+			return "redirect:/aluno/homepage";
 		}
 		return "redirect:/aluno/login";
 	}
@@ -64,10 +64,4 @@ public class AlunoController {
 
 		return "redirect:/";
 	}
-
-	@GetMapping("/cardTeste")
-	public String homepage() {
-		return "cardTeste";
-	}
-
 }

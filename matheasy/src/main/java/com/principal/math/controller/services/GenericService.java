@@ -27,17 +27,15 @@ public class GenericService<E, Repository extends JpaRepository<E, Integer>> {
 	}
 
 	public E atualizar(E e, Integer id) {
-
-		if (r.existsById(id)) {
+		
+		if (existsById(id)) {
 
 			E novoE = this.retornarEntidadePorId(id).get();
 			
-			//Deletar antigo
-			r.delete(novoE);
-
-			novoE = e;
+//			r.delete(novoE);
+//
+//			novoE = e;
 			
-			//Adiciona novo
 			r.save(novoE);
 			return e;
 		} else {

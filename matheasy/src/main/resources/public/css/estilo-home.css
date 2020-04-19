@@ -1,0 +1,145 @@
+@import
+	url("https://fonts.googleapis.com/css?family=Economica&display=swap");
+
+@import
+	url("https://fonts.googleapis.com/css?family=Schoolbell&display=swap");
+
+@import
+	url("https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap");
+
+body {
+	background: #f4eeff;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	text-decoration: none;
+}
+/*             MENU SIDEBAR          */
+.fa-bars {
+	width: 90%;
+}
+
+button {
+	border: none;
+	text-align: center;
+}
+
+.wrapper .top_navbar {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	top: 10px;
+}
+
+.wrapper .top_navbar .hamburger {
+	z-index: 9999;
+	width: 70px;
+	height: 70px;
+	background-color: #514A9D;
+	padding: 15px 17px;
+	position: fixed;
+}
+
+.sidebar {
+	z-index: 21;
+	position: fixed;
+	top: 70px;
+	left: 0;
+	width: 200px;
+	background-color: #4d72e4;
+	height: calc(100% - 80px);
+	font-family: 'Fjalla One', sans-serif;
+	font-size: 20px;
+}
+
+.sidebar ul li :hover, .sidebar ul li .active {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul li :hover :before, .sidebar ul li .active :before {
+	display: block;
+}
+
+.sidebar ul li a {
+	display: block;
+	padding: 20px;
+	position: relative;
+	margin-bottom: 1px;
+	color: white;
+}
+
+/*                         MENU DE CIMA                        */
+.top_menu {
+	z-index: 21;
+	position: -webkit-sticky;
+	position: sticky;
+}
+
+.navbar {
+	z-index: 20;
+	background-image: -webkit-gradient(linear, left top, right top, from(#514A9D),
+		to(#36D1DC));
+	background-image: linear-gradient(to right, #514A9D, #36D1DC);
+	padding: 5px;
+	/*!important "ignora" cascata, define como prioridade onde foi atribuido*/
+}
+
+.navbar-brand {
+	margin-left: 80px;
+}
+
+.navbar-brand img {
+	height: 50px;
+}
+
+.navbar-nav li a {
+	color: white !important;
+	font-weight: 600;
+	text-align: left;
+}
+
+.fa-bars {
+	color: white;
+	font-size: 30px !important;
+}
+
+.navbar-toggler {
+	outline: none !important;
+}
+
+/*               PRINCIPAL              */
+/*                 CARDS               */
+h1 {
+	font-family: 'Economica', sans-serif;
+	color: black;
+	text-align: center;
+	font-size: 70px;
+	padding: 4px 4px 4px 4px;
+}
+
+.card-deck {
+	z-index: -50;
+	text-align: center;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 40px;
+}
+
+.card-deck .card {
+	border: none;
+	-webkit-box-shadow: 4px 4px 2px 2px #B2B2B2;
+	box-shadow: 4px 4px 2px 2px #B2B2B2;
+}
+
+p {
+	margin-top: 30px;
+	text-align: center;
+	color: black;
+	font-family: 'Schoolbell', cursive;
+}
+/*# sourceMappingURL=estilo-home.css.map */

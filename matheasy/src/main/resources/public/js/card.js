@@ -1,13 +1,14 @@
 // Arrays
 let arrayOfCards = [];
-let arrayOfFrag = [];
 let drag;
+let ids;
+let titles;
+let areas;
 
 // Objetos
 
 // Obejto Fragment
 function Fragment() {
-    this.id = arrayOfFrag.length + 1;
 }
 // função que retorna o fragmento de código
 Fragment.prototype.fragment = function(id) {
@@ -34,38 +35,55 @@ Fragment.prototype.fragment = function(id) {
     function textToElement() {
         return $.parseHTML(fragText);
     }
-
-
-    arrayOfFrag.push(fragElm);
     return fragElm;
 }
 
 // Objeto Card
-function Card(title, color, img, text, frag) {
-    this.id = arrayOfCards.length + 1;
+function Card(id, title, text, frag) {
+    this.id = id;
     this.title = title;
-    this.frag = frag;
-    this.color = color;
-    this.img = img;
     this.text = text;
+    this.frag = frag;
     this.favorite = false;
 }
 
 // Função que inicia a tela do grid
-function start(/* array */) {
-    drag = dragula([document.querySelector(".container-cards")]);
+function start() {
+	drag = dragula([document.querySelector(".container-cards")]);
 }
+
+function getInitialCards(){
+	ids = getChildrenByParent('.container-cards','.card');
+	titles = getChildrenByParent('.container-cards','h2');
+	areas = getChildrenByParent('.container-cards','p');
+    	
+    const length = ids.length;
+ 
+	function getChildrenByParent(parent,children){
+		return $(parent).find(children);
+	}
+    	
+	for(let cont = 0; cont < length; cont++){
+		let frag = new Fragment();
+		let id = ids[cont].id;
+		let title = titles[cont].textContent;
+		let area = areas[cont].textContent;
+		
+		createCardObject(id, title, area, frag.fragment(id));
+	}
+}
+
+getInitialCards();
 
 // Adicionar Cards
 function createCardElement() {
     const frag = new Fragment();
 
     const block = createCardObject(
+    	arrayOfCards.length + 1,
+    	"",
         "",
-        "red",
-        new Image(),
-        "",
-        frag.fragment(frag.id)
+        frag.fragment(arrayOfCards.length + 1)
     );
 
     // adiciona ao conteúdo da página
@@ -75,15 +93,16 @@ function createCardElement() {
 }
 
 // cria objeto Card
-function createCardObject(title, color, img, text, frag) {
-    const card = new Card(title, color, img, text, frag);
+function createCardObject(id, title, text, frag) {
+    const card = new Card(id, title, text, frag);
+    
     arrayOfCards.push(card);
     return card;
 }
 
 // função de filtro
 function filterCards() {
-    const conteudo = getContent();
+    const conteudo = getCampoPesquisa();
 
     // mantem cor se conteudo for vazio
     if (conteudo.length === 0) {
@@ -106,7 +125,7 @@ function filterCards() {
     });
 
     // retorna valor do campo de pesquisa
-    function getContent() {
+    function getCampoPesquisa() {
         return $('#campo_pesquisar').val().toLowerCase();
     }
 }
@@ -123,18 +142,17 @@ function deleteCard(id) {
 // Editar
 function prepareForEdit(idCard) {
     const elm = findCardById(idCard);
-
+    
     if(elm){    	
     	$('#form-edicao').attr('action', '/card/'+ idCard);
     	$('#title').val(elm.title);
     	$('#area').val(elm.text);
-    }else{
-    	$('#form-edicao').attr('action', '/card/'+ idCard);    	
     }
 }
 
 function findCardById(idCard) {
     let cardFound = arrayOfCards.find(elm => elm.id === idCard);
+    
     return cardFound;
 }
 
