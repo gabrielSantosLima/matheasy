@@ -20,17 +20,6 @@ public class Professor extends Usuario {
 	@Embedded
 	private Formacao formacao;
 
-	public Professor() {
-		super();
-	}
-
-	public Professor(List<Mensagem> mensagens, Formacao formacao, String nome, String usuario, String email,
-			String senha) {
-		super(nome, usuario, email, senha);
-		this.mensagens = mensagens;
-		this.formacao = formacao;
-	}
-
 	public List<Mensagem> getMensagens() {
 		return mensagens;
 	}

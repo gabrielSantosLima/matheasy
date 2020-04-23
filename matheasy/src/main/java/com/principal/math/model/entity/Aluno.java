@@ -1,14 +1,13 @@
 package com.principal.math.model.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.principal.math.model.entity.Usuario;
@@ -17,8 +16,11 @@ import com.principal.math.model.entity.Usuario;
 @Table(name = "aluno")
 public class Aluno extends Usuario {
 
-	@OneToMany(mappedBy = "aluno", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
 	private List<BlocoDeNotas> blocos;
+
+	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
+	private List<Modulo> modulos;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ListaContato", joinColumns = {
@@ -29,38 +31,21 @@ public class Aluno extends Usuario {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "aluno_id")
 	private List<Mensagem> mensagens;
-
-	@ManyToOne
-	private AnoCurso ano;
-
-	public Aluno() {
-		blocos = new ArrayList<BlocoDeNotas>();
-	}
 	
-	public Aluno(List<BlocoDeNotas> blocos, List<Professor> professores, List<Mensagem> mensagens, AnoCurso ano,
-			String nome, String usuario, String email, String senha) {
-		super(nome, usuario, email, senha);
-		this.blocos = blocos;
-		this.professores = professores;
-		this.mensagens = mensagens;
-		this.ano = ano;
-		blocos = new ArrayList<BlocoDeNotas>();
-	}
-
-	public AnoCurso getAno() {
-		return ano;
-	}
-
-	public void setAno(AnoCurso ano) {
-		this.ano = ano;
-	}
-
 	public List<Mensagem> getMensagens() {
 		return mensagens;
 	}
 
 	public void setMensagens(List<Mensagem> mensagens) {
 		this.mensagens = mensagens;
+	}
+
+	public List<Modulo> getModulos() {
+		return modulos;
+	}
+
+	public void setModulos(List<Modulo> modulos) {
+		this.modulos = modulos;
 	}
 
 	public List<BlocoDeNotas> getBlocos() {

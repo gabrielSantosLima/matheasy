@@ -2,6 +2,7 @@ package com.principal.math.model.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,10 +21,10 @@ public class Mensagem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotEmpty
+	@Column(nullable = false, length = 255)
 	private String mensagem;
 
-	@NotEmpty
+	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 
@@ -32,19 +33,7 @@ public class Mensagem {
 
 	@ManyToOne
 	private Professor professor;
-
-	public Mensagem() {
-		
-	}
 	
-	public Mensagem(Integer id, String mensagem, Date data, Aluno aluno, Professor professor) {
-		this.id = id;
-		this.mensagem = mensagem;
-		this.data = data;
-		this.aluno = aluno;
-		this.professor = professor;
-	}
-
 	public Integer getId() {
 		return id;
 	}

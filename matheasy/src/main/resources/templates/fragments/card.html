@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fragmento - Bloco de Notas</title>
+    <link rel="stylesheet" th:href="@{/css/estilo-card.css}">
+    <link rel="stylesheet" th:href="@{/node_modules/dragula/dist/dragula.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
 </head>
 
 <body>
-    <!-- Container Principal -->
     <div th:fragment="card" class="container">
         <div class="container-sec">
             <nav class="nav">
@@ -33,7 +35,7 @@
                         </div>
                         <div class="card-footer">
                             <footer>
-                                <a class="bt-deletar" th:href="@{'/card/deletar/' + ${card.id}}">
+                                <a class="bt-deletar" th:href="@{'aluno/homepage/card/deletar/' + ${card.id}}">
                                     <i class="large material-icons">delete</i>
                                 </a>
                             </footer>
@@ -45,7 +47,7 @@
         <!-- Container - Card de Edição -->
         <div class="container-opened">
 
-            <form id="form-edicao" th:action="@{/card/0}" th:object="${card}" th:method="POST">
+            <form id="form-edicao" th:action="@{/aluno/homepage/card/0}" th:object="${card}" th:method="POST">
                 <div class="card-edicao">
                     <div class="card-body">
                         <div class="card-nav">
@@ -68,6 +70,10 @@
                 </div>
             </form>
         </div>
+
+        <script th:src="@{/js/jquery/jquery-3.4.1.min.js}"></script>
+        <script th:src="@{node_modules/dragula/dist/dragula.min.js}"></script>
+        <script th:src="@{/js/card.js}"></script>
     </div>
 </body>
 

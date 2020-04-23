@@ -18,13 +18,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * BlocoController
  */
 @Controller
-@RequestMapping("/card")
+@RequestMapping("aluno/homepage/card")
 public class BlocoController {
 
 	@Autowired
@@ -42,10 +41,9 @@ public class BlocoController {
 
 		model.addAttribute("cards", findByAluno());
 		model.addAttribute("card", new BlocoDeNotas());
-		model.addAttribute("fragmento", "fragments/card :: card");
-		
-		
-		return "cardTeste";
+		model.addAttribute("template", "card");
+
+		return "homepage";
 	}
 
 	@PostMapping("/{id}")
@@ -53,23 +51,22 @@ public class BlocoController {
 
 		if (service.existsById(id)) {
 			service.atualizar(bloco, id);
+			return "redirect:/aluno/homepage/card";
 		}
 
 		service.salvarBlocoDeNotas(bloco, alunoLogado);
-		return "redirect:/card";
+		return "redirect:/aluno/homepage/card";
 	}
 
 	@RequestMapping(value = "/deletar/{id}", method = { RequestMethod.DELETE, RequestMethod.GET })
 	public String deletar(@PathVariable("id") Integer id) {
 
-		BlocoDeNotas bloco = service.retornarEntidadePorId(id).get();
+		BlocoDeNotas bloco = service.getEntityById(id).get();
 
 		if (service.existsById(id)) {
 			service.deletarBlocoDeNotas(bloco);
-
-			return "redirect:/card";
 		}
 
-		return "redirect:/card";
+		return "redirect:/aluno/homepage/card";
 	}
 }

@@ -2,59 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fragmento - Modulos</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fragmento - Modulos</title>
+    <!-- <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilo-home.css}">
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/css/fontawesome/all.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}"> -->
 </head>
 
 <body>
-	<!-- Container Principal -->
-	<div th:fragment="modulos">
-		<h1>CLIQUE EM UM CARD</h1>
-		<div class="card-deck">
-			<div class="card bg-dark">
-				<a th:href="@{#}"> <img th:src="@{/img/card-6.png}"
-					class="card-img" alt="Assuntos 6°ano">
-					<div class="card-img-overlay"></div>
-				</a>
-			</div>
-			<div class="card bg-dark">
-				<a th:href="@{#}"> <img th:src="@{/img/card-7.png}"
-					class="card-img" alt="Assuntos 7°ano">
-					<div class="card-img-overlay"></div>
-				</a>
-			</div>
+    <!-- <div th:replace="fragments/header :: nav"></div> -->
+    <!-- Container Principal -->
+    <div th:fragment="modulos">
+        <h1>CLIQUE EM UM CARD</h1>
+        <div class="card-deck">
+            <div class="card bg-dark">
+                <a th:href="@{#}"> <img th:src="@{/img/card-6.png}" class="card-img" alt="Assuntos 6°ano">
+                    <div class="card-img-overlay"></div>
+                </a>
+            </div>
+            <div class="card bg-dark">
+                <a th:href="@{#}"> <img th:src="@{/img/card-7.png}" class="card-img" alt="Assuntos 7°ano">
+                    <div class="card-img-overlay"></div>
+                </a>
+            </div>
 
-			<div class="card bg-dark">
-				<a th:href="@{/assuntos8}"> <img th:src="@{/img/card-8.png}"
-					class="card-img" alt="Assuntos 8°ano">
-					<div class="card-img-overlay"></div>
-				</a>
-			</div>
+            <div class="card bg-dark">
+                <a th:href="@{/assuntos8}"> <img th:src="@{/img/card-8.png}" class="card-img" alt="Assuntos 8°ano">
+                    <div class="card-img-overlay"></div>
+                </a>
+            </div>
 
 
-			<div class="card bg-dark">
-				<a th:href="@{#}"> <img th:src="@{/img/card-9.png}"
-					class="card-img" alt="Assuntos 9°ano">
-					<div class="card-img-overlay"></div>
-				</a>
-			</div>
-		</div>
+            <div class="card bg-dark">
+                <a th:href="@{#}"> <img th:src="@{/img/card-9.png}" class="card-img" alt="Assuntos 9°ano">
+                    <div class="card-img-overlay"></div>
+                </a>
+            </div>
+        </div>
 
 
 
-		<p class>
-			<img th:src="@{/img/dica-image.png}">Para começar é bem
-			simples, você só precisa clicar em um card da série que deseja e logo
-			terá acesso a todos os conteúdos dessa série!
-		</p>
-		<p class>
-			<img th:src="@{/img/dica-image.png}">Se estiver procurando por
-			um assunto específico clique em pesquisar! Caso queira retornar os
-			estudos de onde parou, vá em Menu > Meus Conteúdos
-		</p>
-	</div>
+        <p class>
+            <img th:src="@{/img/dica-image.png}">Para começar é bem simples, você só precisa clicar em um card da série que deseja e logo terá acesso a todos os conteúdos dessa série!
+        </p>
+        <p class>
+            <img th:src="@{/img/dica-image.png}">Se estiver procurando por um assunto específico clique em pesquisar! Caso queira retornar os estudos de onde parou, vá em Menu > Meus Conteúdos
+        </p>
+    </div>
 </body>
 
 </html>

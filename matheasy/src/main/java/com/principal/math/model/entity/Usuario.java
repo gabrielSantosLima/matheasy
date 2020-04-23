@@ -1,12 +1,12 @@
 package com.principal.math.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -16,28 +16,17 @@ public abstract class Usuario {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@NotEmpty
+	@Column(nullable = false, length = 200)
 	private String nome;
 
-	@NotEmpty
+	@Column(nullable = false, length = 20)
 	private String usuario;
 
-	@NotEmpty
+	@Column(nullable = false, length = 100)
 	private String email;
 
-	@NotEmpty
+	@Column(nullable = false, length = 8)
 	private String senha;
-
-	public Usuario() {
-
-	}
-
-	public Usuario(String nome, String usuario, String email, String senha) {
-		this.nome = nome;
-		this.usuario = usuario;
-		this.email = email;
-		this.senha = senha;
-	}
 
 	public Integer getId() {
 		return id;

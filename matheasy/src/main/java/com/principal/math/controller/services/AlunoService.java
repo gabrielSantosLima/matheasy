@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.principal.math.model.entity.Aluno;
-import com.principal.math.model.entity.BlocoDeNotas;
 import com.principal.math.model.repository.AlunoRepository;
 import com.principal.math.utils.EntidadeLogin;
 

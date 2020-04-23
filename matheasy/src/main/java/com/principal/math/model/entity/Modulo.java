@@ -1,15 +1,22 @@
 package com.principal.math.model.entity;
 
 import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+
+import com.principal.math.enums.AnoCurso;
 
 @Entity
 @Table(name = "modulo")
@@ -19,31 +26,24 @@ public class Modulo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotEmpty
-	private String nome;
+	@Column(nullable = false, length = 30)
+	private String titulo;
 
-	@NotEmpty
+	@Column(nullable = false, length = 30)
 	private String conteudo;
 
 	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
 	private Date dataFinalizado;
 
-	@ManyToOne
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private AnoCurso ano;
 
-	public Modulo() {
-		
-	}
+	@ManyToOne
+	@JoinColumn(name = "aluno_id")
+	private Aluno aluno;
 	
-	public Modulo(Integer id, String nome, String conteudo, Date dataFinalizado, AnoCurso ano) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.conteudo = conteudo;
-		this.dataFinalizado = dataFinalizado;
-		this.ano = ano;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -52,12 +52,12 @@ public class Modulo {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getTitulo() {
+		return titulo;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public String getConteudo() {
