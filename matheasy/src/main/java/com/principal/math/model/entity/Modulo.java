@@ -33,7 +33,6 @@ public class Modulo {
 	private String conteudo;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false)
 	private Date dataFinalizado;
 
 	@Column(nullable = false)
