@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title>Teste - Modulo</title>
+</head>
+
+<body>
+	<div>
+		<p th:if="${menssagem != ''}" th:text="${menssagem}">Messagem</p>
+		<div th:if="${modulo != null}">
+		<p th:utext="${modulo.titulo}">Título</p>
+		<p th:utext="${modulo.conteudo}">Contéudo</p>
+		</div>
+	</div>
+</body>
+
+</html>

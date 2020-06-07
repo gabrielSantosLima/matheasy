@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MatheasyApplication<matheasy>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.principal.math.MatheasyApplication",
+            "projectName": "matheasy",
+            "args": ""
+        }
+    ]
+}
