@@ -20,13 +20,16 @@ public abstract class Usuario {
 	private String nome;
 
 	@Column(nullable = false, length = 20)
-	private String usuario;
+	private String username;
 
 	@Column(nullable = false, length = 100)
 	private String email;
 
 	@Column(nullable = false, length = 8)
-	private String senha;
+	private String password;
+
+	@Column(nullable = false, length = 8)
+	private String passwordConfirm;
 
 	public Integer getId() {
 		return id;
@@ -44,12 +47,12 @@ public abstract class Usuario {
 		this.nome = nome;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -60,11 +63,19 @@ public abstract class Usuario {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
 	}
 }

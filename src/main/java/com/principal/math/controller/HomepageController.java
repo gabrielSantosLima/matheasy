@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/aluno/homepage")
 public class HomepageController {
 	
-	// @GetMapping("/{frag}")
-	// public String homepage(@PathVariable("frag") String frag, HttpSession session) {
 	@GetMapping
 	public String homepage(Model model, HttpSession session) {
 		model.addAttribute("template", "modulos");

@@ -1,11 +1,13 @@
 package com.principal.math.model.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.principal.math.model.entity.Usuario;
@@ -18,7 +20,13 @@ public class Aluno extends Usuario {
 	private List<BlocoDeNotas> blocos;
 
 	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
+	private List<Evento> eventos;
+
+	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
 	private List<Modulo> modulos;
+	
+	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
+	private List<Mensagem> mensagens;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ListaContato", joinColumns = {
@@ -26,10 +34,17 @@ public class Aluno extends Usuario {
 					@JoinColumn(name = "professor_id", referencedColumnName = "id") })
 	private List<Professor> professores;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "aluno_id")
-	private List<Mensagem> mensagens;
+	@ManyToMany
+	private Set<Role> roles; 
 	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	public List<Mensagem> getMensagens() {
 		return mensagens;
 	}
@@ -54,21 +69,20 @@ public class Aluno extends Usuario {
 		this.blocos = blocos;
 	}
 
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
+
 	public List<Professor> getProfessores() {
 		return professores;
 	}
 
 	public void setProfessores(List<Professor> professores) {
 		this.professores = professores;
-	}
-
-	public boolean comparaAtributosLogin(String email, String senha) {
-		if (email.equals(this.getEmail())) {
-			if (senha.equals(this.getSenha())) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public void adicionaBloco(BlocoDeNotas bloco) {
