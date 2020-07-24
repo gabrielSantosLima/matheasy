@@ -1,7 +1,7 @@
 package com.principal.math.controller.services;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.principal.math.model.entity.Aluno;
+import com.principal.math.model.entity.IUsuario;
 import com.principal.math.model.entity.Professor;
 import com.principal.math.model.entity.Role;
-import com.principal.math.model.entity.Usuario;
 import com.principal.math.model.repository.AlunoRepository;
 import com.principal.math.model.repository.ProfessorRepository;
 
@@ -24,15 +24,15 @@ import com.principal.math.model.repository.ProfessorRepository;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	AlunoRepository alunoRepository;
+	private AlunoRepository alunoRepository;
 
 	@Autowired
-	ProfessorRepository professorRepository;
+	private ProfessorRepository professorRepository;
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario usuario = alunoRepository.findByUsername(username);
+		IUsuario usuario = alunoRepository.findByUsername(username);
 
 		if (usuario == null) {
 			usuario = professorRepository.findByUsername(username);

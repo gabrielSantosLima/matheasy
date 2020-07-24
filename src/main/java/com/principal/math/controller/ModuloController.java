@@ -14,7 +14,7 @@ import com.principal.math.controller.services.ModuloService;
 import com.principal.math.model.entity.Modulo;
 
 @Controller
-@RequestMapping("/aluno/homepage/modulo")
+@RequestMapping("/modulo")
 public class ModuloController {
 
 	@Autowired
@@ -26,7 +26,7 @@ public class ModuloController {
 		List<Modulo> modulos = service.findByAno(ano);
 
 		if (modulos.isEmpty()) {
-			mv.addObject("menssagem", "Nenhum módulo cadastrado!");
+			mv.addObject("mensagem", "Nenhum módulo cadastrado!");
 			return mv;
 		}
 
@@ -41,11 +41,10 @@ public class ModuloController {
 
 		if (modulo.isPresent()) {
 			mv.addObject("modulo", modulo.get());
-			System.out.println(modulo);
 			return mv;
 		}
 
-		mv.addObject("menssagem", "Modulo não existe");
+		mv.addObject("mensagem", "Modulo não existe");
 		return mv;
 
 	}

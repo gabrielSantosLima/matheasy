@@ -13,8 +13,8 @@ import com.principal.math.controller.services.AlunoService;
 import com.principal.math.controller.services.ProfessorService;
 import com.principal.math.controller.services.SecurityService;
 import com.principal.math.model.entity.Aluno;
+import com.principal.math.model.entity.IUsuario;
 import com.principal.math.model.entity.Professor;
-import com.principal.math.model.entity.Usuario;
 
 @Controller
 public class UsuarioController {
@@ -29,7 +29,7 @@ public class UsuarioController {
 	private SecurityService securityService;
 	
 	@GetMapping("/registration")
-	private String registration(@RequestParam("p") String tipo, Model model) {
+	private String registration(@RequestParam("u") String tipo, Model model) {
 		
 		if(tipo.equals("aluno")) {
 			
@@ -45,16 +45,16 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/registration")
-	private String registration(@ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult) {
+	private String registration(@ModelAttribute("usuario") IUsuario usuario, BindingResult bindingResult) {
 		
 		if(bindingResult.hasErrors()) {
 			return "cadastrar";
 		}
 		
 		if(usuario instanceof Aluno) {
-			alunoService.salvar((Aluno) usuario);
+			alunoService.save(usuario);
 		}else {
-			professorService.salvar((Professor) usuario);
+			professorService.save(usuario);
 		}
 		
 		securityService.autoLogin(usuario.getUsername(), usuario.getPasswordConfirm());

@@ -18,4 +18,12 @@ public class EventoService extends GenericService<Evento, EventoRepository> {
 	public List<Evento> findByAluno(Aluno aluno){
 		return repository.findByAluno(aluno);
 	}
+	
+	public Evento save(Evento evento, Aluno aluno) {
+		evento.setAluno(aluno);
+		
+		Evento createdEvento = save(evento);
+		
+		return createdEvento;
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.principal.math.model.entity.Aluno;
+import com.principal.math.model.entity.IUsuario;
 import com.principal.math.model.repository.AlunoRepository;
 import com.principal.math.model.repository.RoleRepository;
 
@@ -23,11 +24,13 @@ public class AlunoService extends GenericService<Aluno, AlunoRepository>{
 	@Autowired
 	private BCryptPasswordEncoder bCryptPassowrdEncoder;
 	
-	@Override
-	public Aluno salvar(Aluno e) throws HibernateException {
+	public Aluno save(IUsuario e) throws HibernateException {
 		e.setPassword(bCryptPassowrdEncoder.encode(e.getPassword()));
 		e.setRoles(new HashSet<>(roleRepository.findAll()));
-		return repository.save(e);
+		
+		Aluno aluno = (Aluno) e;
+		
+		return repository.save(aluno);
 	}
 	
 	public Aluno findByUsername(String username) {

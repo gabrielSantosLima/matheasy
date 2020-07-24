@@ -1,5 +1,6 @@
 package com.principal.math.controller.services;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +15,16 @@ public class BlocoService extends GenericService<BlocoDeNotas, BlocoRepository> 
 
 	@Autowired
 	private BlocoRepository repository;
-
-	public List<BlocoDeNotas> findByAluno(Aluno aluno) {
+	
+	public List<BlocoDeNotas> findByAluno(Aluno aluno){
 		return repository.findByAluno(aluno);
 	}
-
-	public void salvarBlocoDeNotas(BlocoDeNotas bloco, Aluno aluno) {
+	
+	public BlocoDeNotas save(BlocoDeNotas bloco, Aluno aluno) {
 		bloco.setAluno(aluno);
-		this.salvar(bloco);
+		
+		BlocoDeNotas createdBloco = save(bloco);
+		
+		return createdBloco;
 	}
-
-	public void deletarBlocoDeNotas(BlocoDeNotas bloco) {
-		this.deletar(bloco.getId());
-	}
-
 }

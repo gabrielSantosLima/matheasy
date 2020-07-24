@@ -1,72 +1,130 @@
 package com.principal.math.controller;
 
 import java.util.List;
+import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.principal.math.controller.services.AlunoService;
 import com.principal.math.controller.services.BlocoService;
 import com.principal.math.model.entity.Aluno;
 import com.principal.math.model.entity.BlocoDeNotas;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * BlocoController
  */
 @Controller
-@RequestMapping("aluno/homepage/card")
+@RequestMapping("aluno/{id}/blocos")
 public class BlocoController {
 
 	@Autowired
 	private BlocoService service;
 
-	private Aluno alunoLogado;
+	@Autowired
+	private AlunoService alunoService;
 
-	private List<BlocoDeNotas> findByAluno() {
-		return service.findByAluno(alunoLogado);
+	private Optional<Aluno> getAlunoById(Integer id) {
+		return alunoService.findById(id);
 	}
 
-	@GetMapping
-	public String initialize(Model model, HttpSession session) {
-		alunoLogado = (Aluno) session.getAttribute("aluno");
+	// List
+	@GetMapping("/")
+	public ModelAndView list(@PathVariable Integer id) {
+		ModelAndView modelAndView = new ModelAndView("Calendario/index");
+		Optional<Aluno> aluno = getAlunoById(id);
 
-		model.addAttribute("cards", findByAluno());
-		model.addAttribute("card", new BlocoDeNotas());
-		model.addAttribute("template", "card");
-
-		return "homepage";
-	}
-
-	@PostMapping("/{id}")
-	public String adicionar(@PathVariable("id") Integer id, @Valid @ModelAttribute("card") BlocoDeNotas bloco) {
-
-		if (service.existsById(id)) {
-			service.atualizar(bloco, id);
-			return "redirect:/aluno/homepage/card";
+		if (!aluno.isPresent()) {
+			return null;
 		}
 
-		service.salvarBlocoDeNotas(bloco, alunoLogado);
-		return "redirect:/aluno/homepage/card";
+		List<BlocoDeNotas> blocos = service.findByAluno(aluno.get());
+		modelAndView.addObject("blocos", blocos);
+
+		return modelAndView;
 	}
 
-	@RequestMapping(value = "/deletar/{id}", method = { RequestMethod.DELETE, RequestMethod.GET })
-	public String deletar(@PathVariable("id") Integer id) {
+	// Create
+	@PostMapping(path = "/", consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<BlocoDeNotas> create(@RequestBody BlocoDeNotas blocoDeNotas,
+			@PathVariable Integer id) {
+		try {
+			Optional<Aluno> aluno = getAlunoById(id);
 
-		BlocoDeNotas bloco = service.getEntityById(id).get();
+			if (!aluno.isPresent()) {
+				return null;
+			}
 
-		if (service.existsById(id)) {
-			service.deletarBlocoDeNotas(bloco);
+			BlocoDeNotas createdBloco = service.save(blocoDeNotas, aluno.get());
+
+			return ResponseEntity.ok(createdBloco);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+
+	// Update
+	@PutMapping(path = "/{idBlocoDeNotas}", consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<BlocoDeNotas> update(@RequestBody BlocoDeNotas blocoDeNotas,
+			@PathVariable("id") Integer id,
+			@PathVariable("idBlocoDeNotas") Integer idBlocoDeNotas) {
+		try {
+			Optional<Aluno> aluno = getAlunoById(id);
+
+			if (!aluno.isPresent()) {
+				return ResponseEntity.badRequest().build();
+			}
+
+			Optional<BlocoDeNotas> bloco = service.findById(idBlocoDeNotas);
+
+			if (id == bloco.get().getAluno().getId() || !bloco.isPresent()) {
+				return ResponseEntity.badRequest().build();
+			}
+
+			BlocoDeNotas updatedBloco = service.update(idBlocoDeNotas, blocoDeNotas);
+
+			return ResponseEntity.ok(updatedBloco);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
 		}
 
-		return "redirect:/aluno/homepage/card";
+	}
+
+	// Delete
+	@DeleteMapping("/{idBlocoDeNotas}")
+	@ResponseBody
+	public ResponseEntity<BlocoDeNotas> delete(@PathVariable("id") Integer id,
+			@PathVariable("idBlocoDeNotas") Integer idBlocoDeNotas) {
+		try {
+			Optional<Aluno> aluno = getAlunoById(id);
+
+			if (!aluno.isPresent()) {
+				return ResponseEntity.badRequest().build();
+			}
+
+			Optional<BlocoDeNotas> bloco = service.findById(idBlocoDeNotas);
+
+			if (id == bloco.get().getAluno().getId() || !bloco.isPresent()) {
+				return ResponseEntity.badRequest().build();
+			}
+			
+			service.delete(idBlocoDeNotas);
+			
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 }

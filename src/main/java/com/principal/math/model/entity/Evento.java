@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "evento_calendario")
+@Table(name = "evento")
 public class Evento {
 
 	@Id
@@ -38,6 +38,20 @@ public class Evento {
 	@ManyToOne
 	@JoinColumn(name = "aluno_id")
 	private Aluno aluno;
+
+	public Evento() {
+		
+	}
+	
+	public Evento(Integer id, String key, String title, Calendar start, Calendar end,
+			Aluno aluno) {
+		this.id = id;
+		this.key = key;
+		this.title = title;
+		this.start = start;
+		this.end = end;
+		this.aluno = aluno;
+	}
 
 	public String getKey() {
 		return key;

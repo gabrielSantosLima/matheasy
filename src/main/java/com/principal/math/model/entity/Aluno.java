@@ -1,12 +1,10 @@
 package com.principal.math.model.entity;
 
-import java.util.List;
 import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,27 +14,71 @@ import com.principal.math.model.entity.Usuario;
 @Table(name = "aluno")
 public class Aluno extends Usuario {
 
-	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
+	@Column(nullable = false, name = "pontuacao")
+	private Integer pontuacao;
+
+	@OneToMany(mappedBy = "aluno")
 	private List<BlocoDeNotas> blocos;
 
-	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "aluno")
 	private List<Evento> eventos;
 
-	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "aluno")
 	private List<Modulo> modulos;
-	
-	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "aluno")
 	private List<Mensagem> mensagens;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "ListaContato", joinColumns = {
-			@JoinColumn(name = "aluno_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "professor_id", referencedColumnName = "id") })
-	private List<Professor> professores;
+	@OneToMany(mappedBy = "aluno")
+	private List<ListaContato> listaContato;
 
 	@ManyToMany
-	private Set<Role> roles; 
-	
+	private Set<Role> roles;
+
+	public Aluno() {
+
+	}
+
+	public Aluno(Integer id, 
+			String nome, 
+			String username, 
+			String email, 
+			String password,
+			String passwordConfirm, 
+			Integer pontuacao, 
+			List<BlocoDeNotas> blocos,
+			List<Evento> eventos, 
+			List<Modulo> modulos, 
+			List<Mensagem> mensagens,
+			List<ListaContato> listaContato, 
+			Set<Role> roles
+		) {
+		super(id, nome, username, email, password, passwordConfirm);
+		this.pontuacao = pontuacao;
+		this.blocos = blocos;
+		this.eventos = eventos;
+		this.modulos = modulos;
+		this.mensagens = mensagens;
+		this.listaContato = listaContato;
+		this.roles = roles;
+	}
+
+	public Integer getPontuacao() {
+		return pontuacao;
+	}
+
+	public void setPontuacao(Integer pontuacao) {
+		this.pontuacao = pontuacao;
+	}
+
+	public List<ListaContato> getListaContato() {
+		return listaContato;
+	}
+
+	public void setListaContato(List<ListaContato> listaContato) {
+		this.listaContato = listaContato;
+	}
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -75,21 +117,5 @@ public class Aluno extends Usuario {
 
 	public void setEventos(List<Evento> eventos) {
 		this.eventos = eventos;
-	}
-
-	public List<Professor> getProfessores() {
-		return professores;
-	}
-
-	public void setProfessores(List<Professor> professores) {
-		this.professores = professores;
-	}
-
-	public void adicionaBloco(BlocoDeNotas bloco) {
-		this.getBlocos().add(bloco);
-	}
-
-	public void removeBloco(BlocoDeNotas bloco) {
-		this.getBlocos().remove(bloco);
 	}
 }

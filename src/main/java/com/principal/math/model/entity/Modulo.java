@@ -41,7 +41,21 @@ public class Modulo {
 	@ManyToOne
 	@JoinColumn(name = "aluno_id")
 	private Aluno aluno;
+
+	public Modulo() {
+		
+	}
 	
+	public Modulo(Integer id, String titulo, String conteudo, Date dataFinalizado,
+			AnoCurso ano, Aluno aluno) {
+		this.id = id;
+		this.titulo = titulo;
+		this.conteudo = conteudo;
+		this.dataFinalizado = dataFinalizado;
+		this.ano = ano;
+		this.aluno = aluno;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -89,5 +103,5 @@ public class Modulo {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
-	
+
 }

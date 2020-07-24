@@ -15,6 +15,9 @@ import javax.persistence.Table;
 @Table(name = "professor")
 public class Professor extends Usuario {
 
+	@OneToMany(mappedBy= "professor")
+	private List<ListaContato> listaContato;
+	
 	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
 	private List<Mensagem> mensagens;
 	
@@ -24,6 +27,20 @@ public class Professor extends Usuario {
 	@Embedded
 	private Formacao formacao;
 	
+	public Professor() {
+		
+	}
+	
+	public Professor(Integer id, String nome, String username, String email,
+			String password, String passwordConfirm, List<ListaContato> listaContato,
+			List<Mensagem> mensagens, Set<Role> roles, Formacao formacao) {
+		super(id, nome, username, email, password, passwordConfirm);
+		this.listaContato = listaContato;
+		this.mensagens = mensagens;
+		this.roles = roles;
+		this.formacao = formacao;
+	}
+
 	public Set<Role> getRoles() {
 		return roles;
 	}

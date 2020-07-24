@@ -21,7 +21,7 @@ public class Mensagem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(nullable = false, length = 255)
+	@Column(nullable = false)
 	private String mensagem;
 
 	@Column(nullable = false)
@@ -29,13 +29,26 @@ public class Mensagem {
 	private Date data;
 
 	@ManyToOne
-	@JoinColumn(name = "aluno_id")
+	@JoinColumn(nullable = false, name = "aluno_id")
 	private Aluno aluno;
 
 	@ManyToOne
-	@JoinColumn(name = "professor_id")
+	@JoinColumn(nullable = false, name = "professor_id")
 	private Professor professor;
+
+	public Mensagem() {
+		
+	}
 	
+	public Mensagem(Integer id, String mensagem, Date data, Aluno aluno,
+			Professor professor) {
+		this.id = id;
+		this.mensagem = mensagem;
+		this.data = data;
+		this.aluno = aluno;
+		this.professor = professor;
+	}
+
 	public Integer getId() {
 		return id;
 	}

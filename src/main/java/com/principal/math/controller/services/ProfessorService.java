@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.principal.math.model.entity.IUsuario;
 import com.principal.math.model.entity.Professor;
 import com.principal.math.model.repository.ProfessorRepository;
 import com.principal.math.model.repository.RoleRepository;
 
 @Service
 public class ProfessorService extends GenericService<Professor, ProfessorRepository> {
+	
 	@Autowired
 	private ProfessorRepository repository;
 
@@ -22,11 +24,13 @@ public class ProfessorService extends GenericService<Professor, ProfessorReposit
 	@Autowired
 	private BCryptPasswordEncoder bCryptPassowrdEncoder;
 	
-	@Override
-	public Professor salvar(Professor e) throws HibernateException {
+	public Professor save(IUsuario e) throws HibernateException {
 		e.setPassword(bCryptPassowrdEncoder.encode(e.getPassword()));
 		e.setRoles(new HashSet<>(roleRepository.findAll()));
-		return repository.save(e);
+		
+		Professor professor = (Professor) e;
+		
+		return repository.save(professor);
 	}
 	
 	public Professor findByUsername(String username) {

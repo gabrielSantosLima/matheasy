@@ -1,16 +1,13 @@
 package com.principal.math.model.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Usuario {
+@MappedSuperclass
+public abstract class Usuario implements IUsuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +27,20 @@ public abstract class Usuario {
 
 	@Column(nullable = false, length = 8)
 	private String passwordConfirm;
+
+	public Usuario() {
+		
+	}
+	
+	public Usuario(Integer id, String nome, String username, String email,
+			String password, String passwordConfirm) {
+		this.id = id;
+		this.nome = nome;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.passwordConfirm = passwordConfirm;
+	}
 
 	public Integer getId() {
 		return id;

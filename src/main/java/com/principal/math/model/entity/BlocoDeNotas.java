@@ -1,19 +1,13 @@
 package com.principal.math.model.entity;
 
-//import java.sql.Blob;
-//import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "bloco_de_notas")
@@ -26,21 +20,32 @@ public class BlocoDeNotas {
 	@Column(nullable = false, length = 30)
 	private String titulo;
 
-	@Lob
 	@Column(nullable = false)
 	private String texto;
 
-//	@Column(nullable = false)
-//	private String corHex;
-//
-//	private Blob anexo;
-//
-//	@Temporal(TemporalType.DATE)
-//	private Date dataAlarme;
+	@Column(nullable = true, length = 6)
+	private String corHex;
+
+	@Column(nullable = true)
+	private byte[] anexo;
 
 	@ManyToOne
 	@JoinColumn(name = "aluno_id")
 	private Aluno aluno;
+
+	public BlocoDeNotas() {
+
+	}
+
+	public BlocoDeNotas(Integer id, String titulo, String texto, String corHex,
+			byte[] anexo, Aluno aluno) {
+		this.id = id;
+		this.titulo = titulo;
+		this.texto = texto;
+		this.corHex = corHex;
+		this.anexo = anexo;
+		this.aluno = aluno;
+	}
 
 	public Integer getId() {
 		return id;
@@ -66,29 +71,21 @@ public class BlocoDeNotas {
 		this.titulo = titulo;
 	}
 
-//	public String getCorHex() {
-//		return corHex;
-//	}
-//
-//	public void setCorHex(String corHex) {
-//		this.corHex = corHex;
-//	}
-//
-//	public Blob getAnexo() {
-//		return anexo;
-//	}
-//
-//	public void setAnexo(Blob anexo) {
-//		this.anexo = anexo;
-//	}
-//
-//	public Date getDataAlarme() {
-//		return dataAlarme;
-//	}
-//
-//	public void setDataAlarme(Date dataAlarme) {
-//		this.dataAlarme = dataAlarme;
-//	}
+	public String getCorHex() {
+		return corHex;
+	}
+
+	public void setCorHex(String corHex) {
+		this.corHex = corHex;
+	}
+
+	public byte[] getAnexo() {
+		return anexo;
+	}
+
+	public void setAnexo(byte[] anexo) {
+		this.anexo = anexo;
+	}
 
 	public Aluno getAluno() {
 		return aluno;
