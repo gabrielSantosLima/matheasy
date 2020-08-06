@@ -1,7 +1,5 @@
 package com.principal.math.model.entity;
 
-import java.util.Set;
-
 public interface IUsuario {
 	
 	String getUsername();
@@ -16,7 +14,7 @@ public interface IUsuario {
 
 	void setPasswordConfirm(String passwordConfirm);
 	
-	Set<Role> getRoles();
+	Role getRole();
 
-	void setRoles(Set<Role> roles);
+	void setRole(Role role);
 }

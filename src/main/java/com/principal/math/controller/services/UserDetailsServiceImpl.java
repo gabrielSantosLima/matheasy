@@ -13,10 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.principal.math.model.entity.Aluno;
 import com.principal.math.model.entity.IUsuario;
-import com.principal.math.model.entity.Professor;
-import com.principal.math.model.entity.Role;
 import com.principal.math.model.repository.AlunoRepository;
 import com.principal.math.model.repository.ProfessorRepository;
 
@@ -42,17 +39,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException(username);
 
 		Set<GrantedAuthority> grantedAuthority = new HashSet<>();
-
-		if (usuario instanceof Aluno) {
-			for (Role role : ((Aluno) usuario).getRoles()) {
-				grantedAuthority.add(new SimpleGrantedAuthority(role.getName()));
-			}
-		} else {
-			for (Role role : ((Professor) usuario).getRoles()) {
-				grantedAuthority.add(new SimpleGrantedAuthority(role.getName()));
-			}
-		}
-
+		grantedAuthority.add(new SimpleGrantedAuthority(usuario.getRole().getName()));
+		
 		return new User(usuario.getUsername(), usuario.getPassword(), grantedAuthority);
 	}
 

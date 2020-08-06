@@ -1,7 +1,5 @@
 package com.principal.math.controller.services;
 
-import java.util.HashSet;
-
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,7 +24,7 @@ public class ProfessorService extends GenericService<Professor, ProfessorReposit
 	
 	public Professor save(IUsuario e) throws HibernateException {
 		e.setPassword(bCryptPassowrdEncoder.encode(e.getPassword()));
-		e.setRoles(new HashSet<>(roleRepository.findAll()));
+		e.setRole(roleRepository.findByName("ROLE_ADMIN"));
 		
 		Professor professor = (Professor) e;
 		

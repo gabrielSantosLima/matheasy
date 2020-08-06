@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +22,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * BlocoController
  */
 @Controller
+@CrossOrigin
 @RequestMapping("aluno/{id}/eventos")
 public class EventoController {
 
@@ -39,8 +42,20 @@ public class EventoController {
 		return alunoService.findById(id);
 	}
 
+	@GetMapping("/view")
+	public ModelAndView view(@PathVariable Integer id) {
+		ModelAndView md = new ModelAndView("Calendario/index");
+		Optional<Aluno> aluno = getAlunoById(id);
+		
+		if(!aluno.isPresent()) {
+			return md;
+		}
+		
+		return md;
+	}
+	
 	// List
-	@GetMapping(path = { "/", "" }, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = { "/", "" })
 	@ResponseBody
 	public List<Evento> list(@PathVariable Integer id) {
 		Optional<Aluno> aluno = getAlunoById(id);
@@ -97,7 +112,7 @@ public class EventoController {
 	}
 
 	// Delete
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{idEvento}")
 	@ResponseBody
 	public ResponseEntity<Evento> delete(@PathVariable("id") Integer id,
 			@PathVariable("idEvento") Integer idEvento) {

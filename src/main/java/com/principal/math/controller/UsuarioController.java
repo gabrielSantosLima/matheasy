@@ -24,59 +24,74 @@ public class UsuarioController {
 	
 	@Autowired
 	private ProfessorService professorService;
-
+	
 	@Autowired
 	private SecurityService securityService;
 	
 	@GetMapping("/registration")
-	private String registration(@RequestParam("u") String tipo, Model model) {
+	public String registration(@RequestParam("u") String tipo, Model model) {
 		
-		if(tipo.equals("aluno")) {
+		if (tipo.equals("aluno")) {
 			
 			model.addAttribute("usuario", new Aluno());
-		
-		}else if(tipo.equals("professor")) {
 			
-			model.addAttribute("usuario", new Professor());			
-		
+			return "CadastroAluno/index";
+		} else if (tipo.equals("professor")) {
+			
+			model.addAttribute("usuario", new Professor());
+			
+			return "CadastroProfessor/index";
+		}else{
+			return "Homepage/index";
 		}
 		
-		return "cadastrar";
 	}
-
+	
 	@PostMapping("/registration")
-	private String registration(@ModelAttribute("usuario") IUsuario usuario, BindingResult bindingResult) {
-		
-		if(bindingResult.hasErrors()) {
-			return "cadastrar";
+	public String registration(@ModelAttribute("usuario") IUsuario usuario,
+	BindingResult bindingResult, @RequestParam("u") String tipo) {
+
+		if (bindingResult.hasErrors()) {
+			return "Homepage/index";
 		}
 		
-		if(usuario instanceof Aluno) {
-			alunoService.save(usuario);
-		}else {
-			professorService.save(usuario);
+		if (tipo == "aluno") {
+
+			alunoService.save((Aluno) usuario);
+		} else {
+			professorService.save((Professor) usuario);
 		}
 		
 		securityService.autoLogin(usuario.getUsername(), usuario.getPasswordConfirm());
 		
 		return "redirect:/home";
 	}
-	
+
 	@GetMapping("/login")
 	private String login(Model model, String error, String logout) {
 		
-		if(error != null) {
+		if (error != null) {
 			model.addAttribute("error", "Usuário ou senha inválidos!");
 		}
-		if(logout != null) {
-			model.addAttribute("message", "Você foi logado corretamente!");			
+		if (logout != null) {
+			model.addAttribute("message", "Você foi deslogado corretamente!");
 		}
 		
-		return "login";
+		return "Login/index";
+	}
+
+	@GetMapping("/profPage")
+	public String professorPage(){
+		return "Professor/index";
+	}
+	
+	@GetMapping("/alunoPage")
+	public String alunoPage(){
+		return "Aluno/index";
 	}
 	
 	@GetMapping("/home")
 	private String home() {
-		return "homepage";
+		return "Homepage/index";
 	}
 }

@@ -1,10 +1,14 @@
 package com.principal.math.model.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @MappedSuperclass
 public abstract class Usuario implements IUsuario {
@@ -16,6 +20,10 @@ public abstract class Usuario implements IUsuario {
 	@Column(nullable = false, length = 200)
 	private String nome;
 
+	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date dataAniversario;
+	
 	@Column(nullable = false, length = 20)
 	private String username;
 
@@ -33,13 +41,14 @@ public abstract class Usuario implements IUsuario {
 	}
 	
 	public Usuario(Integer id, String nome, String username, String email,
-			String password, String passwordConfirm) {
+			String password, String passwordConfirm, Date dataAniversario) {
 		this.id = id;
 		this.nome = nome;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.passwordConfirm = passwordConfirm;
+		this.dataAniversario = dataAniversario;
 	}
 
 	public Integer getId() {
@@ -48,6 +57,14 @@ public abstract class Usuario implements IUsuario {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Date getDataAniversario() {
+		return dataAniversario;
+	}
+
+	public void setDataAniversario(Date dataAniversario) {
+		this.dataAniversario = dataAniversario;
 	}
 
 	public String getNome() {

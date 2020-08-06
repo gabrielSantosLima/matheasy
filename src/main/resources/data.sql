@@ -1,0 +1,1 @@
+INSERT INTO role VALUES (null, 'ROLE_ADMIN'), (null, 'ROLE_USER')

@@ -2,51 +2,62 @@ package com.principal.math.model.entity;
 
 
 import java.util.List;
-import java.util.Set;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "professor")
-public class Professor extends Usuario {
+public class Professor extends Usuario implements IUsuario{
 
-	@OneToMany(mappedBy= "professor")
+	@OneToMany(mappedBy = "professor")
 	private List<ListaContato> listaContato;
 	
-	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "professor")
 	private List<Mensagem> mensagens;
 	
-	@ManyToMany
-	private Set<Role> roles; 
+	@ManyToOne
+	@JoinColumn(nullable = false, name = "role_id")
+	private Role role; 
 	
-	@Embedded
-	private Formacao formacao;
+	@Column(nullable = false)
+	private String descricao;
 	
 	public Professor() {
 		
 	}
 	
-	public Professor(Integer id, String nome, String username, String email,
-			String password, String passwordConfirm, List<ListaContato> listaContato,
-			List<Mensagem> mensagens, Set<Role> roles, Formacao formacao) {
-		super(id, nome, username, email, password, passwordConfirm);
+	public Professor(Integer id, 
+			String nome, 
+			String username, 
+			String email,
+			String password, 
+			String passwordConfirm, 
+			List<ListaContato> listaContato,
+			List<Mensagem> mensagens, 
+			Role role, 
+			String descricao, 
+			Date dataAniversario
+		) {
+		
+		super(id, nome, username, email, password, passwordConfirm, dataAniversario);
 		this.listaContato = listaContato;
 		this.mensagens = mensagens;
-		this.roles = roles;
-		this.formacao = formacao;
+		this.role = role;
+		this.descricao = descricao;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 	
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public List<Mensagem> getMensagens() {
@@ -57,11 +68,11 @@ public class Professor extends Usuario {
 		this.mensagens = mensagens;
 	}
 
-	public Formacao getFormacao() {
-		return formacao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setFormacao(Formacao formacao) {
-		this.formacao = formacao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 }

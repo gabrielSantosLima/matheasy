@@ -1,18 +1,18 @@
 package com.principal.math.model.entity;
 
-import java.util.Set;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import com.principal.math.model.entity.Usuario;
 
 @Entity
 @Table(name = "aluno")
-public class Aluno extends Usuario {
+public class Aluno extends Usuario implements IUsuario{
 
 	@Column(nullable = false, name = "pontuacao")
 	private Integer pontuacao;
@@ -32,8 +32,9 @@ public class Aluno extends Usuario {
 	@OneToMany(mappedBy = "aluno")
 	private List<ListaContato> listaContato;
 
-	@ManyToMany
-	private Set<Role> roles;
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private Role role;
 
 	public Aluno() {
 
@@ -51,16 +52,17 @@ public class Aluno extends Usuario {
 			List<Modulo> modulos, 
 			List<Mensagem> mensagens,
 			List<ListaContato> listaContato, 
-			Set<Role> roles
+			Role role,
+			Date dataAniversario
 		) {
-		super(id, nome, username, email, password, passwordConfirm);
+		super(id, nome, username, email, password, passwordConfirm, dataAniversario);
 		this.pontuacao = pontuacao;
 		this.blocos = blocos;
 		this.eventos = eventos;
 		this.modulos = modulos;
 		this.mensagens = mensagens;
 		this.listaContato = listaContato;
-		this.roles = roles;
+		this.role = role;
 	}
 
 	public Integer getPontuacao() {
@@ -79,12 +81,12 @@ public class Aluno extends Usuario {
 		this.listaContato = listaContato;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public List<Mensagem> getMensagens() {

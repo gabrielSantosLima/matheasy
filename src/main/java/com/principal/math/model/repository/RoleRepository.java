@@ -8,4 +8,5 @@ import com.principal.math.model.entity.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long>{
 
+ Role findByName(String name);
 }
