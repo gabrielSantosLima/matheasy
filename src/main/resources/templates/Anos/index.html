@@ -1,0 +1,44 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Anos</title>
+</head>
+<body>
+	<h1>CLIQUE EM UM CARD</h1>
+        <div class="card-deck">
+            <div class="card bg-dark">
+                <a th:href="@{#}"> <img th:src="@{/img/card-6.png}" class="card-img" alt="Assuntos 6°ano">
+                    <div class="card-img-overlay"></div>
+                </a>
+            </div>
+            <div class="card bg-dark">
+                <a th:href="@{#}"> <img th:src="@{/img/card-7.png}" class="card-img" alt="Assuntos 7°ano">
+                    <div class="card-img-overlay"></div>
+                </a>
+            </div>
+
+            <div class="card bg-dark">
+                <a th:href="@{/assuntos8}"> <img th:src="@{/img/card-8.png}" class="card-img" alt="Assuntos 8°ano">
+                    <div class="card-img-overlay"></div>
+                </a>
+            </div>
+
+
+            <div class="card bg-dark">
+                <a th:href="@{#}"> <img th:src="@{/img/card-9.png}" class="card-img" alt="Assuntos 9°ano">
+                    <div class="card-img-overlay"></div>
+                </a>
+            </div>
+        </div>
+
+
+
+        <p>
+            <img th:src="@{/img/dica-image.png}">Para começar é bem simples, você só precisa clicar em um card da série que deseja e logo terá acesso a todos os conteúdos dessa série!
+        </p>
+        <p>
+            <img th:src="@{/img/dica-image.png}">Se estiver procurando por um assunto específico clique em pesquisar! Caso queira retornar os estudos de onde parou, vá em Menu > Meus Conteúdos
+        </p>
+</body>
+</html>

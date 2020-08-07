@@ -22,7 +22,7 @@ public class ModuloController {
 
 	@GetMapping("/{ano}")
 	public ModelAndView getModulos(@PathVariable("ano") Integer ano) {
-		ModelAndView mv = new ModelAndView("testeModulo");
+		ModelAndView mv = new ModelAndView("Modulo/index");
 		List<Modulo> modulos = service.findByAno(ano);
 
 		if (modulos.isEmpty()) {
