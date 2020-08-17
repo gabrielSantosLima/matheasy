@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,8 +18,9 @@ public class Atividade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(nullable = false, name = "titulo")
-	private String titulo;
+	@Lob
+	@Column(nullable = false, name = "pergunta")
+	private String answer;
 
 	@Column(nullable = false, name = "questao_1")
 	private String questao1;
@@ -32,33 +34,36 @@ public class Atividade {
 	@Column(nullable = false, name = "questao_4")
 	private String questao4;
 
-	@Column(nullable = false, name = "alternativa_correta")
-	private Integer alternativaCorreta;
+	@Column(nullable = false, name = "questao_5")
+	private String questao5;
 
+	@Column(nullable = false, name = "ponto")
+	private Integer pointByQuestion;
+
+	@Column(nullable = false, name = "alternativa_correta")
+	private Integer correctIndex;
+	
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "modulo_id")
 	private Modulo modulo;
 
 	public Atividade() {
-
+		
 	}
-
-	public Atividade(Integer id, 
-			String titulo, 
-			String questao1, 
-			String questao2,
-			String questao3, 
-			String questao4, 
-			Integer alternativaCorreta, 
-			Modulo modulo
-		) {
+	
+	public Atividade(Integer id, String answer, String questao1, String questao2,
+			String questao3, String questao4, String questao5, Integer pointByQuestion,
+			Integer correctIndex, Modulo modulo) {
+		super();
 		this.id = id;
-		this.titulo = titulo;
+		this.answer = answer;
 		this.questao1 = questao1;
 		this.questao2 = questao2;
 		this.questao3 = questao3;
 		this.questao4 = questao4;
-		this.alternativaCorreta = alternativaCorreta;
+		this.questao5 = questao5;
+		this.pointByQuestion = pointByQuestion;
+		this.correctIndex = correctIndex;
 		this.modulo = modulo;
 	}
 
@@ -70,12 +75,12 @@ public class Atividade {
 		this.id = id;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public String getAnswer() {
+		return answer;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public String getQuestao1() {
@@ -110,12 +115,28 @@ public class Atividade {
 		this.questao4 = questao4;
 	}
 
-	public Integer getAlternativaCorreta() {
-		return alternativaCorreta;
+	public String getQuestao5() {
+		return questao5;
 	}
 
-	public void setAlternativaCorreta(Integer alternativaCorreta) {
-		this.alternativaCorreta = alternativaCorreta;
+	public void setQuestao5(String questao5) {
+		this.questao5 = questao5;
+	}
+
+	public Integer getPointByQuestion() {
+		return pointByQuestion;
+	}
+
+	public void setPointByQuestion(Integer pointByQuestion) {
+		this.pointByQuestion = pointByQuestion;
+	}
+
+	public Integer getCorrectIndex() {
+		return correctIndex;
+	}
+
+	public void setCorrectIndex(Integer correctIndex) {
+		this.correctIndex = correctIndex;
 	}
 
 	public Modulo getModulo() {

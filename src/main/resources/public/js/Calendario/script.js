@@ -92,11 +92,13 @@ const closeContainer = (idContainer,className) => {
 const addEvent = async (data) => {
 
   await fetch(`http://localhost:8080/aluno/${idUser}/eventos`, { method: 'POST', mode: "cors", body: JSON.stringify(data)})
-  .then(resp => resp.ok)
+  .then(resp => resp.status)
   .then(status => {
-    if(status){
+    if(status == 200){
       calendar.addEvent(data);
       calendarList.addEvent(data);
+    }else{
+    	alert('Erro ao inserir evento!')
     }
   })
   
@@ -112,7 +114,7 @@ const updateEvent = (data) => {
       
       event.remove();
       eventList.remove();
-
+      
       calendar.addEvent(data);
       calendarList.addEvent(data);
     }

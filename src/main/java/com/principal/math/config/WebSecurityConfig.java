@@ -28,38 +28,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("/resources/**",
-				"/login",
-				"/",
-				"/img/**",
-				"/css/**", 
-				"/assets/**", 
-				"/js/**",
-				"/registration")
-			.permitAll()
-		.antMatchers("/profPage")
-			.access("hasRole('ROLE_ADMIN')")
-		.antMatchers("/alunoPage")
-			.access("hasRole('ROLE_USER')")
-		.anyRequest()
-			.authenticated()
-		.and()
-		.formLogin()
-			.loginPage("/login")
-			.failureUrl("/login?error=true")
-			.permitAll()
-		.and()
-		.logout()
-			.logoutSuccessUrl("/login?logout=true")
-			.permitAll();
-
 //		http.authorizeRequests()
-//			.antMatchers("/**")
+//		.antMatchers("/resources/**",
+//				"/login",
+//				"/",
+//				"/img/**",
+//				"/css/**", 
+//				"/assets/**", 
+//				"/js/**",
+//				"/registration",
+//				"/professor/registration",
+//				"/aluno/registration")
 //			.permitAll()
-//			.and()
-//			.csrf()
-//			.disable();
+//		.antMatchers("/profPage")
+//			.access("hasRole('ROLE_ADMIN')")
+//		.antMatchers("/alunoPage")
+//			.access("hasRole('ROLE_USER')")
+//		.anyRequest()
+//			.authenticated()
+//		.and()
+//		.formLogin()
+//			.loginPage("/login")
+//			.failureUrl("/login?error=true")
+//			.permitAll()
+//		.and()
+//		.logout()
+//			.logoutSuccessUrl("/login?logout=true")
+//			.permitAll();
+
+		http.authorizeRequests()
+			.antMatchers("/**")
+			.permitAll()
+			.and()
+			.csrf()
+			.disable();
 	}
 
 	@Bean

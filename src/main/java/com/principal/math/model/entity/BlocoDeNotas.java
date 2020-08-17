@@ -1,7 +1,7 @@
 package com.principal.math.model.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,21 +30,21 @@ public class BlocoDeNotas {
 	private byte[] anexo;
 
 	@ManyToOne
-	@JoinColumn(name = "aluno_id")
-	private Aluno aluno;
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 
 	public BlocoDeNotas() {
 
 	}
 
 	public BlocoDeNotas(Integer id, String titulo, String texto, String corHex,
-			byte[] anexo, Aluno aluno) {
+			byte[] anexo, Usuario usuario) {
 		this.id = id;
 		this.titulo = titulo;
 		this.texto = texto;
 		this.corHex = corHex;
 		this.anexo = anexo;
-		this.aluno = aluno;
+		this.usuario = usuario;
 	}
 
 	public Integer getId() {
@@ -87,11 +87,11 @@ public class BlocoDeNotas {
 		this.anexo = anexo;
 	}
 
-	public Aluno getAluno() {
-		return aluno;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

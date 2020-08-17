@@ -1,8 +1,7 @@
 package com.principal.math.model.entity;
 
-import java.util.Date;
-import java.util.List;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,9 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,45 +23,46 @@ public class Modulo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false)
 	private String titulo;
 
 	@Lob
 	@Column(nullable = false)
-	private String conteudo;
+	private String subconteudos;
 
-	@Column(nullable = true, name = "concluido")
-	private Boolean concluido;
-	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private AnoCurso ano;
 
-	@ManyToOne
-	@JoinColumn(nullable = false, name = "aluno_id")
-	private Aluno aluno;
+	@Column(nullable = false)
+	private String sigla;
 	
+	@OneToMany(mappedBy = "modulo")
+	private List<EstadoEstudo> estados;
+
 	@OneToMany(mappedBy = "modulo")
 	private List<Atividade> atividades;
 
 	public Modulo() {
 		
 	}
-	
-	public Modulo(Integer id, 
-			String titulo, 
-			String conteudo, 
-			Date dataFinalizado,
-			AnoCurso ano, 
-			Aluno aluno,
-			Boolean concluido
-		) {
+
+	public Modulo(Integer id, String titulo, String subconteudos,AnoCurso ano, List<EstadoEstudo> estados, List<Atividade> atividades, String sigla) {
 		this.id = id;
 		this.titulo = titulo;
-		this.conteudo = conteudo;
+		this.subconteudos = subconteudos;
 		this.ano = ano;
-		this.aluno = aluno;
-		this.concluido = concluido;
+		this.estados = estados;
+		this.atividades = atividades;
+		this.sigla = sigla;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
 	}
 
 	public Integer getId() {
@@ -83,23 +81,28 @@ public class Modulo {
 		this.titulo = titulo;
 	}
 
-	public String getConteudo() {
-		return conteudo;
+	public String getSubconteudos() {
+		return subconteudos;
 	}
 
-	public void setConteudo(String conteudo) {
-		this.conteudo = conteudo;
+	public void setSubconteudos(String subconteudos) {
+		this.subconteudos = subconteudos;
 	}
+
 	public AnoCurso getAno() {
 		return ano;
 	}
 
-	public Boolean getConcluido() {
-		return concluido;
+	public void setAno(AnoCurso ano) {
+		this.ano = ano;
 	}
 
-	public void setConcluido(Boolean concluido) {
-		this.concluido = concluido;
+	public List<EstadoEstudo> getEstados() {
+		return estados;
+	}
+
+	public void setEstados(List<EstadoEstudo> estados) {
+		this.estados = estados;
 	}
 
 	public List<Atividade> getAtividades() {
@@ -109,17 +112,4 @@ public class Modulo {
 	public void setAtividades(List<Atividade> atividades) {
 		this.atividades = atividades;
 	}
-
-	public void setAno(AnoCurso ano) {
-		this.ano = ano;
-	}
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-
 }

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,35 +19,34 @@ import javax.persistence.TemporalType;
 public class Mensagem {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Column(nullable = false)
+	@Lob
+	@Column(nullable = false, name = "mensagem")
 	private String mensagem;
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "data")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
-
+	
+	@Column(nullable = false, name = "para")
+	private String to;
+	
 	@ManyToOne
-	@JoinColumn(nullable = false, name = "aluno_id")
-	private Aluno aluno;
-
-	@ManyToOne
-	@JoinColumn(nullable = false, name = "professor_id")
-	private Professor professor;
-
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+	
 	public Mensagem() {
 		
 	}
 	
-	public Mensagem(Integer id, String mensagem, Date data, Aluno aluno,
-			Professor professor) {
+	public Mensagem(Integer id, String mensagem, Date data, String to, Usuario usuario) {
 		this.id = id;
 		this.mensagem = mensagem;
 		this.data = data;
-		this.aluno = aluno;
-		this.professor = professor;
+		this.usuario = usuario;
+		this.to = to;
 	}
 
 	public Integer getId() {
@@ -73,19 +73,19 @@ public class Mensagem {
 		this.data = data;
 	}
 
-	public Aluno getAluno() {
-		return aluno;
+	public String getTo() {
+		return to;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setTo(String to) {
+		this.to = to;
 	}
 
-	public Professor getProfessor() {
-		return professor;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

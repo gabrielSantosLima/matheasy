@@ -1,7 +1,8 @@
 package com.principal.math.controller.services;
 
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,35 +14,46 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.principal.math.model.entity.IUsuario;
-import com.principal.math.model.repository.AlunoRepository;
-import com.principal.math.model.repository.ProfessorRepository;
+import com.principal.math.model.entity.Role;
+import com.principal.math.model.entity.Usuario;
 
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private AlunoRepository alunoRepository;
-
-	@Autowired
-	private ProfessorRepository professorRepository;
+	private UsuarioService usuarioService;
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		IUsuario usuario = alunoRepository.findByUsername(username);
+		Optional<Usuario> usuario = usuarioService.findByUsername(username);
 
-		if (usuario == null) {
-			usuario = professorRepository.findByUsername(username);
+		if (!usuario.isPresent()) {
+			throw new UsernameNotFoundException(username);			
 		}
-
-		if (usuario == null)
-			throw new UsernameNotFoundException(username);
-
-		Set<GrantedAuthority> grantedAuthority = new HashSet<>();
-		grantedAuthority.add(new SimpleGrantedAuthority(usuario.getRole().getName()));
 		
-		return new User(usuario.getUsername(), usuario.getPassword(), grantedAuthority);
+		List<GrantedAuthority> grantedAuthority = getAuthorities(
+				usuario.get().getRole()
+		);
+		
+		return new User(
+				usuario.get().getUsername(), 
+				usuario.get().getPassword(), 
+				grantedAuthority
+		);
 	}
-
+	
+	private List<GrantedAuthority> getAuthorities(Role role){
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		
+		authorities.add(new SimpleGrantedAuthority(role.getName()));
+		
+		role.getAuthorities()
+		.stream()
+		.map(p -> new SimpleGrantedAuthority(p.getName()))
+		.forEach(authorities::add);
+	
+		return authorities;
+	}
+	
 }

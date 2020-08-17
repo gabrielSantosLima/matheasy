@@ -24,4 +24,8 @@ public class ModuloService extends GenericService<Modulo, ModuloRepository> {
 		return repository.findByAno(AnoCurso.of(ano));
 	}
 	
+	public Optional<Modulo> findBySiglaAndAno(AnoCurso ano, String sigla){
+		return repository.findBySiglaAndAno(sigla, ano);
+	}
+	
 }

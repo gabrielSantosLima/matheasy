@@ -14,4 +14,6 @@ public interface ModuloRepository extends GenericRepository<Modulo, Integer> {
   List<Modulo> findByAno(AnoCurso ano);
   
   Optional<Modulo> findByTituloAndAno(String titulo, AnoCurso ano);
+
+  Optional<Modulo> findBySiglaAndAno(String sigla, AnoCurso ano);
 }

@@ -16,7 +16,7 @@
     <div class="content d-flex justify-content-end">
       <div class="card col-7 ml-0">
         <div class="card-body">
-          <form th:action="@{/registration?u=professor}" th:method="POST" th:object="${usuario}">
+          <form th:action="@{/professor/registration?u=professor}" th:method="POST" th:object="${usuario}">
             <legend>Cadastrar-se como Professor</legend>
             <fieldset>
               <div class="form-group">
@@ -24,6 +24,14 @@
                 <label for="input-username">Usuário</label>
                 <input type="text" th:field="*{username}" class="form-control" 
                 id="input-username" placeholder="Insira seu nome de usuário..." required>
+                
+              </div>  
+
+              <div class="form-group">
+                
+                <label for="input-name">Nome completo</label>
+                <input type="text" th:field="*{nome}" class="form-control" 
+                id="input-name" placeholder="Insira seu nome completo..." required>
                 
               </div>  
               
@@ -48,7 +56,7 @@
                 <div class="form-group col">
                   
                   <label for="input-confirm-password">Confirmar Senha</label>
-                  <input type="password" class="form-control" id="input-confirm-password" 
+                  <input type="password" th:field="*{passwordConfirm}" class="form-control" id="input-confirm-password" 
                   placeholder="Insira novamente sua senha..." required>
                   
                 </div>
@@ -57,7 +65,7 @@
               <div class="form-group">
                 
                 <label for="input-date">Data de nascimento</label>
-                <input type="date" th:field="*{username}" class="form-control" id="input-date" required>
+                <input type="date" th:field="*{dataAniversario}" class="form-control" id="input-date" required>
                 
               </div>
             </fieldset>

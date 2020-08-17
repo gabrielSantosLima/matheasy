@@ -1,17 +1,20 @@
 package com.principal.math.model.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "role")
+@Table(name = "papel")
 public class Role {
 	
 	@Id
@@ -22,13 +25,22 @@ public class Role {
 	private String name;
 
 	@OneToMany(mappedBy = "role")
-	private Set<Aluno> aluno;
-
-	@OneToMany(mappedBy = "role")
-	private Set<Professor> professor;
+	private List<Usuario> usuarios;
 	
-	public Role(String name){
+	@ManyToMany
+	@JoinTable(
+			  name = "role_authority", 
+			  joinColumns = @JoinColumn(name = "role_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "authority_id"))
+	private List<Authorities> authorities;
+	
+	public Role() {
+		
+	}
+	
+	public Role(String name, List<Authorities> authorities){
 		this.name = name;
+		this.authorities = authorities;
 	}
 
 	public Long getId() {
@@ -46,20 +58,12 @@ public class Role {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Set<Aluno> getAluno() {
-		return aluno;
+
+	public List<Authorities> getAuthorities() {
+		return authorities;
 	}
-	
-	public void setAluno(Set<Aluno> aluno) {
-		this.aluno = aluno;
-	}
-	
-	public Set<Professor> getProfessor() {
-		return professor;
-	}
-	
-	public void setProfessor(Set<Professor> professor) {
-		this.professor = professor;
+
+	public void setAuthorities(List<Authorities> authorities) {
+		this.authorities = authorities;
 	}
 }

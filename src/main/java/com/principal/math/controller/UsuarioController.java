@@ -1,7 +1,9 @@
 package com.principal.math.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,21 +11,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.principal.math.controller.services.AlunoService;
-import com.principal.math.controller.services.ProfessorService;
 import com.principal.math.controller.services.SecurityService;
-import com.principal.math.model.entity.Aluno;
-import com.principal.math.model.entity.IUsuario;
-import com.principal.math.model.entity.Professor;
+import com.principal.math.controller.services.UsuarioService;
+import com.principal.math.model.entity.Usuario;
 
 @Controller
 public class UsuarioController {
 	
 	@Autowired
-	private AlunoService alunoService;
-	
-	@Autowired
-	private ProfessorService professorService;
+	private UsuarioService usuarioService;
 	
 	@Autowired
 	private SecurityService securityService;
@@ -31,42 +27,35 @@ public class UsuarioController {
 	@GetMapping("/registration")
 	public String registration(@RequestParam("u") String tipo, Model model) {
 		
+		model.addAttribute("usuario", new Usuario());
+		
 		if (tipo.equals("aluno")) {
-			
-			model.addAttribute("usuario", new Aluno());
-			
 			return "CadastroAluno/index";
-		} else if (tipo.equals("professor")) {
-			
-			model.addAttribute("usuario", new Professor());
-			
+		} else if (tipo.equals("professor")) {			
 			return "CadastroProfessor/index";
 		}else{
-			return "Homepage/index";
+			return "LandingPage/index";
 		}
 		
 	}
 	
 	@PostMapping("/registration")
-	public String registration(@ModelAttribute("usuario") IUsuario usuario,
-	BindingResult bindingResult, @RequestParam("u") String tipo) {
-
-		if (bindingResult.hasErrors()) {
+	public String registration(@ModelAttribute("usuario") Usuario usuario,
+	BindingResult bindingResult, HttpSession session, String role) {
+		
+		if(bindingResult.hasErrors()) {
 			return "Homepage/index";
 		}
 		
-		if (tipo == "aluno") {
-
-			alunoService.save((Aluno) usuario);
-		} else {
-			professorService.save((Professor) usuario);
-		}
+		Usuario createdUsuario = usuarioService.save(usuario, role);
 		
-		securityService.autoLogin(usuario.getUsername(), usuario.getPasswordConfirm());
+		session.setAttribute("USER_ID", createdUsuario.getId());
 		
-		return "redirect:/home";
+		securityService.autoLogin(usuario.getUsername(), usuario.getPassword());
+		
+		return "LandingPage/index";
 	}
-
+	
 	@GetMapping("/login")
 	private String login(Model model, String error, String logout) {
 		
@@ -78,16 +67,6 @@ public class UsuarioController {
 		}
 		
 		return "Login/index";
-	}
-
-	@GetMapping("/profPage")
-	public String professorPage(){
-		return "Professor/index";
-	}
-	
-	@GetMapping("/alunoPage")
-	public String alunoPage(){
-		return "Aluno/index";
 	}
 	
 	@GetMapping("/home")

@@ -1,13 +1,15 @@
 package com.principal.math.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
-import com.principal.math.controller.services.AlunoService;
+import javax.servlet.http.HttpSession;
+
 import com.principal.math.controller.services.EventoService;
-import com.principal.math.model.entity.Aluno;
+import com.principal.math.controller.services.UsuarioService;
 import com.principal.math.model.entity.Evento;
+import com.principal.math.model.entity.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -36,21 +38,23 @@ public class EventoController {
 	private EventoService service;
 
 	@Autowired
-	private AlunoService alunoService;
+	private UsuarioService usuarioService;
 
-	private Optional<Aluno> getAlunoById(Integer id) {
-		return alunoService.findById(id);
+	private Optional<Usuario> getUsuarioById(Integer id) {
+		return usuarioService.findById(id);
 	}
 
 	@GetMapping("/view")
-	public ModelAndView view(@PathVariable Integer id) {
+	public ModelAndView view(HttpSession session) {
 		ModelAndView md = new ModelAndView("Calendario/index");
-		Optional<Aluno> aluno = getAlunoById(id);
+		Integer id = (Integer) session.getAttribute("JSESSIONID");
+		Optional<Usuario> usuario = getUsuarioById(id);
 		
-		if(!aluno.isPresent()) {
+		if(!usuario.isPresent()) {
 			return md;
 		}
 		
+		md.addObject("usuario", usuario.get());
 		return md;
 	}
 	
@@ -58,31 +62,30 @@ public class EventoController {
 	@GetMapping(path = { "/", "" })
 	@ResponseBody
 	public List<Evento> list(@PathVariable Integer id) {
-		Optional<Aluno> aluno = getAlunoById(id);
+		Optional<Usuario> usuario = getUsuarioById(id);
 		
-		if(!aluno.isPresent()) {
+		if(!usuario.isPresent()) {
 			return new ArrayList<>();
 		}
 		
-		List<Evento> eventos = service.findByAluno(aluno.get());
+		List<Evento> eventos = service.findByAluno(usuario.get());
 		
 		return eventos;
 	}
 
 	// Create
-	@PostMapping(path = { "/",
-			"" }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = { "/","" }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Evento> create(@PathVariable Integer id,
 			@RequestBody Evento evento) {
 		try {
-			Optional<Aluno> aluno = getAlunoById(id);
+			Optional<Usuario> usuario = getUsuarioById(id);
 
-			if(!aluno.isPresent()) {
+			if(!usuario.isPresent()) {
 				return ResponseEntity.badRequest().build();				
 			}
 			
-			Evento createdEvento = service.save(evento, aluno.get());
+			Evento createdEvento = service.save(evento, usuario.get());
 
 			return ResponseEntity.ok(createdEvento);
 		} catch (Exception e) {
@@ -99,7 +102,7 @@ public class EventoController {
 
 		try {
 
-			if (id != evento.getAluno().getId()) {
+			if (id != evento.getUsuario().getId()) {
 				return ResponseEntity.badRequest().build();
 			}
 
@@ -123,7 +126,7 @@ public class EventoController {
 				return ResponseEntity.badRequest().build();
 			}
 
-			if (id != evento.get().getAluno().getId()) {
+			if (id != evento.get().getUsuario().getId()) {
 				return ResponseEntity.badRequest().build();
 			}
 

@@ -36,21 +36,21 @@ public class Evento {
 	private Calendar end;
 
 	@ManyToOne
-	@JoinColumn(name = "aluno_id")
-	private Aluno aluno;
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 
 	public Evento() {
 		
 	}
 	
 	public Evento(Integer id, String key, String title, Calendar start, Calendar end,
-			Aluno aluno) {
+			Usuario usuario) {
 		this.id = id;
 		this.key = key;
 		this.title = title;
 		this.start = start;
 		this.end = end;
-		this.aluno = aluno;
+		this.usuario = usuario;
 	}
 
 	public String getKey() {
@@ -93,11 +93,11 @@ public class Evento {
 		this.end = end;
 	}
 
-	public Aluno getAluno() {
-		return aluno;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }
