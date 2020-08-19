@@ -53,7 +53,7 @@ public class Usuario implements IUsuario {
 	@OneToMany(mappedBy = "usuario")
 	private List<EstadoEstudo> estados;
 
-	@OneToMany(mappedBy = "aluno")
+	@OneToMany(mappedBy = "usuario")
 	private List<Mensagem> mensagens;
 
 	@ManyToMany

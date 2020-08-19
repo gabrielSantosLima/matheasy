@@ -1,6 +1,10 @@
 
 package com.principal.math.config;
 
+import java.util.Arrays;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -37,13 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //				"/assets/**", 
 //				"/js/**",
 //				"/registration",
-//				"/professor/registration",
-//				"/aluno/registration")
+//				"/chat/**")
 //			.permitAll()
-//		.antMatchers("/profPage")
-//			.access("hasRole('ROLE_ADMIN')")
-//		.antMatchers("/alunoPage")
-//			.access("hasRole('ROLE_USER')")
 //		.anyRequest()
 //			.authenticated()
 //		.and()
@@ -73,5 +75,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService)
 				.passwordEncoder(bCryptPasswordEncoder());
+	}
+	
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("/**"));
+		configuration.setAllowedMethods(Arrays.asList("GET","POST", "DELETE", "HEAD", "PUT", "MESSAGE"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("*", configuration);
+		return source;
 	}
 }
