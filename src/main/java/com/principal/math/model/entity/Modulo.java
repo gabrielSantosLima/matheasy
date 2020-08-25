@@ -37,10 +37,10 @@ public class Modulo {
 	@Column(nullable = false)
 	private String sigla;
 	
-	@OneToMany(mappedBy = "modulo")
+	@OneToMany
 	private List<EstadoEstudo> estados;
 
-	@OneToMany(mappedBy = "modulo")
+	@OneToMany
 	private List<Atividade> atividades;
 
 	public Modulo() {

@@ -1,7 +1,5 @@
 package com.principal.math.model.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "mensagem")
@@ -27,26 +23,26 @@ public class Mensagem {
 	private String mensagem;
 
 	@Column(nullable = false, name = "data")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date data;
-	
-	@Column(nullable = false, name = "para")
-	private String to;
+	private String data;
 	
 	@ManyToOne
-	@JoinColumn(name = "usuario_id")
-	private Usuario usuario;
+	@JoinColumn(name = "aluno_id")
+	private Usuario usuario1;
+
+	@ManyToOne
+	@JoinColumn(name = "professor_id")
+	private Usuario usuario2;
 	
 	public Mensagem() {
 		
 	}
 	
-	public Mensagem(Integer id, String mensagem, Date data, String to, Usuario usuario) {
-		this.id = id;
+	public Mensagem(String mensagem, String data, Usuario usuario1, Usuario usuario2) {
+		this.id = null;
 		this.mensagem = mensagem;
 		this.data = data;
-		this.usuario = usuario;
-		this.to = to;
+		this.usuario1 = usuario1;
+		this.usuario2 = usuario2;
 	}
 
 	public Integer getId() {
@@ -65,27 +61,27 @@ public class Mensagem {
 		this.mensagem = mensagem;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
-	public String getTo() {
-		return to;
+	public Usuario getUsuario1() {
+		return usuario1;
 	}
 
-	public void setTo(String to) {
-		this.to = to;
+	public void setUsuario1(Usuario usuario1) {
+		this.usuario1 = usuario1;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Usuario getUsuario2() {
+		return usuario2;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuario2(Usuario usuario2) {
+		this.usuario2 = usuario2;
 	}
 }

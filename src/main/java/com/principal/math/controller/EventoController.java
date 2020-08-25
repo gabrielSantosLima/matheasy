@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @CrossOrigin
-@RequestMapping("aluno/{id}/eventos")
+@RequestMapping("/eventos")
 public class EventoController {
 
 	@Autowired
@@ -40,37 +40,45 @@ public class EventoController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	private Optional<Usuario> getUsuarioById(Integer id) {
-		return usuarioService.findById(id);
-	}
-
 	@GetMapping("/view")
 	public ModelAndView view(HttpSession session) {
-		ModelAndView md = new ModelAndView("Calendario/index");
-		Integer id = (Integer) session.getAttribute("JSESSIONID");
-		Optional<Usuario> usuario = getUsuarioById(id);
-		
-		if(!usuario.isPresent()) {
+		try {	
+			ModelAndView md = new ModelAndView("Calendario/index");
+			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
+			
+			if(!usuario.isPresent()) {
+				return md;
+			}
+			
+			md.addObject("usuario", usuario.get());
+			
 			return md;
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			return new ModelAndView();
 		}
-		
-		md.addObject("usuario", usuario.get());
-		return md;
 	}
 	
 	// List
 	@GetMapping(path = { "/", "" })
 	@ResponseBody
 	public List<Evento> list(@PathVariable Integer id) {
-		Optional<Usuario> usuario = getUsuarioById(id);
-		
-		if(!usuario.isPresent()) {
+		try {			
+			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
+			
+			if(!usuario.isPresent()) {
+				return new ArrayList<>();
+			}
+			
+			List<Evento> eventos = service.findByAluno(usuario.get());
+			
+			return eventos;
+		}catch(Exception e) {
+			e.printStackTrace();
+			
 			return new ArrayList<>();
 		}
-		
-		List<Evento> eventos = service.findByAluno(usuario.get());
-		
-		return eventos;
 	}
 
 	// Create
@@ -79,7 +87,7 @@ public class EventoController {
 	public ResponseEntity<Evento> create(@PathVariable Integer id,
 			@RequestBody Evento evento) {
 		try {
-			Optional<Usuario> usuario = getUsuarioById(id);
+			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
 
 			if(!usuario.isPresent()) {
 				return ResponseEntity.badRequest().build();				
@@ -95,18 +103,19 @@ public class EventoController {
 	}
 
 	// Update
-	@PutMapping(path = "/{idEvento}", consumes = "application/json", produces = "application/json")
+	@PutMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<Evento> update(@RequestBody Evento evento,
-			@PathVariable("id") Integer id, @PathVariable("idEvento") Integer idEvento) {
+			@PathVariable("id") Integer id) {
 
 		try {
+			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
 
-			if (id != evento.getUsuario().getId()) {
+			if (usuario.get().getId() != evento.getUsuario().getId()) {
 				return ResponseEntity.badRequest().build();
 			}
 
-			Evento updatedEvento = service.update(idEvento, evento);
+			Evento updatedEvento = service.update(id, evento);
 
 			return ResponseEntity.ok(updatedEvento);
 		} catch (Exception e) {
@@ -115,22 +124,22 @@ public class EventoController {
 	}
 
 	// Delete
-	@DeleteMapping("/{idEvento}")
+	@DeleteMapping("/{id}")
 	@ResponseBody
-	public ResponseEntity<Evento> delete(@PathVariable("id") Integer id,
-			@PathVariable("idEvento") Integer idEvento) {
+	public ResponseEntity<Evento> delete(@PathVariable("id") Integer id) {
 		try {
-			Optional<Evento> evento = service.findById(idEvento);
+			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
+			Optional<Evento> evento = service.findById(id);
 
 			if (!evento.isPresent()) {
 				return ResponseEntity.badRequest().build();
 			}
 
-			if (id != evento.get().getUsuario().getId()) {
+			if (usuario.get().getId() != evento.get().getUsuario().getId()) {
 				return ResponseEntity.badRequest().build();
 			}
 
-			service.delete(idEvento);
+			service.delete(id);
 
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {

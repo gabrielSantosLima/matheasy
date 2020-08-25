@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Ranking</title>
-    <link rel="stylesheet" th:href="@{/css/Ranking/style.css}">
+    <link rel="shortcut icon" th:href="@{/assets/picture.ico}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-4.5.0-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/Ranking/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/fragments/header/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/fragments/footer/styles.css}">
 </head>
+
 <body>
+
+  <div th:replace="~{fragments/header :: header}"></div>
+
     <div class="container">
         <header>
-            <img id="logo" th:src="@{/img/podium.svg}">
-        <h3>Maiores Pontuações em Exercicios</h3>
-    </header>
+            <img id="logo" th:src="@{/assets/icons/podium.svg}">
+            <h3>Maiores Pontuações em Exercicios</h3>
+        </header>
 
         <div class="currently-position">
             Você está atualmente <span id="position"> fora da Classificação</span>
-            <!-- Você está atualmente < em *colocação* lugar > -->
         </div>
         <div class="rank">
-            <ul>
-            <li th:each="aluno, iStat : ${alunos}" class="placing principal"> 
-                <img th:src="@{'img/rk/' + ${iStat.index + 1} + '.svg'}" class="place" alt="Primeiro Lugar"> 
-                <img th:src="@{img/wanda.png}" class="profile-pic" alt="Perfil">
-                <span th:text="${aluno.nome}" class="teste"> Nome do Usuário </span>
-            </li>
+            <ul th:each="usuario : ${ranking}">
+                <li class="placing principal">
+                    <img th:src="@{/assets/icons/1st.svg}" class="place" alt="Primeiro Lugar">
+                    <img th:src="@{/assets/icons/wanda.png}" class="profile-pic" alt="Perfil">
+                    <span th:text="${usuario.nome}" class="teste"> Nome do Usuário </span>
+                </li>
             </ul>
         </div>
-       </div>
+    </div>
+
+	
+  <div th:replace="~{fragments/footer :: footer}"></div>
+	
 </body>
+
 </html>

@@ -1,25 +1,35 @@
 package com.principal.math.config;
 
 import org.springframework.boot.ApplicationArguments;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
+import com.principal.math.controller.services.AtividadeService;
+import com.principal.math.controller.services.ModuloService;
 import com.principal.math.model.entity.Atividade;
+import com.principal.math.model.entity.Modulo;
 import com.principal.math.model.repository.AtividadeRepository;
-import com.principal.math.model.repository.ModuloRepository;
 
+@Component
+@SuppressWarnings(value = "unused")
+@Order(3)
 public class LoadAtividades implements ApplicationRunner{
 
 	@Autowired
-	private AtividadeRepository repository;
+	private AtividadeService service;
 
 	@Autowired
-	private ModuloRepository moduloRepository;
+	private ModuloService moduloService;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 			"1) Veja o significado dos sinais no quadro abaixo:\r\n" + 
 			"<figure><a href=\"https://azup.com.br/wp-content/uploads/1-2.png\"><img\r\n" + 
 			"            src=\"https://azup.com.br/wp-content/uploads/1-2.png\" /></a></figure>\r\n" + 
@@ -31,10 +41,10 @@ public class LoadAtividades implements ApplicationRunner{
 			"e) 34 &gt; 43",
 			1,
 			1,
-			moduloRepository.findById(1).get()
+			moduloService.findById(1).get()
 		));
 		
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"2) A diferença entre os números naturais 20010 e 3291\r\n" + 
 				"    é igual a:",
 				"a) 1414",
@@ -44,10 +54,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 1229",
 				1,
 				1,
-				moduloRepository.findById(1).get()
+				moduloService.findById(1).get()
 		));
 		
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"3) Utilizando esses números 341.926.87.Ele é formado\r\n" + 
 				"    por quantos algarismos?",
 				"a) 7",
@@ -57,10 +67,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 8",
 				1,
 				1,
-				moduloRepository.findById(1).get()
+				moduloService.findById(1).get()
 		));
 		
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"4) Excetuando-se o 1, sabe-se que o menor divisor\r\n" + 
 				"    positivo de cada um de três números naturais diferentes são, respectivamente, 7; 3 e 11. Excetuando-se o\r\n" + 
 				"    próprio número, sabe-se que o maior divisor de cada um dos três números naturais já citados são,\r\n" + 
@@ -72,10 +82,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 417",
 				1,
 				1,
-				moduloRepository.findById(1).get()
+				moduloService.findById(1).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"1) Se x = 3 200 000 e y = 0,00002,\r\n" + 
 				"    então <strong>x.y</strong> vale:",
 				"a) 0,64",
@@ -85,9 +95,9 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 6 400",
 				1,
 				1,
-				moduloRepository.findById(2).get()
+				moduloService.findById(2).get()
 		));
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"2) Considere <strong>a</strong> e <strong>b</strong> números racionais quaisquer. Podemos\r\n" + 
 				"    afirmar que é\r\n" + 
 				"    INCORRETA a alternativa:",
@@ -98,9 +108,9 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) a.b será um número racional.",
 				1,
 				1,
-				moduloRepository.findById(2).get()
+				moduloService.findById(2).get()
 		));
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"3) Joana comeu 1/5 (um quinto) de um bolo, qual a\r\n" + 
 				"    fração que restou do bolo?",
 				"a) 4/5",
@@ -110,10 +120,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 1/2",
 				1,
 				1,
-				moduloRepository.findById(2).get()
+				moduloService.findById(2).get()
 		));
 		
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"3) Joana comeu 1/5 (um quinto) de um bolo, qual a\r\n" + 
 				"    fração que restou do bolo?",
 				"a) 23/5",
@@ -123,9 +133,9 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) -77/10",
 				1,
 				1,
-				moduloRepository.findById(2).get()
+				moduloService.findById(2).get()
 		));
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"1) Convertendo a fração 2/5 em uma fração centesimal,qual o resultado em porcentagem?\r\n" + 
 				"<figure><a href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAjCAYAAACZ6FpfAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAABGJhU0UAAAAXQ/cXWQAAAMBJREFUeNpjYMAOrIF4DRB/AuJfQHwBiKMZyAAHgTgSiHmgfC0gPgoVoxjIA/ElBiqBH9QwxBLqPYoABxCfhEYC2UAQiDcAsRslhihBDVGhxBANIJ4NxFyUGCIOxKuAmIXSwN0CdRHF4D8ePAoGE/hPJh4FQyEGSTaIai4axgb9gtb924C4CKn6JguAymxjIK4F4hvUKn7doI2LwVP36wDxXVI1rYM2Gpig2ANqSBCpBoUC8S0g/gPE76CVpSk+DQBe0j3gm92kxAAAAGJ0RVh0TWF0aE1MADxtYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk4L01hdGgvTWF0aE1MIj48bWZyYWM+PG1uPjI8L21uPjxtbj41PC9tbj48L21mcmFjPjwvbWF0aD5O8RyGAAAAAElFTkSuQmCC\"><img\r\n" + 
 				"            src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAjCAYAAACZ6FpfAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAABGJhU0UAAAAXQ/cXWQAAAMBJREFUeNpjYMAOrIF4DRB/AuJfQHwBiKMZyAAHgTgSiHmgfC0gPgoVoxjIA/ElBiqBH9QwxBLqPYoABxCfhEYC2UAQiDcAsRslhihBDVGhxBANIJ4NxFyUGCIOxKuAmIXSwN0CdRHF4D8ePAoGE/hPJh4FQyEGSTaIai4axgb9gtb924C4CKn6JguAymxjIK4F4hvUKn7doI2LwVP36wDxXVI1rYM2Gpig2ANqSBCpBoUC8S0g/gPE76CVpSk+DQBe0j3gm92kxAAAAGJ0RVh0TWF0aE1MADxtYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk4L01hdGgvTWF0aE1MIj48bWZyYWM+PG1uPjI8L21uPjxtbj41PC9tbj48L21mcmFjPjwvbWF0aD5O8RyGAAAAAElFTkSuQmCC\" /></a>\r\n" + 
@@ -137,10 +147,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 40%",
 				1,
 				1,
-				moduloRepository.findById(3).get()
+				moduloService.findById(3).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"2)Em uma sala de aula há 30 alunos, dos quais 40% são\r\n" + 
 				"    meninas. Quantas meninas têm na sala?",
 				"a) 10 meninas",
@@ -150,10 +160,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 24 meninas",
 				1,
 				1,
-				moduloRepository.findById(3).get()
+				moduloService.findById(3).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"3) 25 representa quantos por cento de 200?",
 				"a) 12,5%",
 				"b) 15,5%",
@@ -162,10 +172,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 26%",
 				1,
 				1,
-				moduloRepository.findById(3).get()
+				moduloService.findById(3).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"4) 30 representa 15% de qual número?",
 				"a) 150",
 				"b) 205",
@@ -174,10 +184,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 200",
 				1,
 				1,
-				moduloRepository.findById(3).get()
+				moduloService.findById(3).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"1) Um mecânico de uma equipe de\r\n" + 
 				"    corrida necessita que as seguintes medidas realizadas em um carro sejam obtidas em metros: a) distância\r\n" + 
 				"    a entre os eixos dianteiro e traseiro;\r\n" + 
@@ -194,10 +204,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 2.300 e 1.600",
 				1,
 				1,
-				moduloRepository.findById(4).get()
+				moduloService.findById(4).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"2) Foram construídos dois\r\n" + 
 				"    reservatórios de água. A razão entre os volumes internos do primeiro e do segundo é de 2 para 5, e a\r\n" + 
 				"    soma desses volumes é 14 m³. Assim, o valor absoluto da diferença entre as capacidades desses dois\r\n" + 
@@ -209,10 +219,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 9 000.",
 				1,
 				1,
-				moduloRepository.findById(4).get()
+				moduloService.findById(4).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"3) Determine o valor em decímetros de 0,375 dam.",
 				"a) 3,75dm",
 				"b) 0,0375dm",
@@ -221,10 +231,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 375dm",
 				1,
 				1,
-				moduloRepository.findById(4).get()
+				moduloService.findById(4).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"4) Quantos cm³ existem em 10 litros?",
 				"a) 10",
 				"b) 100",
@@ -233,10 +243,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 100.000",
 				1,
 				1,
-				moduloRepository.findById(4).get()
+				moduloService.findById(4).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"1) Observe a caixa representada abaixo:\r\n" + 
 				"<figure><a href=\"https://4.bp.blogspot.com/-exn7b1AKm24/VgCFir19HuI/AAAAAAAABGU/5YfsrmOlYwQ/s1600/m1.png\"><img\r\n" + 
 				"            style=\"width:240px\"\r\n" + 
@@ -254,10 +264,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) nenhuma das anteriores.",
 				1,
 				1,
-				moduloRepository.findById(5).get()
+				moduloService.findById(5).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"2) A forma geométrica espacial que pode ser associada\r\n" + 
 				"    à planificação abaixo é:\r\n" + 
 				"<figure><a href=\"https://4.bp.blogspot.com/-Vyk15AZGoBY/VgCGrHG1mtI/AAAAAAAABGo/S8_BWKLwxtQ/s1600/m3.png\"><img\r\n" + 
@@ -271,10 +281,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) um triângulo.",
 				1,
 				1,
-				moduloRepository.findById(5).get()
+				moduloService.findById(5).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"3) As figuras 1, 2 e 3 correspondem, respectivamente,\r\n" + 
 				"    às planificações dos sólidos:\r\n" + 
 				"<figure><a href=\"https://4.bp.blogspot.com/-DxQ01ruSVcc/VgCHTm2W7OI/AAAAAAAABGw/1F3_daPCCFo/s1600/m4.png\"><img\r\n" + 
@@ -288,10 +298,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) Pirâmide, cone,triângulo.",
 				1,
 				1,
-				moduloRepository.findById(5).get()
+				moduloService.findById(5).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"4) Observe abaixo o modelo de um cubo. Ele tem 11\r\n" + 
 				"    planificações diferentes, isto é,\r\n" + 
 				"<p>existem 11 diferentes moldes possíveis para se montar\r\n" + 
@@ -313,10 +323,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) Nenhuma das anteriores.",
 				1,
 				1,
-				moduloRepository.findById(5).get()
+				moduloService.findById(5).get()
 		));
 		
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"1) Qual par ordenado não está representado no plano\r\n" + 
 				"    cartesiano?\r\n" + 
 				"<figure><a href=\"http://localhost:8080/img/atividades/Untitled.png\"><img style=\"width:336px\"\r\n" + 
@@ -328,10 +338,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) (9, -8)",
 				1,
 				1,
-				moduloRepository.findById(6).get()
+				moduloService.findById(6).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"2) Quais pares ordenados estão representado no plano\r\n" + 
 				"    cartesiano?\r\n" + 
 				"<figure><a href=\"http://localhost:8080/img/atividades/Untitled%201.png\"><img style=\"width:384px\"\r\n" + 
@@ -343,10 +353,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) (-7, -4), (7, 1),(0, 2),(8, -7),(9, -2)",
 				1,
 				1,
-				moduloRepository.findById(6).get()
+				moduloService.findById(6).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"3) Quais pares ordenados estão representado no plano\r\n" + 
 				"    cartesiano?\r\n" + 
 				"<figure><a href=\"http://localhost:8080/img/atividades/Untitled%202.png\"><img style=\"width:384px\"\r\n" + 
@@ -358,10 +368,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) (-9, 5),(8, 3),(0, -3),(-5, -9),(6, 0)",
 				1,
 				1,
-				moduloRepository.findById(6).get()
+				moduloService.findById(6).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"4) Em quais quadrantes estão localizados os ponto\r\n" + 
 				"    respectivamente: (-2, -4),(3, 1),(0, 6),(8, -7),(9, -3)\r\n" + 
 				"<figure><a href=\"http://localhost:8080/img/atividades/Untitled%203.png\"><img style=\"width:384px\"\r\n" + 
@@ -373,10 +383,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 3.° quadrante, 1.° quadrante,1.° quadrante,4.° quadrante,4.° quadrante.",
 				1,
 				1,
-				moduloRepository.findById(6).get()
+				moduloService.findById(6).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"1) O número natural (2103 + 2102 + 2101 – 2100) é\r\n" + 
 				"    divisível por:",
 				"a) 6",
@@ -386,10 +396,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 26",
 				1,
 				1,
-				moduloRepository.findById(7).get()
+				moduloService.findById(7).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"2)Se a soma e a diferença entre dois números inteiros\r\n" + 
 				"    são, respectivamente, iguais a 33 e 7, o produto desses números é :",
 				"a) 400",
@@ -399,10 +409,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 169",
 				1,
 				1,
-				moduloRepository.findById(7).get()
+				moduloService.findById(7).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"3) XYZ4 e X4YZ representam dois números inteiros de\r\n" + 
 				"    quatro algarismos. Se X4YZ excede XYZ4 em 288 unidades, então Z-Y é igual a:",
 				"a) -3",
@@ -412,10 +422,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 5",
 				1,
 				1,
-				moduloRepository.findById(7).get()
+				moduloService.findById(7).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"4)Pedro tirou menos de uma centena de fotos da festa\r\n" + 
 				"    de comemoração ao seu aniversário e quer colocá-las todas num álbum de 20 páginas. Em cada página desse\r\n" + 
 				"    álbum cabem, no máximo, 10 fotos. Inicialmente, Pedro tentou colocar 6 fotos em cada página. Ao final,\r\n" + 
@@ -429,10 +439,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 20",
 				1,
 				1,
-				moduloRepository.findById(7).get()
+				moduloService.findById(7).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"1) Qual alternativa representa a fração 9/2 em números decimais?",
 				"a) 3,333 ",
 				"b) 4,25 ",
@@ -441,10 +451,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e)5,7",
 				1,
 				1,
-				moduloRepository.findById(8).get()
+				moduloService.findById(8).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"2) Qual alternativa representa a fração 35/1000 em números decimais?",
 				"a) 0,35",
 				"b) 3,5",
@@ -453,10 +463,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 45",
 				1,
 				1,
-				moduloRepository.findById(8).get()
+				moduloService.findById(8).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"3) Qual é a alternativa que representa o número 0,65 na forma de fração?",
 				"a)65/10",
 				"b) 65/100",
@@ -465,10 +475,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 65/100000",
 				1,
 				1,
-				moduloRepository.findById(8).get()
+				moduloService.findById(8).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"4) Observe as frações e suas respectivas representações decimais.\r\n" + 
 				"<p>I) 3/1000 = 0,003</p>\r\n" + 
 				"<p>II) 2367/100 = 23,67</p>\r\n" + 
@@ -481,10 +491,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) nenhuma das anteriores.",
 				1,
 				1,
-				moduloRepository.findById(8).get()
+				moduloService.findById(8).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"1) A Figura 1 representa uma gravura retangular com 8 m\r\n" + 
 				"    de comprimento e 6 m de altura.\r\n" + 
 				"<figure><a href=\"http://localhost:8080/img/atividades/Untitled%204.png\"><img style=\"width:292px\"\r\n" + 
@@ -508,10 +518,10 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 1 : 32",
 				1,
 				1,
-				moduloRepository.findById(9).get()
+				moduloService.findById(9).get()
 		));
 
-		repository.save(new Atividade(null,
+		createAtividadesIfNotExists(new Atividade(null,
 				"2) Em um certo teatro, as poltronas são divididas em\r\n" + 
 				"    setores. A figura apresenta a vista do setor 3 desse teatro, no qual as cadeiras escuras estão\r\n" + 
 				"    reservadas e as claras não foram vendidas\r\n" + 
@@ -527,9 +537,18 @@ public class LoadAtividades implements ApplicationRunner{
 				"e) 70 17",
 				1,
 				1,
-				moduloRepository.findById(9).get()
+				moduloService.findById(9).get()
 		));
 		
 	}
 
+	private Atividade createAtividadesIfNotExists(Atividade newAtividade) {
+		Optional<Atividade> atividade = service.findByAnswer(newAtividade.getAnswer());
+		
+		if(atividade.isPresent()) {
+			return atividade.get();
+		}
+		
+		return service.save(newAtividade);
+	}
 }

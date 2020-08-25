@@ -23,12 +23,13 @@
             <legend>Login</legend>
             <td>
 	            <div class="alert alert-danger" th:if="${error} != null">Usuário ou senha incorretos!</div>
+	            <div class="alert alert-success" th:if="${logout} != null">Você foi deslogado!</div>
             </td>
             <fieldset>
               <div class="form-group">
                 
                 <label for="input-username">Usuário</label>
-                <input type="text" class="form-control" 
+                <input type="text" name="username" class="form-control" 
                 id="input-username" placeholder="Insira seu nome de usuário..." required>
                 
               </div>  
@@ -36,14 +37,14 @@
               <div class="form-group">
                 
                 <label for="input-password">Senha</label>
-                <input type="password" class="form-control" id="input-password" 
+                <input type="password" name="password" class="form-control" id="input-password" 
                 placeholder="Insira sua senha..." required>
                 
               </div>
               
               <button type="submit" class="btn">Entrar</button>
               <div> 
-                <small>Ainda não sou um<a th:href="@{redirect:/registration?u=aluno}"> aluno </a> ou um <a th:href="@{redirect:/registration?u=professor}"> professor!</a></small>
+                <small>Ainda não sou um<a th:href="@{/registration?u=aluno}"> aluno </a> ou um <a th:href="@{/registration?u=professor}"> professor!</a></small>
               </div>
             </fieldset>
           </form>

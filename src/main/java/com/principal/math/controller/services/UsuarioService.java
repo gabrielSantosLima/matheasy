@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.principal.math.model.entity.Role;
 import com.principal.math.model.entity.Usuario;
 import com.principal.math.model.repository.RoleRepository;
 import com.principal.math.model.repository.UsuarioRepository;
@@ -18,6 +19,9 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRepository>{
 	@Autowired
 	private UsuarioRepository repository;
 
+	@Autowired
+	private SecurityServiceImpl secService;
+	
 	@Autowired
 	private RoleRepository roleRepository;
 	
@@ -36,7 +40,33 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRepository>{
 		return repository.findByUsername(username);
 	}
 	
+	public List<Usuario> findTop10ByRoleOrderByPontuacaoDesc(String role) throws Exception{
+		Optional<Role> papel = roleRepository.findByName(role);
+		
+		if(!papel.isPresent()) {
+			throw new Exception("[usuario-service] Papel não existe!");
+		}
+		
+		return repository.findTop10ByRoleOrderByPontuacaoDesc(papel.get());
+	}
+	
 	public List<Usuario> findTop10ByOrderByPontuacaoDesc(){
 		return repository.findTop10ByOrderByPontuacaoDesc();
+	}
+	
+	public List<Usuario> findContatosById(Integer id){
+		return repository.findContatosById(id);
+	}
+	
+	public Optional<Usuario> findByLoggedinUsername() throws Exception{
+		Optional<Usuario> usuario = findByUsername(secService.findLoggedinUsername());
+		
+		System.out.println(usuario.get().getUsername());
+		
+		if(!usuario.isPresent()) {
+			throw new Exception("[usuario-service] Não há usuário logado ou usuário inexistente!");
+		}
+		
+		return usuario;
 	}
 }

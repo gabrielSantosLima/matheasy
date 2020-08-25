@@ -13,10 +13,14 @@
   <!-- Css -->
   <link rel="stylesheet" th:href="@{/css/Calendario/styles.css}">
   
+	<link rel="stylesheet" th:href="@{/css/fragments/header/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/fragments/footer/styles.css}">
 </head>
-<body data-id-user="${aluno.id}">
+<body data-id-user="${usuario.id}">
+  
   <div class="container">
     <div class="content">
+  	  <!-- <div th:replace="~{fragments/header :: header}"></div> -->
       
       <!-- List Calendário -->
       <div id="calendar-list"></div>
@@ -107,6 +111,10 @@
       </div>
     </div>
   </div>
+  
+  
+  <div th:replace="~{fragments/footer :: footer}"></div>
+  
   
   <!-- Calendar Api -->
   <script th:src='@{/js/FullCalendar/main.js}'></script>

@@ -25,7 +25,7 @@ public class Usuario implements IUsuario {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Column(nullable = false, length = 200)
+	@Column(nullable = false, unique = true, length = 200)
 	private String nome;
 
 	@Column(nullable = true)
@@ -38,23 +38,26 @@ public class Usuario implements IUsuario {
 	@Column(nullable = false, name = "pontuacao")
 	private Integer pontuacao;
 
-	@Column(nullable = false, name = "descricao")
+	@Column(nullable = true, name = "descricao")
 	private String descricao;
 
-	@Column(nullable = false, name = "perfil")
+	@Column(nullable = true, name = "perfil")
 	private byte[] perfil;
 	
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy="usuario")
 	private List<BlocoDeNotas> blocos;
 
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy="usuario")
 	private List<Evento> eventos;
 
 	@OneToMany(mappedBy = "usuario")
 	private List<EstadoEstudo> estados;
 
-	@OneToMany(mappedBy = "usuario")
-	private List<Mensagem> mensagens;
+	@OneToMany(mappedBy="usuario1")
+	private List<Mensagem> mensagens1;
+
+	@OneToMany(mappedBy="usuario2")
+	private List<Mensagem> mensagens2;
 
 	@ManyToMany
 	@JoinTable(
@@ -80,30 +83,27 @@ public class Usuario implements IUsuario {
 		
 	}
 	
-	public Usuario(Integer id, 
-			String nome, 
+	public Usuario(String nome, 
 			Date dataAniversario, 
 			String username,
-			String email, 
-			Integer pontuacao, 
+			String email,
 			String descricao,
-			List<EstadoEstudo> estados, 
-			Role role, String password,
+			String password,
 			String passwordConfirm, 
 			byte[] perfil
 	) {
-		this.id = id;
+		this.id = null;
 		this.nome = nome;
 		this.dataAniversario = dataAniversario;
 		this.username = username;
 		this.email = email;
-		this.pontuacao = pontuacao;
+		this.pontuacao = 0;
 		this.descricao = descricao;
 		this.blocos = null;
 		this.eventos = null;
-		this.estados = estados;
-		this.mensagens = null;
-		this.role = role;
+		this.estados = null;
+		this.mensagens1 = null;
+		this.mensagens2 = null;
 		this.password = password;
 		this.perfil = perfil; 
 		this.passwordConfirm = passwordConfirm;
@@ -149,12 +149,20 @@ public class Usuario implements IUsuario {
 		this.estados = estados;
 	}
 
-	public List<Mensagem> getMensagens() {
-		return mensagens;
+	public List<Mensagem> getMensagens1() {
+		return mensagens1;
 	}
 
-	public void setMensagens(List<Mensagem> mensagens) {
-		this.mensagens = mensagens;
+	public void setMensagens1(List<Mensagem> mensagens1) {
+		this.mensagens1 = mensagens1;
+	}
+
+	public List<Mensagem> getMensagens2() {
+		return mensagens2;
+	}
+	
+	public void setMensagens2(List<Mensagem> mensagens2) {
+		this.mensagens2 = mensagens2;
 	}
 
 	public Integer getId() {

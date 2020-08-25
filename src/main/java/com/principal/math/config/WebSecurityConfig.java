@@ -3,8 +3,6 @@ package com.principal.math.config;
 
 import java.util.Arrays;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		.antMatchers("/resources/**",
 //				"/login",
 //				"/",
+//				"/templates/fragments/**",
 //				"/img/**",
 //				"/css/**", 
 //				"/assets/**", 
@@ -51,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		.and()
 //		.formLogin()
 //			.loginPage("/login")
+//			.defaultSuccessUrl("/home")
 //			.failureUrl("/login?error=true")
 //			.permitAll()
 //		.and()
@@ -58,7 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //			.logoutSuccessUrl("/login?logout=true")
 //			.permitAll();
 
-		http.authorizeRequests()
+		http.cors()
+			.and()
+			.authorizeRequests()
 			.antMatchers("/**")
 			.permitAll()
 			.and()

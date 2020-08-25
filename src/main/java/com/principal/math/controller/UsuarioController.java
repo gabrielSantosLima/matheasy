@@ -1,11 +1,11 @@
 package com.principal.math.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,16 +40,22 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/registration")
-	public String registration(@ModelAttribute("usuario") Usuario usuario,
-	BindingResult bindingResult, HttpSession session, String role) {
+	public String registration(@ModelAttribute("usuario") Usuario usuario, 
+			String tipo, 
+			Model model
+		) {
+		Optional<Usuario> existsUsuario = usuarioService.findByUsername(usuario.getUsername());
 		
-		if(bindingResult.hasErrors()) {
-			return "Homepage/index";
+		if(existsUsuario.isPresent()) {
+			model.addAttribute("error", "Nome de usuário já existe!");
+			return "redirect:/registration:u="+tipo;
 		}
 		
-		Usuario createdUsuario = usuarioService.save(usuario, role);
-		
-		session.setAttribute("USER_ID", createdUsuario.getId());
+		if(tipo == "aluno") {
+			usuarioService.save(usuario, "ROLE_ALUNO");			
+		}else {
+			usuarioService.save(usuario, "ROLE_PROFESSOR");						
+		}
 		
 		securityService.autoLogin(usuario.getUsername(), usuario.getPassword());
 		
@@ -60,6 +66,7 @@ public class UsuarioController {
 	private String login(Model model, String error, String logout) {
 		
 		if (error != null) {
+			System.out.println(error);
 			model.addAttribute("error", "Usuário ou senha inválidos!");
 		}
 		if (logout != null) {

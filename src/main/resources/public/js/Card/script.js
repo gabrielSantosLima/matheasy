@@ -144,7 +144,7 @@ function prepareForEdit(idCard) {
     const elm = findCardById(idCard);
     
     if(elm){    	
-    	$('#form-edicao').attr('action', '/card/'+ idCard);
+    	$('#form-edicao').attr('action', '/blocos/'+ idCard);
     	$('#title').val(elm.title);
     	$('#area').val(elm.text);
     }

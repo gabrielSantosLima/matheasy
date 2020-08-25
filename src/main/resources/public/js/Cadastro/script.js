@@ -53,3 +53,16 @@
       $('#area-professor').addClass('d-none');  
       return;
     }
+    
+    $('form').on('submit', event => {
+    	const isValid = $('#input-password').val() == $('#input-confirm-password').val()
+    	
+    	if(isValid){
+    		return;
+    	}
+    	
+    	event.preventDefault();
+    	
+    	$('#input-confirm-password').addClass('is-invalid')
+    })
+    

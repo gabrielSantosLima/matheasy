@@ -1,26 +1,33 @@
 package com.principal.math.config;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import com.principal.math.controller.services.ModuloService;
 import com.principal.math.enums.AnoCurso;
 import com.principal.math.model.entity.Modulo;
 import com.principal.math.model.repository.ModuloRepository;
 
-//@Component
+@Component
+@SuppressWarnings(value = "unused")
+@Order(1)
 public class LoadModulos implements ApplicationRunner{
 
 	@Autowired
-	private ModuloRepository repository;
+	private ModuloService service;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		//id, titulo, subconteudos, ano, aluno, atividades
 		
 		//Sexto Ano
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Números Naturais e Operações com números naturais",
 		"<li><a>Representação Geométrica dos números naturais</a></li>"+
 		"<li><a>Operações com números naturais</a></li>"+
@@ -32,7 +39,7 @@ public class LoadModulos implements ApplicationRunner{
 		"nn"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Números racionais",
 		"<li><a>Notação</a></li>"+
 		"<li><a>Leitura e Classificação</a></li>"+
@@ -46,7 +53,7 @@ public class LoadModulos implements ApplicationRunner{
 		"nr"
 		));
 
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Matemática Financeira",
 		"<li><a>Noções de porcentagem</a></li>"+
 		"<li><a>Situações práticas com porcentagem</a></li>"+
@@ -58,7 +65,7 @@ public class LoadModulos implements ApplicationRunner{
 		"mf"
 		));
 
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Unidades de Medida",
 		"<li><a>Medidas de comprimento</a></li>"+
 		"<li><a>Medidas de massa</a></li>"+
@@ -70,7 +77,7 @@ public class LoadModulos implements ApplicationRunner{
 		"um"
 		));
 
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Geometria Plana e Espacial",
 		"<li><a>Ponto, reta e plano</a></li>"+
 		"<li><a>Retas paralelas e perpendiculares</a></li>"+
@@ -84,7 +91,7 @@ public class LoadModulos implements ApplicationRunner{
 		"gpe"
 		));
 
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Sistema Cartesiano e Estatística",
 		"<li><a>Como fazer um plano cartesiano?</a></li>"+
 		"<li><a>Localizar no plano cartesiano</a></li>"+
@@ -98,7 +105,7 @@ public class LoadModulos implements ApplicationRunner{
 		));
 
 		//Sétimo Ano
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Números Inteiros e Operações com números inteiros",
 		"<li><a>Representação geométrica dos números inteiros</a></li>"+
 		"<li><a>Número oposto</a></li>"+
@@ -110,7 +117,7 @@ public class LoadModulos implements ApplicationRunner{
 		"ni"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Números racionais e operações com números racionais",
 		"<li><a>Representação geométrica dos números racionais</a></li>"+
 		"<li><a>Números decimais</a></li>"+
@@ -121,7 +128,7 @@ public class LoadModulos implements ApplicationRunner{
 		"nr"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Matemática Financeira",
 		"<li><a>Razão e proporção</a></li>"+
 		"<li><a>Grandezas</a></li>"+
@@ -134,7 +141,7 @@ public class LoadModulos implements ApplicationRunner{
 		"mf"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Geometria plana e espacial",
 		"<li><a>Ângulos</a></li>"+
 		"<li><a>Ângulos Congruentes</a></li>"+
@@ -150,7 +157,7 @@ public class LoadModulos implements ApplicationRunner{
 		));
 		
 		//Oitavo Ano
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Números reais",
 		"<li><a>Potenciação</a></li>"+
 		"<li><a>Radiciação</a></li>"+
@@ -163,7 +170,7 @@ public class LoadModulos implements ApplicationRunner{
 		"nr"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Álgebra",
 		"<li><a>Simplificação de expressões algébricas</a></li>"+
 		"<li><a>Monômios</a></li>"+
@@ -181,7 +188,7 @@ public class LoadModulos implements ApplicationRunner{
 		"a"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Geometria plana e espacial",
 		"<li><a>Polígonos</a></li>"+
 		"<li><a>Triângulo</a></li>"+
@@ -196,7 +203,7 @@ public class LoadModulos implements ApplicationRunner{
 		"ge"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Estatística e probabilidade",
 		"<li><a>Gráfico e Tabela</a></li>"+
 		"<li><a>Média aritmética e ponderada</a></li>"+
@@ -209,7 +216,7 @@ public class LoadModulos implements ApplicationRunner{
 		));
 		
 		//Nono Ano
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Radiciação",
 		"<li><a>Definição</a></li>"+
 		"<li><a>Propriedades da radiciação</a></li>",
@@ -219,7 +226,7 @@ public class LoadModulos implements ApplicationRunner{
 		"nn"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Potenciação",
 		"<li><a>Definição<a></li>"+
 		"<li><a>Propriedades da potencição<a></li>",
@@ -229,7 +236,7 @@ public class LoadModulos implements ApplicationRunner{
 		"p"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Unidades de medida",
 		"<li><a>Medidas em informática<a></li>",
 		AnoCurso.NONO_ANO,
@@ -238,7 +245,7 @@ public class LoadModulos implements ApplicationRunner{
 		"um"
 		));
 
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Geometria plana e espacial",
 		"<li><a>Teorema de Tales<a></li>"+
 		"<li><a>Teorema de pitágoras<a></li>"+
@@ -257,7 +264,7 @@ public class LoadModulos implements ApplicationRunner{
 		"gpe"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Álgebra",
 		"<li><a>Equação do segundo grau<a></li>"+
 		"<li><a>Equação Biquadrada<a></li>"+
@@ -268,7 +275,7 @@ public class LoadModulos implements ApplicationRunner{
 		"a"
 		));
 		
-		repository.save(new Modulo(null, 
+		createModuloIfNotExists(new Modulo(null, 
 		"Noção de funções",
 		"<li><a>Coordenadas Cartesianas<a></li>"+
 		"<li><a>Construção de um gráfico de funções<a></li>"+
@@ -281,4 +288,17 @@ public class LoadModulos implements ApplicationRunner{
 		));
 	}
 
+	private Modulo createModuloIfNotExists(Modulo newModulo) {
+		Optional<Modulo> modulo = service
+				.findBySiglaAndAno(
+						newModulo.getAno(),
+						newModulo.getSigla()
+				);
+		
+		if(modulo.isPresent()) {
+			return modulo.get();
+		}
+		
+		return service.save(newModulo);
+	}
 }

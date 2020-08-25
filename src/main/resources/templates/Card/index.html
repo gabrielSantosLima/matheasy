@@ -9,9 +9,14 @@
 	<link rel="stylesheet" th:href="@{/css/Card/styles.css}">
 	<link rel="stylesheet" th:href="@{/js/dragula/dragula.min.css}">
 	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
+	<link rel="stylesheet" th:href="@{/css/fragments/header/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/fragments/footer/styles.css}">
 </head>
 
 <body>
+
+  <!--<div th:replace="~{fragments/header :: header}"></div>-->
+    
 	<div class="container">
 		<div class="container-sec">
 			<nav class="nav">
@@ -37,7 +42,7 @@
 						<div class="card-footer">
 							<footer>
 								<a class="bt-deletar"
-									th:href="@{'aluno/'+ ${id} +'/blocos/' + ${card.id}}"> <i
+									th:href="@{'/blocos/' + ${card.id}}"> <i
 									class="large material-icons">delete</i>
 								</a>
 							</footer>
@@ -50,7 +55,7 @@
 		<div class="container-opened">
 
 			<form id="form-edicao"
-				th:action="@{'redirect:/aluno/'+ ${id} +'/blocos/0'}"
+				th:action="@{/blocos/}"
 				th:object="${card}" th:method="POST">
 				<div class="card-edicao">
 					<div class="card-body">
@@ -78,8 +83,10 @@
 		</div>
 	</div>
 
+  	<div th:replace="~{fragments/footer :: footer}"></div>    
+
 	<script th:src="@{/js/jquery/jquery-3.5.1.min.js}"></script>
-	<script th:src="@{/js/dragula/dragula.min.js}"></script>
+	<script th:src="@{/js/dragula/dragula.js}"></script>
 	<script th:src="@{/js/Card/script.js}"></script>
 </body>
 </html>

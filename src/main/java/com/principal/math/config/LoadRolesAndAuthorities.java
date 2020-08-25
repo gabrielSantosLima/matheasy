@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.principal.math.model.entity.Authorities;
@@ -16,6 +17,7 @@ import com.principal.math.model.repository.AuthoritiesRepository;
 import com.principal.math.model.repository.RoleRepository;
 
 @Component
+@Order(1)
 public class LoadRolesAndAuthorities implements ApplicationRunner{
 
 	@Autowired

@@ -7,97 +7,17 @@
     <title>MathEasy</title>
     <link rel="stylesheet" th:href="@{/css/Assuntos/styles.css}">
     <link rel="stylesheet" th:href="@{/css/global-styles.css}">
-    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+    <link rel="shortcut icon" th:href="@{/assets/picture.ico}">
     <link rel="stylesheet" th:href="@{/css/bootstrap-4.5.0-dist/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css}">
+	<link rel="stylesheet" th:href="@{/css/fragments/header/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/fragments/footer/styles.css}">
 </head>
 
-<body>
-	<header>
-    <div class="wrapper">
-      <div class="top_menu">
-        <nav class="navbar navbar-expand-lg navbar-light" id="gadient">
-          <a class="navbar-brand" th:href="@{~/img/logouno.png}"><img th:src="@{~/img/logouno.png}"></a>
-    <label for="check"><i class="fas fa-bars" id="sidebar_btn"></i></label>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" th:href="@{#}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  SÉRIES
-                </a>
-                <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdown" style="background-color: black">
-                    <div class="row">
-                      <div class="col-md-2">
-                        <p><strong class="sub-menu-heading">6ºano</strong></p>
-                        <p><a th:href="@{#}">Números Naturais</a></p>
-                        <p><a th:href="@{#}">Operações</a></p>
-                        <p><a th:href="@{#}">Sequências</a></p>
-                        <p><a th:href="@{#}">Introdução a Números Racionais</a></p>
-                        <p><a th:href="@{#}">Matemática Financeira</a></p>
-                        <p><a th:href="@{#}">Unidades de medidas</a></p>
-                        <p><a th:href="@{#}">Geometria Plana</a></p>
-                        <p><a th:href="@{#}">Geometria Espacial</a></p>
-                        <p><a th:href="@{#}">Sistema Cartesiano</a></p>
-                        <p><a th:href="@{#}">Estatística</a></p>
-                      </div>
-                      <div class="col-md-2">
-                        <p><strong class="sub-menu-heading">7ºano</strong></p>
-                        <p><a th:href="@{#}">Números Inteiros</a></p>
-                        <p><a th:href="@{#}">Operações</a></p>
-                        <p><a th:href="@{#}">Números Racionais</a></p>
-                        <p><a th:href="@{#}">Operações</a></p>
-                        <p><a th:href="@{#}">Matemática Financeira</a></p>
-                        <p><a th:href="@{#}">Álgebra</a></p>
-                        <p><a th:href="@{#}">Geometria Plana</a></p>
-                        <p><a th:href="@{#}">Geometria Espacial</a></p>
-                        <p><a th:href="@{#}">Sistema Cartesiano</a></p>
-                        <p><a th:href="@{#}">Estatística</a></p>
-                        <p><a th:href="@{#}">Probabilidade</a></p>
-                      </div>
-                      <div class="col-md-2">
-                        <p><strong class="sub-menu-heading">8ºano</strong></p>
-                        <p><a th:href="@{#}">Números Reais</a></p>
-                        <p><a th:href="@{#}">Álgebra</a></p>
-                        <p><a th:href="@{#}">Geometria Plana</a></p>
-                        <p><a th:href="@{#}">Geometria Espacial</a></p>
-                        <p><a th:href="@{#}">Estatística</a></p>
-                        <p><a th:href="@{#}">Probabilidade</a></p>
-                      </div>
-                      <div class="col-md-2">
-                        <p><strong class="sub-menu-heading">9ºano</strong></p>
-                        <p><a th:href="@{#}">Operações</a></p>
-                        <p><a th:href="@{#}">Unidades de medidas</a></p>
-                        <p><a th:href="@{#}">Álgebra</a></p>
-                        <p><a th:href="@{#}">Noções de funções</a></p>
-                        <p><a th:href="@{#}">Geometria Plana</a></p>
-                        <p><a th:href="@{#}">Trigonometria</a></p>
-                        <p><a th:href="@{#}">Geometria Espacial</a></p>
-                        <p><a th:href="@{#}">Estatística</a></p>
-                        <p><a th:href="@{#}">Probabilidade</a></p>
-                      </div>
-                    </div> 
-                </div>
-              </li>
-              <li class="nav-item atual"><a class="nav-link" name="conteudo" th:href="@{#}">CONTEÚDO</a></li>
-              <li class="nav-item"><a class="nav-link" name="quiz" th:href="@{#}">MENSAGENS</a></li>
-              <li class="nav-item"><a class="nav-link" name="calendario" th:href="@{#}">CALENDÁRIO</a></li>
-              <li class="nav-item"><a class="nav-link" name="calendar" th:href="@{/aluno/0/blocos}">ANOTAÇÕES</a></li>
-              <li class="nav-item"><a class="nav-link" name="rank" th:href="@{#}">RANKING</a></li>
-              </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar..." aria-label="Search">
-                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
-              </form>
-          </div>
-        </nav>
-      </div>
-      </div>
-    </header>
-	
+<body>	
+
+  <div th:replace="~{fragments/header :: header}"></div>
+    
     <!--Div fixa dedicada exclusivamente a lista lateral-->
     <div class="list-assuntos">
 		<ul class="assuntos p-3">
@@ -116,7 +36,6 @@
     <script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap-4.5.0-dist/js/bootstrap.min.js}"></script>
     
-    
     <script type="text/javascript">
       $(document).ready(function () {
         $('.nav_btn').click(function () {
@@ -124,6 +43,8 @@
         });
       });
     </script>
+    
+  <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 
 </html>

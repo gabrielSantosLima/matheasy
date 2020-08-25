@@ -10,4 +10,5 @@ import com.principal.math.model.entity.Role;
 public interface RoleRepository extends GenericRepository<Role, Long>{
 
 	Optional<Role> findByName(String name);
+	
 }

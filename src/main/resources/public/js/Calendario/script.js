@@ -1,7 +1,7 @@
 let calendar;
 let calendarList;
 let idToUpdate;
-const { idUser } = document.body.dataset;
+let idUser;
 
 const setCalendar = (events = []) => {
   const calendarEl = document.querySelector('#calendar');
@@ -139,11 +139,13 @@ const deleteEvent = async(id) => {
 
 const listEvents = async () => {
   const response = await fetch(`http://localhost:8080/aluno/${idUser}/eventos/`)
-  const data = response.json()
+  const data = await response.json()
 
   return data;
 }
- listEvents();
+
+//listEvents();
+
 //Evento formulário
 const Formulario = {
   
@@ -210,24 +212,24 @@ const Formulario = {
     });
     
     //Monta o calendário inicial
-    $(document).on('DOMContentLoaded', async() => {
-      let eventos;
-
-      await listEvents()
-      .then(data => eventos = data);
+    $(document).on('DOMContentLoaded', async () => {
+      const eventos = await listEvents()
+      
+      userId = $(document.body).data('userId')
       
       console.log(eventos)
+      console.log(userId)
 
-      eventos = eventos.map(evento => {
-        return {
-          id: evento.id,
-          title: evento.title,
-          start: evento.start,
-          end: evento.end
-        }
-      })
-
-      setCalendar(eventos);
+//      eventos = eventos.map(evento => {
+//        return {
+//          id: evento.id,
+//          title: evento.title,
+//          start: evento.start,
+//          end: evento.end
+//        }
+//      })
+//
+//      setCalendar(eventos);
     });
   }
 }

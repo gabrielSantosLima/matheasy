@@ -2,14 +2,19 @@ package com.principal.math.util;
 
 import java.util.Calendar;
 
-import ch.qos.logback.core.util.LocationUtil;
-
 public class MessageModel {
 
 	private String content;
 	private String time;
 	private String from;
 	private Integer userId;
+	
+	public MessageModel(String content, String time, String from, Integer userId) {
+		this.content = content;
+		this.time = time;
+		this.from = from;
+		this.userId = userId;
+	}
 	
 	public Integer getUserId() {
 		return userId;

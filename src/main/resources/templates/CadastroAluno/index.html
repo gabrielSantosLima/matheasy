@@ -16,8 +16,11 @@
     <div class="content d-flex justify-content-end">
       <div class="card col-7 ml-0">
         <div class="card-body">
-          <form th:action="@{/aluno/registration?u=aluno}" th:method="POST" th:object="${usuario}">
+          <form th:action="@{/registration?tipo=aluno}" th:method="POST" th:object="${usuario}">
             <legend>Cadastrar-se como Aluno</legend>
+            <td>
+	            <div class="alert alert-danger" th:if="${error} != null">Usuário ou senha incorretos!</div>
+            </td>
             <fieldset>
               <div class="form-group">
                 

@@ -1,36 +1,45 @@
 package com.principal.math.controller;
 
-import javax.servlet.http.HttpSession;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.principal.math.controller.services.UsuarioService;
 import com.principal.math.model.entity.Usuario;
 
-@Controller("/aluno/pontuacao")
+@RestController
+@CrossOrigin
+@RequestMapping(path= "/pontuacao" )
 public class PontuacaoController {
 	
 	@Autowired
-	private UsuarioService usuarioService;
+	private UsuarioService service;
 	
-	@PostMapping(path = {"/", ""}, consumes= MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Usuario> setPontuacao(@RequestBody Integer point, HttpSession session) {
-		Integer id = (Integer) session.getAttribute("USER_ID");
-		Usuario usuario = usuarioService.findById(id).get();
-		
+	@GetMapping(path = {"/",""})
+	public ResponseEntity<Usuario> setPontuacao(Integer point) {
 		try {
+			Optional<Usuario> usuario = service.findByLoggedinUsername();
 			
-			usuario.setPontuacao(usuario.getPontuacao() + point);
-			Usuario updatedUsuario = usuarioService.update(id, usuario);
+			if(!usuario.isPresent()) {
+				return ResponseEntity.badRequest().build();				
+			}
 			
-			return ResponseEntity.ok(updatedUsuario);
+			usuario.get()
+				.setPontuacao(usuario.get().getPontuacao() + point);
+			
+			service.update(
+					usuario.get().getId(), 
+					usuario.get()
+			);
+			
+			return ResponseEntity.ok().build();
 		}catch(Exception e){
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.status(402).build();
 		}
 		
 	}

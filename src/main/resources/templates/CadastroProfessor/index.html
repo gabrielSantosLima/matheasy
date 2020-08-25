@@ -16,8 +16,11 @@
     <div class="content d-flex justify-content-end">
       <div class="card col-7 ml-0">
         <div class="card-body">
-          <form th:action="@{/professor/registration?u=professor}" th:method="POST" th:object="${usuario}">
+          <form th:action="@{/registration?tipo=professor}" th:method="POST" th:object="${usuario}">
             <legend>Cadastrar-se como Professor</legend>
+            <td>
+	            <div class="alert alert-danger" th:if="${error} != null">Usuário ou senha incorretos!</div>
+            </td>
             <fieldset>
               <div class="form-group">
                 
@@ -70,15 +73,7 @@
               </div>
             </fieldset>
             <fieldset>
-              <div class="row">  
-                <!-- <div class="col">
-                  <label for="select">Tipo de usuário</label>
-                  <select id="select" class="custom-select" name="tipo">
-                    <option value="aluno">Aluno</option>
-                    <option value="professor">Professor</option>
-                  </select>
-                </div> -->
-                
+              <div class="row">
                 <div class="col" id="area-professor">
                   <div class="form-group">
                     <label for="input-formacao">Fale um pouco sobre você</label>

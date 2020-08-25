@@ -1,6 +1,7 @@
 package com.principal.math.controller.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,9 @@ public class AtividadeService extends GenericService<Atividade, AtividadeReposit
 		Atividade createdAtividade = save(atividade);
 		
 		return createdAtividade;
+	}
+	
+	public Optional<Atividade> findByAnswer(String answer){
+		return repository.findByAnswer(answer);
 	}
 }

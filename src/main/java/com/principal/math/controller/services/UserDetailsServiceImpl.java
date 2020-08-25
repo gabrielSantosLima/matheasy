@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UsuarioService usuarioService;
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Usuario> usuario = usuarioService.findByUsername(username);
 

@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
-  <link rel="stylesheet" th:href="@{/css/Homepage/styles.css}">
+  <link rel="shortcut icon" th:href="@{/assets/picture.ico}">
+  <link rel="stylesheet" th:href="@{/css/LandingPage/styles.css}">
+  <link rel="stylesheet" th:href="@{/css/fragments/footer/styles.css}">
   <title>MathEasy</title>
 </head>
 <body>
@@ -109,32 +110,8 @@
     </div>
   </section>
   
-  <section id="footer">
-    <div class="footer container">
-      <a class="brand" th:href="@{#}">
-        <img th:src="@{/img/logouno.png}">
-      </a>
-      <h2>Nossas Redes Sociais</h2>
-      <div class="social-icon">
-        <div class="social-item">
-          <a th:href="@{#}">
-            <img th:src="@{https://img.icons8.com/color/48/000000/facebook-circled.png}"/>
-          </a>
-        </div>
-        <div class="social-item">
-          <a th:href="@{#}">
-            <img th:src="@{https://img.icons8.com/fluent/48/000000/instagram-new.png}"/>
-          </a>
-        </div>
-        <div class="social-item">
-          <a th:href="@{#}">
-            <img th:src="@{https://img.icons8.com/fluent/48/000000/twitter.png}"/>
-          </a>
-        </div>
-      </div>
-      <p>Copyright &copy; 2020</p>
-    </div>
-  </section>
+  <div th:replace="~{fragments/footer :: footer}"></div>
+  
   <script th:src="@{/js/Homepage/script.js}"></script>
 </body>
 </html>
