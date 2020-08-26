@@ -100,7 +100,7 @@ const addEvent = async (data) => {
 	  body: JSON.stringify(data)
   })
   
-  if(resp.status === 200){
+  if(resp.status !== 200){
 	  calendar.addEvent(data)
 	  calendarList.addEvent(data)
   }
@@ -164,7 +164,7 @@ const Formulario = {
       const end = $('#end').val()
       
       const data = {
-    	key: '12',
+    	key: '0',
         title,
         start,
         end

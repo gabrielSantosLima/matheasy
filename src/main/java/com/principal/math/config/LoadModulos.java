@@ -40,7 +40,7 @@ public class LoadModulos implements ApplicationRunner{
 		));
 		
 		createModuloIfNotExists(new Modulo(null, 
-		"Números racionais",
+		"Números fracionários",
 		"<li><a>Notação</a></li>"+
 		"<li><a>Leitura e Classificação</a></li>"+
 		"<li><a>Operações com frações</a></li>"+
@@ -50,7 +50,7 @@ public class LoadModulos implements ApplicationRunner{
 		AnoCurso.SEXTO_ANO,
 		null,
 		null,
-		"nr"
+		"nf"
 		));
 
 		createModuloIfNotExists(new Modulo(null, 

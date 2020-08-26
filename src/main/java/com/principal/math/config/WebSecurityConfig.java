@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
+		http.cors().and().authorizeRequests()
 		.antMatchers("/resources/**",
 				"/login",
 				"/",
@@ -43,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/js/**",
 				"/registration",
 				"/chat/**",
+				"/eventos",
 				"/conteudo/**",
 				"/Conteudos/6/**",
 				"/Conteudos/7/**",
@@ -60,7 +61,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.logout()
 			.logoutSuccessUrl("/login?logout=true")
-			.permitAll();
+			.permitAll()
+			.and()
+			.httpBasic();
 
 //		http.cors()
 //			.and()
@@ -86,8 +89,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("/**"));
-		configuration.setAllowedMethods(Arrays.asList("GET","POST", "DELETE", "HEAD", "PUT", "MESSAGE"));
+		configuration.setAllowedOrigins(Arrays.asList("/**", "http://localhost:8080/eventos"));
+		configuration.setAllowedMethods(Arrays.asList("GET","POST", "DELETE", "HEAD", "PUT", "OPTIONS", "MESSAGE"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("*", configuration);
 		return source;

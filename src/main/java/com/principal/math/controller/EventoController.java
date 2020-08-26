@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@CrossOrigin
 @RequestMapping("/eventos")
 public class EventoController {
 
@@ -36,6 +35,7 @@ public class EventoController {
 	private UsuarioService usuarioService;
 
 	@GetMapping("/view")
+	@CrossOrigin
 	public ModelAndView view() {
 		try {	
 			ModelAndView mv = new ModelAndView("Calendario/index");
@@ -88,19 +88,18 @@ public class EventoController {
 				return ResponseEntity.badRequest().build();				
 			}
 			
-			Evento createdEvento = service.save(evento, usuario.get());
+			service.save(evento, usuario.get());
 			
-			createdEvento.setUsuario(null);
-			
-			return ResponseEntity.ok(createdEvento);
+			return ResponseEntity.ok().build();
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			return ResponseEntity.badRequest().build();
 		}
 	}
 
 	// Update
 	@PutMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
+	@CrossOrigin
 	@ResponseBody
 	public ResponseEntity<Evento> update(@RequestBody Evento evento) {
 

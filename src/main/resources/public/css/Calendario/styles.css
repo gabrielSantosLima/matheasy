@@ -110,8 +110,6 @@ button:hover{
 .modificar-evento #form fieldset .input-group input{
   width: 68%;
   
-  font-size: 10px;
-	
   color: black;
   background: var(--cor-input);
 }
@@ -265,10 +263,10 @@ button:hover{
 .container #form fieldset .input-group input{
   font-style: normal;
   font-weight: normal;
-  font-size: 1.6rem;
+  font-size: 0.8rem;
   line-height: 2.7rem;
   
-  width: 100%;
+  width: 90%;
   
   outline: none;
   

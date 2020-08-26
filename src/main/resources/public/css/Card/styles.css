@@ -4,6 +4,7 @@ body,
 .container-cards {
     font-family: sans-serif;
     margin: 0px;
+    margin-top: 5px;
     padding: 0px;
     width: 100%;
     box-sizing: border-box;
@@ -145,6 +146,10 @@ h2 {
     box-shadow: 0.5px 0px 3px 0.3px #ececeb;
     margin: 10px 1% 10px 6%;
     animation: animacao-card 0.5s linear;
+}
+
+.bt-deletar{
+	background: transparent;
 }
 
 .card{

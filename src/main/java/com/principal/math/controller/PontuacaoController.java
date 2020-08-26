@@ -13,7 +13,6 @@ import com.principal.math.controller.services.UsuarioService;
 import com.principal.math.model.entity.Usuario;
 
 @RestController
-@CrossOrigin
 @RequestMapping(path= "/pontuacao" )
 public class PontuacaoController {
 	
@@ -29,15 +28,13 @@ public class PontuacaoController {
 				return ResponseEntity.badRequest().build();				
 			}
 			
-			if(usuario.get().getRole().getName() == "ROLE_ALUNO") {
-				usuario.get()
+			usuario.get()
 				.setPontuacao(usuario.get().getPontuacao() + point);
 				
 				service.update(
 						usuario.get().getId(), 
 						usuario.get()
-						);				
-			}
+						);
 			
 			return ResponseEntity.ok().build();
 		}catch(Exception e){
