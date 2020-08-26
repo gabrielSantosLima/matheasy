@@ -18,4 +18,6 @@ public interface UsuarioRepository extends GenericRepository<Usuario, Integer>{
 	List<Usuario> findTop10ByRoleOrderByPontuacaoDesc(Role role);
 	
 	List<Usuario> findTop10ByOrderByPontuacaoDesc();
+	
+	List<Usuario> findByRoleOrderByPontuacaoDesc(Role role);
 }

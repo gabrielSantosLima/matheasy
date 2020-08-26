@@ -2,12 +2,10 @@ package com.principal.math.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-@CrossOrigin
 public class ConteudosController {
 	
 	@GetMapping(path = "/conteudo/{ano}/{conteudo}", produces = MediaType.TEXT_HTML_VALUE)

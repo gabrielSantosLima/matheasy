@@ -75,8 +75,8 @@ public class MensagemController {
     	try {
 			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
 			
-			mv.addObject("contatos", usuario.get().getContatos());
-    	} catch (Exception e) {
+			mv.addObject("usuario", usuario.get());
+		} catch (Exception e) {
 			e.printStackTrace();
 			
 		}

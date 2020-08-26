@@ -1,0 +1,152 @@
+:root{
+	--button-background: rgb(16, 121, 153);
+	--button-text: #fff;
+	--background: rgba(32, 83, 131, 0.664);
+	--text: white;
+}
+
+body
+{
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Roboto', sans-serif;
+}
+
+#help{
+	background: var(--background);
+	
+}
+
+#help .cards
+{
+	display: grid;
+	padding: 20px;
+	  max-width: 100%;
+	  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+   margin: 0 auto;
+}
+#help .cards .box
+{
+	position: relative;
+	width: 100%;
+	height: 400px;
+	margin: 20px 0;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+#help .cards .box .imgBx
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 280px;
+	height: 100%;
+
+	clip-path: circle(400px at center 100px);
+	transition: 0.5s;
+	transition-delay: 0.5s;
+}
+#help .cards .box:hover .imgBx
+{
+	clip-path: circle(80px at center 100px);
+	transition-delay: 0s;
+}
+#help .cards .box:hover .imgBx img
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+#help .cards .box .content
+{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 270px;
+	height: 55%;
+	padding: 20px;
+	box-sizing: border-box;
+	text-align: center;
+	color: var(--text);
+}
+#help .cards .box .content h2
+{
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+
+}
+
+#help .cards .box .content p{
+	font-size: 13px;
+}
+
+#help .cards .box .content a button
+{
+	text-decoration: none;
+	background: var(--button-background);
+	color: var(--button-text);
+	padding: 5px;
+	display: inline-block;
+	cursor: pointer;
+	border: none;
+	outline: none;
+}
+
+
+#help .cards .box .content h2,
+#help .cards .box .content p,
+#help .cards .box .content a
+{
+	opacity: 0;
+	transition: 0.5s;
+	transform: translateY(20px);
+}
+#help .cards .box:hover .content h2
+{
+	opacity: 1;
+	transform: translateY(0px);
+	transition-delay: 0.5s;
+}
+#help .cards .box:hover .content p
+{
+	opacity: 1;
+	transform: translateY(0px);
+	transition-delay: 0.7s;
+}
+#help .cards .box:hover .content a
+{
+	opacity: 1;
+	transform: translateY(0px);
+	transition-delay: 0.9s;
+}
+
+#help #sobre
+{
+	display: flex;
+	flex-direction: column;
+	text-align: justify;
+	padding: 20px;
+	width: 67%;
+	margin: 0 auto;
+	color: var(--text);
+
+}
+
+#help #sobre h2,
+#help #sobre h3{
+	margin-bottom: 20px;
+	padding: 20px;
+	text-align: center;
+}
+
+
+#help .icon{
+	display: grid;
+}

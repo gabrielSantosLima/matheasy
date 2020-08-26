@@ -68,7 +68,7 @@ function addMessage(message){
 function receiveMessage(message){
   const messageDOM = `
   <div class="other-message">
-  <img src="http://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Free-Download.png" alt="User" class="logo">
+  <img src="http://http://localhost:8080/assets/icons/do-utilizador.svg" alt="User" class="logo">
   <strong>${message.from}</strong>
   <p>${message.content}</p>
   </div>

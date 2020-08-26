@@ -13,14 +13,16 @@
   <!-- Css -->
   <link rel="stylesheet" th:href="@{/css/Calendario/styles.css}">
   
-	<link rel="stylesheet" th:href="@{/css/fragments/header/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap-4.5.0-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/header/styles.css}">
 	<link rel="stylesheet" th:href="@{/css/fragments/footer/styles.css}">
 </head>
-<body data-id-user="${usuario.id}">
+<body>
+  
+  <div th:replace="~{fragments/header :: header}"></div>
   
   <div class="container">
     <div class="content">
-  	  <!-- <div th:replace="~{fragments/header :: header}"></div> -->
       
       <!-- List Calendário -->
       <div id="calendar-list"></div>
@@ -127,5 +129,6 @@
   
   <!-- Js -->
   <script th:src="@{/js/Calendario/script.js}"></script>
+  
 </body>
 </html>

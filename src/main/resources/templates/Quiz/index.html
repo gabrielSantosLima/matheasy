@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="shortcut icon" href="/assets/picture.ico">
-
+    <link rel="stylesheet" th:href="@{/css/Quiz/styles.css}">
+    <link rel="shortcut icon" th:href="@{/assets/picture.ico}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap-4.5.0-dist/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/fragments/header/styles.css}">
+	<link rel="stylesheet" th:href="@{/css/fragments/footer/styles.css}">
 </head>
 
-<body data-id-modulo="2">
+<body th:data-id-modulo="${id}">
+
+  <div th:replace="~{fragments/header :: header}"></div>
+    
     <div class="home-box custom-box">
         <h3> <span class="assunto">Assunto do Quiz</span> </h3>
         <p>Responda todas as questões para um bom rendimento. Número de Questões: <span class="total-question">4</span></p>
@@ -26,11 +31,11 @@
         </p>
 
         <div class="option-container" id="option-container" data-correct-index="0">
-            <p class="option" data-index="1">Resposta</p>
-            <p class="option" data-index="2">Resposta</p>
-            <p class="option" data-index="3">Resposta</p>
-            <p class="option" data-index="4">Resposta</p>
-            <p class="option" data-index="5">Resposta</p>
+            <p class="alternativa" data-index="1">Resposta</p>
+            <p class="alternativa" data-index="2">Resposta</p>
+            <p class="alternativa" data-index="3">Resposta</p>
+            <p class="alternativa" data-index="4">Resposta</p>
+            <p class="alternativa" data-index="5">Resposta</p>
         </div>
         <div class="next-btn">
             <button type="button" class="btn" id="next">Próxima</button>
@@ -65,13 +70,15 @@
         </table>
 
         <button type="button" class="btn" id="again">Tentar Novamente</button>
-        <a href="/">
+        <a th:href="@{/home}">
             <button type="button" class="btn">Voltar aos Estudos</button>
         </a>
     </div>
 
-    <script src="./../../jquery/jquery-3.5.1.min.js"></script>
-    <script src="./script.js"></script>
+  	<div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script th:src="@{/js/jquery/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{/js/Quiz/script.js}"></script>
 </body>
 
 </html>

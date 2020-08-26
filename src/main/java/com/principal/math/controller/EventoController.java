@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
-
 import com.principal.math.controller.services.EventoService;
 import com.principal.math.controller.services.UsuarioService;
 import com.principal.math.model.entity.Evento;
@@ -26,9 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * BlocoController
- */
 @Controller
 @CrossOrigin
 @RequestMapping("/eventos")
@@ -41,18 +36,16 @@ public class EventoController {
 	private UsuarioService usuarioService;
 
 	@GetMapping("/view")
-	public ModelAndView view(HttpSession session) {
+	public ModelAndView view() {
 		try {	
-			ModelAndView md = new ModelAndView("Calendario/index");
+			ModelAndView mv = new ModelAndView("Calendario/index");
 			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
 			
 			if(!usuario.isPresent()) {
-				return md;
+				return mv;
 			}
 			
-			md.addObject("usuario", usuario.get());
-			
-			return md;
+			return mv;
 		}catch(Exception e) {
 			e.printStackTrace();
 			
@@ -63,7 +56,7 @@ public class EventoController {
 	// List
 	@GetMapping(path = { "/", "" })
 	@ResponseBody
-	public List<Evento> list(@PathVariable Integer id) {
+	public List<Evento> list() {
 		try {			
 			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
 			
@@ -72,6 +65,9 @@ public class EventoController {
 			}
 			
 			List<Evento> eventos = service.findByAluno(usuario.get());
+			
+			eventos.stream()
+				.forEach(evento ->	evento.setUsuario(null));
 			
 			return eventos;
 		}catch(Exception e) {
@@ -84,8 +80,7 @@ public class EventoController {
 	// Create
 	@PostMapping(path = { "/","" }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<Evento> create(@PathVariable Integer id,
-			@RequestBody Evento evento) {
+	public ResponseEntity<Evento> create(@RequestBody Evento evento) {
 		try {
 			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
 
@@ -94,7 +89,9 @@ public class EventoController {
 			}
 			
 			Evento createdEvento = service.save(evento, usuario.get());
-
+			
+			createdEvento.setUsuario(null);
+			
 			return ResponseEntity.ok(createdEvento);
 		} catch (Exception e) {
 
@@ -105,8 +102,7 @@ public class EventoController {
 	// Update
 	@PutMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<Evento> update(@RequestBody Evento evento,
-			@PathVariable("id") Integer id) {
+	public ResponseEntity<Evento> update(@RequestBody Evento evento) {
 
 		try {
 			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
@@ -115,7 +111,7 @@ public class EventoController {
 				return ResponseEntity.badRequest().build();
 			}
 
-			Evento updatedEvento = service.update(id, evento);
+			Evento updatedEvento = service.update(usuario.get().getId(), evento);
 
 			return ResponseEntity.ok(updatedEvento);
 		} catch (Exception e) {

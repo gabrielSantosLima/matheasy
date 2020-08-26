@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,81 +15,71 @@ import com.principal.math.controller.services.UsuarioService;
 import com.principal.math.model.entity.Usuario;
 
 @Controller
-@RequestMapping("/lista-contato")
+@CrossOrigin
+@RequestMapping("/contatos")
 public class ListaContatoController {
 	
 	@Autowired
 	private UsuarioService service;
-	
-	private Optional<Usuario> getContatoById(Integer id){
-		return service.findById(id);
-	}
 
-	@GetMapping(path = {"/", ""})
-	public ModelAndView list() {
+	@GetMapping(path = {"/view"})
+	public ModelAndView view(String role) {
+		ModelAndView mv = new ModelAndView("Contatos/index");
+		
 		try {
-			ModelAndView mv = new ModelAndView("Contatos/index"); // Mudar página
 			Optional<Usuario> usuario = service.findByLoggedinUsername();
 			
-			if(usuario.isPresent()) {
-				List<Usuario> contatos = service.findContatosById(
-						usuario.get().getId()
-				);				
-				mv.addObject("contatos", contatos);
-			}			
+			if(role != null ) {
+				List<Usuario> usuarios = service.findByRoleOrderByPontuacaoDesc(role);
+				
+				mv.addObject("contatos", usuario.get().getContatos());
+				mv.addObject("usuarios", usuarios);
+			}
 			
-			return mv;
 		}catch(Exception e) {
 			e.printStackTrace();
+		}
+		
+		return mv;
+	}
+	
+	@GetMapping(path = {"/{idContato}"})
+	public String create(@PathVariable Integer idContato){
+		try {
+			Optional<Usuario> usuario = service.findByLoggedinUsername();
+			Optional<Usuario> contato = service.findById(idContato);		
 			
-			return new ModelAndView();
+			System.out.println(contato.get().getNome());
+			
+			if(!usuario.isPresent() || !contato.isPresent()) {
+				return "redirect:/mensagens";
+			}
+			
+			service.addContato(usuario.get(), contato.get());
+			
+			return "redirect:/mensagens";			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/mensagens";
 		}
 	}
 	
-	@PostMapping(path = {"/{idContato}"}, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Usuario> create(@PathVariable Integer idContato){
+	@GetMapping(path = {"/remove/{idContato}"})
+	public String delete(@PathVariable Integer idContato){
 		try {
 			Optional<Usuario> usuario = service.findByLoggedinUsername();
-			Optional<Usuario> contato = getContatoById(idContato);		
+			Optional<Usuario> contato = service.findById(idContato);		
 			
 			if(!usuario.isPresent() || !contato.isPresent()) {
-				return ResponseEntity.badRequest().build();
+				return "redirect:/mensagens";
 			}
 			
-			usuario.get().getContatos().add(contato.get());
+			service.removeContato(usuario.get(), contato.get());
 			
-			Usuario updatedUsuario = service.update(
-					usuario.get().getId(), 
-					usuario.get()
-			);
-			
-			return ResponseEntity.ok(updatedUsuario);			
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();			
+			e.printStackTrace();
 		}
-	}
-	
-	@GetMapping(path = {"/idContato"}, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Usuario> delete(@PathVariable Integer idContato){
-		try {
-			Optional<Usuario> usuario = service.findByLoggedinUsername();
-			Optional<Usuario> contato = getContatoById(idContato);		
-			
-			if(!usuario.isPresent() || !contato.isPresent()) {
-				return ResponseEntity.badRequest().build();
-			}
-			
-			usuario.get().getContatos().remove(contato.get());
-			
-			Usuario updatedUsuario = service.update(
-					usuario.get().getId(), 
-					usuario.get()
-			);
-			
-			return ResponseEntity.ok(updatedUsuario);			
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();			
-		}
+		return "redirect:/mensagens";			
 	}
 	
 }

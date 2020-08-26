@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 :root{
-  font-size: 69.5%;
+  font-size: 90%;
 
   --color-primary: #c8cfdd;
   --color-secundary: #eaecef;
@@ -24,7 +24,7 @@
   font-family: 'Roboto' sans-serif;
 }
 
-input, button{
+.container input, .container button{
   height: 4rem;
   border: 0;
   user-select: none;
@@ -55,7 +55,7 @@ img{
 
   border-radius: 0.8rem;
 
-  overflow: hidden;
+  overflow-y: hidden;
 
   display: flex;
   flex-direction: row;
@@ -177,11 +177,11 @@ img{
   width: 30%;
   display: grid;
   background-color: var(--color-message);
-
+  
   position: relative;
 
   z-index: 2;
-
+  
   padding: 1rem;
   border-radius: 0.8rem;
 
@@ -229,10 +229,9 @@ img{
   margin-top: 8px;
   font-size: 1.3rem;
   grid-area: m;
-  display: flex;
+  white-space: normal;
+  display:block;
   word-break: normal;
-  align-items: center;
-  justify-self: center;
 }
 
 .mensagens form{

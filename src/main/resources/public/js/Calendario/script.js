@@ -1,7 +1,6 @@
 let calendar;
 let calendarList;
 let idToUpdate;
-let idUser;
 
 const setCalendar = (events = []) => {
   const calendarEl = document.querySelector('#calendar');
@@ -91,17 +90,23 @@ const closeContainer = (idContainer,className) => {
 
 const addEvent = async (data) => {
 
-  await fetch(`http://localhost:8080/aluno/${idUser}/eventos`, { method: 'POST', mode: "cors", body: JSON.stringify(data)})
-  .then(resp => resp.status)
-  .then(status => {
-    if(status == 200){
-      calendar.addEvent(data);
-      calendarList.addEvent(data);
-    }else{
-    	alert('Erro ao inserir evento!')
-    }
+  const resp = await fetch(`http://localhost:8080/eventos`, { 
+	  method: 'POST', 
+	  mode: "cors",
+	  headers: {
+	      'Accept': 'application/json',
+	      'Content-Type': 'application/json'
+	  },
+	  body: JSON.stringify(data)
   })
   
+  if(resp.status === 200){
+	  calendar.addEvent(data)
+	  calendarList.addEvent(data)
+  }
+  
+  const evento = await resp.json();
+  console.log(evento)
 }
 
 const updateEvent = (data) => {
@@ -126,7 +131,7 @@ const deleteEvent = async(id) => {
   const event = calendar.getEventById(id);
   const eventList = calendarList.getEventById(id);
 
-  await fetch(`http://localhost:8080/aluno/${idUser}/eventos/${event.id}`, { method: 'DELETE', mode: 'cors' })
+  await fetch(`http://localhost:8080/eventos/${event.id}`, { method: 'DELETE', mode: 'cors' })
   .then(resp => resp.ok)
   .then(status => {
     if(status){
@@ -138,7 +143,7 @@ const deleteEvent = async(id) => {
 }
 
 const listEvents = async () => {
-  const response = await fetch(`http://localhost:8080/aluno/${idUser}/eventos/`)
+  const response = await fetch(`http://localhost:8080/eventos`)
   const data = await response.json()
 
   return data;
@@ -157,10 +162,9 @@ const Formulario = {
       const title = $('#title').val()
       const start = $('#start').val()
       const end = $('#end').val()
-      const id = null;
       
       const data = {
-        id,
+    	key: '12',
         title,
         start,
         end
@@ -193,7 +197,7 @@ const Formulario = {
     });
     
     //atualizar evento
-    $('#update-button').on('click', (event) => {
+    $('#update-button').on('click', event => {
       const title = $('#upd-title').val();
       const start = $('#upd-start').val();
       const end = $('#upd-end').val();
@@ -213,23 +217,20 @@ const Formulario = {
     
     //Monta o calendário inicial
     $(document).on('DOMContentLoaded', async () => {
-      const eventos = await listEvents()
-      
-      userId = $(document.body).data('userId')
-      
-      console.log(eventos)
-      console.log(userId)
+      let eventos = await listEvents()
 
-//      eventos = eventos.map(evento => {
-//        return {
-//          id: evento.id,
-//          title: evento.title,
-//          start: evento.start,
-//          end: evento.end
-//        }
-//      })
-//
-//      setCalendar(eventos);
+      console.log(eventos)
+      
+	  eventos = eventos.map(evento => {
+		  return {
+			  id: evento.id,
+			  title: evento.title,
+			  start: evento.start,
+			  end: evento.end
+		  }
+	  })
+	    
+	  setCalendar(eventos);
     });
   }
 }

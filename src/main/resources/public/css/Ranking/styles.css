@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 body {
     margin: 0;
-    padding: 20px;
+    padding: 0;
     font-family: sans-serif;
     list-style: none;
     background: #E2EAEC;
@@ -21,7 +21,7 @@ body {
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.15);
 }
 
-header {
+.container header {
     display: flex;
     flex-direction: row;
     justify-content: center;

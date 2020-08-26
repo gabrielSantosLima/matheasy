@@ -63,7 +63,7 @@ header {
 
 .grid .card .wrapper img {
     position: relative;
-    z-index: 20;
+    z-index: 2;
     border-radius: 50%;
     display: block;
     height: 182px;

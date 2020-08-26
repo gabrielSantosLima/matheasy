@@ -43,14 +43,13 @@ public class Evento {
 		
 	}
 	
-	public Evento(Integer id, String key, String title, Calendar start, Calendar end,
-			Usuario usuario) {
-		this.id = id;
+	public Evento(String key, String title, Calendar start, Calendar end) {
+		this.id = null;
 		this.key = key;
 		this.title = title;
 		this.start = start;
 		this.end = end;
-		this.usuario = usuario;
+		this.usuario = null;
 	}
 
 	public String getKey() {

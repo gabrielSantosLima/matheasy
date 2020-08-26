@@ -29,13 +29,15 @@ public class PontuacaoController {
 				return ResponseEntity.badRequest().build();				
 			}
 			
-			usuario.get()
+			if(usuario.get().getRole().getName() == "ROLE_ALUNO") {
+				usuario.get()
 				.setPontuacao(usuario.get().getPontuacao() + point);
-			
-			service.update(
-					usuario.get().getId(), 
-					usuario.get()
-			);
+				
+				service.update(
+						usuario.get().getId(), 
+						usuario.get()
+						);				
+			}
 			
 			return ResponseEntity.ok().build();
 		}catch(Exception e){

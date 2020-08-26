@@ -1,54 +1,65 @@
 <!DOCTYPE html>
-<html lang="pt-BR" dir="ltr">
+<html lang="pt-BR" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <title>Contatos</title>
-    <link rel="shortcut icon" href="/assets/picture.ico">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="/bootstrap-4.5.0-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./../footer/style.css">
+    <link rel="shortcut icon" th:href="@{/assets/picture.ico}">
+    <link rel="stylesheet" th:href="@{/css/Contatos/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-4.5.0-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/header/styles.css}">	
+    <link rel="stylesheet" th:href="@{/css/fragments/footer/styles.css}">	
 </head>
 
 <body>
+	
+	<div th:replace="fragments/header :: header"></div>
+
     <header>
         <h1 id="contatos">Professores Disponiveis</h1>
     </header>
-    <div class="grid">
+    <div th:each="usuario : ${usuarios}" class="grid">
         <div class="card">
             <div class="wrapper">
-                <a href="#">
-                    <img src="/assets/icons/do-utilizador.svg">
+                <a th:href="@{/assets/icons/do-utilizador.svg}">
+                    <img th:src="@{/assets/icons/do-utilizador.svg}">
                 </a>
-                <div class="name">
-                    Nome Completo</div>
-                <div class="education">
-                    Doutor em Matemática</div>
+                <div th:text="${usuario.nome}" class="name">Nome Completo</div>
             </div>
             <hr>
             <div class="content">
-                <div id="description">
+                <div th:text="${usuario.descricao}" id="description">
                     <p>Falando sobre si mesmo várias coisas dizendo falando sobre si mesmo Falando sobre si mesmo várias coisas dizendo falando sobre si mesmo Falando sobre si mesmo várias coisas dizendo falando sobre si mesmoFalando sobre si mesmo várias
                         coisas dizendo falando sobre si mesmo Falando sobre si mesmo várias coisas dizendo falando sobre si mesmoFalando sobre si mesmo várias coisas dizendo falando sobre si mesmo Falando sobre si mesmo várias coisas dizendo falando sobre
                         si mesmo Falando sobre si mesmo várias coisas dizendo falando sobre si mesmo
                     </p>
                 </div>
                 <div class="buttons">
-                    <button>Adicionar Contato</button>
+                    
+                    <button th:if="${!#lists.contains(contatos, usuario)}">
+                    	<a th:href="@{'/contatos/' + ${usuario.id}}">Adicionar Contato</a>
+                    </button>
+                    
+                    <button style="color: white; background: red;" th:if="${#lists.contains(contatos, usuario)}">
+                    	<a style="color: white;" th:href="@{'/contatos/remove/' + ${usuario.id}}">Remover Contato</a>
+                    </button>
                 </div>
             </div>
 
             <div class="icons">
-
-                <li><button><span title="Melhores do Site"> <img src="/assets/icons/medal.svg" id="place"></span></button></li>
+                <li><button><span title="Melhores do Site"> <img th:src="@{/assets/icons/medal.svg}" id="place"></span></button></li>
             </div>
 
         </div>
 
     </div>
 
-    <script src="/jquery/jquery-3.5.1.min.js"></script>
-    <script src="/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+	
+	<div th:replace="fragments/footer :: footer"></div>
+
+
+    <script th:src="@{/jquery/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{/bootstrap-4.5.0-dist/js/bootstrap.min.js}"></script>
 
 </body>
 

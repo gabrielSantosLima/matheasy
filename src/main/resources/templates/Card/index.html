@@ -6,16 +6,19 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Bloco de Notas</title>
-	<link rel="stylesheet" th:href="@{/css/Card/styles.css}">
-	<link rel="stylesheet" th:href="@{/js/dragula/dragula.min.css}">
+	<link rel="stylesheet" th:href="@{/css/dragula/dragula.css}">
 	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
+	<link rel="stylesheet"
+	th:href="@{/css/bootstrap-4.5.0-dist/css/bootstrap.min.css}">
+	
+	<link rel="stylesheet" th:href="@{/css/Card/styles.css}">
 	<link rel="stylesheet" th:href="@{/css/fragments/header/styles.css}">
 	<link rel="stylesheet" th:href="@{/css/fragments/footer/styles.css}">
 </head>
 
 <body>
-
-  <!--<div th:replace="~{fragments/header :: header}"></div>-->
+    
+    <div th:replace="fragments/header :: header"></div>
     
 	<div class="container">
 		<div class="container-sec">
@@ -83,10 +86,11 @@
 		</div>
 	</div>
 
-  	<div th:replace="~{fragments/footer :: footer}"></div>    
+    <div th:replace="fragments/footer:: footer"></div>
 
 	<script th:src="@{/js/jquery/jquery-3.5.1.min.js}"></script>
-	<script th:src="@{/js/dragula/dragula.js}"></script>
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js}"></script>
 	<script th:src="@{/js/Card/script.js}"></script>
+	
 </body>
 </html>

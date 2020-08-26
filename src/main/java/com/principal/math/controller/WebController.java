@@ -10,4 +10,14 @@ public class WebController {
 	public String index() {
 		return "LandingPage/index";
 	}
+	
+	@GetMapping("*")
+	public String error() {
+		return "Error/index";
+	}
+	
+	@GetMapping("/ajuda")
+	public String help() {
+		return "Ajuda/index";
+	}
 }

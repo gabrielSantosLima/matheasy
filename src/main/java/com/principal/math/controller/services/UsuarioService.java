@@ -54,6 +54,16 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRepository>{
 		return repository.findTop10ByOrderByPontuacaoDesc();
 	}
 	
+	public List<Usuario> findByRoleOrderByPontuacaoDesc(String role) throws Exception{
+		Optional<Role> papel = roleRepository.findByName(role);
+		
+		if(!papel.isPresent()) {
+			throw new Exception("[usuario-service] Papel não existe!");
+		}
+		
+		return repository.findByRoleOrderByPontuacaoDesc(papel.get());
+	}
+	
 	public List<Usuario> findContatosById(Integer id){
 		return repository.findContatosById(id);
 	}
@@ -68,5 +78,31 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRepository>{
 		}
 		
 		return usuario;
+	}
+	
+	public Usuario addContato(Usuario usuario, Usuario contato) throws Exception {
+		List<Usuario> contatos = usuario.getContatos();
+		contatos.add(contato);
+		usuario.setContatos(contatos);
+
+		List<Usuario> contatos2 = contato.getContatos();
+		contatos2.add(usuario);
+		contato.setContatos(contatos2);
+		
+		update(contato.getId(), contato);
+		return update(usuario.getId(), usuario);
+	}
+
+	public Usuario removeContato(Usuario usuario, Usuario contato) throws Exception {
+		List<Usuario> contatos = usuario.getContatos();
+		contatos.remove(contato);
+		usuario.setContatos(contatos);
+		
+		List<Usuario> contatos2 = contato.getContatos();
+		contatos2.remove(usuario);
+		contato.setContatos(contatos2);
+		
+		update(contato.getId(), contato);
+		return update(usuario.getId(), usuario);
 	}
 }

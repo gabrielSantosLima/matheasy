@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.principal.math.controller.services.SecurityService;
 import com.principal.math.controller.services.UsuarioService;
@@ -19,10 +21,38 @@ import com.principal.math.model.entity.Usuario;
 public class UsuarioController {
 	
 	@Autowired
-	private UsuarioService usuarioService;
+	private UsuarioService service;
 	
 	@Autowired
 	private SecurityService securityService;
+	
+	@GetMapping(path = "/perfil")
+	public ModelAndView perfil() {
+		ModelAndView mv = new ModelAndView("Perfil/index");
+		
+		try {
+			Optional<Usuario> usuario = service.findByLoggedinUsername();
+			
+			mv.addObject("usuario", usuario.get());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mv;
+	}
+
+	@PostMapping(path = {"/perfil/{id}"})
+	public String update(@ModelAttribute("usuario") Usuario usuario, @PathVariable Integer id) {
+		try {
+			
+			service.update(id, usuario);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/perfil";
+	}
 	
 	@GetMapping("/registration")
 	public String registration(@RequestParam("u") String tipo, Model model) {
@@ -44,7 +74,7 @@ public class UsuarioController {
 			String tipo, 
 			Model model
 		) {
-		Optional<Usuario> existsUsuario = usuarioService.findByUsername(usuario.getUsername());
+		Optional<Usuario> existsUsuario = service.findByUsername(usuario.getUsername());
 		
 		if(existsUsuario.isPresent()) {
 			model.addAttribute("error", "Nome de usuário já existe!");
@@ -52,9 +82,9 @@ public class UsuarioController {
 		}
 		
 		if(tipo == "aluno") {
-			usuarioService.save(usuario, "ROLE_ALUNO");			
+			service.save(usuario, "ROLE_ALUNO");			
 		}else {
-			usuarioService.save(usuario, "ROLE_PROFESSOR");						
+			service.save(usuario, "ROLE_PROFESSOR");						
 		}
 		
 		securityService.autoLogin(usuario.getUsername(), usuario.getPassword());
@@ -71,6 +101,7 @@ public class UsuarioController {
 		}
 		if (logout != null) {
 			model.addAttribute("message", "Você foi deslogado corretamente!");
+			return "LandingPage/index";
 		}
 		
 		return "Login/index";

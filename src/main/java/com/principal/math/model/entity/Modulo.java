@@ -2,6 +2,7 @@ package com.principal.math.model.entity;
 
 
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -37,10 +38,10 @@ public class Modulo {
 	@Column(nullable = false)
 	private String sigla;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "modulo")
 	private List<EstadoEstudo> estados;
 
-	@OneToMany
+	@OneToMany(mappedBy = "modulo")
 	private List<Atividade> atividades;
 
 	public Modulo() {

@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -79,7 +78,7 @@ public class BlocoController {
 			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
 
 			if (!usuario.isPresent()) {
-				return "Card/index";
+				return "redirect:/blocos/view";
 			}
 
 			service.save(blocoDeNotas, usuario.get());
@@ -87,12 +86,12 @@ public class BlocoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "Card/index";
+		return "redirect:/blocos/view";
 	}
 
 	// Update
 	@PostMapping(path = "/{id}")
-	public String update(@ModelAttribute("card") BlocoDeNotas blocoDeNotas, Model model, @PathVariable("id") Integer id) {
+	public String update(@ModelAttribute("card") BlocoDeNotas blocoDeNotas, @PathVariable("id") Integer id) {
 		try {
 			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
 
@@ -103,7 +102,7 @@ public class BlocoController {
 			Optional<BlocoDeNotas> bloco = service.findById(id);
 
 			if (usuario.get().getId() == bloco.get().getUsuario().getId() || !bloco.isPresent()) {
-				return "Card/index";
+				return "redirect:/blocos/view";
 			}
 
 			service.update(id, blocoDeNotas);
@@ -111,31 +110,20 @@ public class BlocoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "Card/index";
+		return "redirect:/blocos/view";
 
 	}
 
 	// Delete
 	@GetMapping(path = "/{id}")
-	public String delete(@PathVariable("id") Integer id, Model model) {
+	public String delete(@PathVariable("id") Integer id) {
 		try {
-			Optional<Usuario> usuario = usuarioService.findByLoggedinUsername();
-
-			if (!usuario.isPresent()) {
-				return "Card/index";
-			}
-
-			Optional<BlocoDeNotas> bloco = service.findById(id);
-
-			if (usuario.get().getId() == bloco.get().getUsuario().getId() || !bloco.isPresent()) {
-				return "Card/index";
-			}
 
 			service.delete(id);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "Card/index";
+		return "redirect:/blocos/view";
 	}
 }

@@ -24,10 +24,7 @@ public class GenericService<E, Repository extends JpaRepository<E, Integer>> {
 			throw new Exception("[service] Erro ao atualizar!");
 		}
 		
-		E newE = e;
-		delete(id);
-		
-		save(newE);
+		E newE = save(e);
 		
 		return newE;
 	}

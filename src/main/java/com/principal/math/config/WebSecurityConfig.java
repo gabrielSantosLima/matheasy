@@ -33,39 +33,43 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests()
-//		.antMatchers("/resources/**",
-//				"/login",
-//				"/",
-//				"/templates/fragments/**",
-//				"/img/**",
-//				"/css/**", 
-//				"/assets/**", 
-//				"/js/**",
-//				"/registration",
-//				"/chat/**")
-//			.permitAll()
-//		.anyRequest()
-//			.authenticated()
-//		.and()
-//		.formLogin()
-//			.loginPage("/login")
-//			.defaultSuccessUrl("/home")
-//			.failureUrl("/login?error=true")
-//			.permitAll()
-//		.and()
-//		.logout()
-//			.logoutSuccessUrl("/login?logout=true")
-//			.permitAll();
-
-		http.cors()
-			.and()
-			.authorizeRequests()
-			.antMatchers("/**")
+		http.authorizeRequests()
+		.antMatchers("/resources/**",
+				"/login",
+				"/",
+				"/img/**",
+				"/css/**",
+				"/assets/**", 
+				"/js/**",
+				"/registration",
+				"/chat/**",
+				"/conteudo/**",
+				"/Conteudos/6/**",
+				"/Conteudos/7/**",
+				"/Conteudos/8/**",
+				"/Conteudos/9/**")
 			.permitAll()
-			.and()
-			.csrf()
-			.disable();
+		.anyRequest()
+			.authenticated()
+		.and()
+		.formLogin()
+			.loginPage("/login")
+			.defaultSuccessUrl("/home")
+			.failureUrl("/login?error=true")
+			.permitAll()
+		.and()
+		.logout()
+			.logoutSuccessUrl("/login?logout=true")
+			.permitAll();
+
+//		http.cors()
+//			.and()
+//			.authorizeRequests()
+//			.antMatchers("/**")
+//			.permitAll()
+//			.and()
+//			.csrf()
+//			.disable();
 	}
 
 	@Bean

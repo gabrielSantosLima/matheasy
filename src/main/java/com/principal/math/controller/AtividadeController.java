@@ -37,7 +37,7 @@ public class AtividadeController {
 	public ModelAndView view(@PathVariable Integer id) {
 		ModelAndView mv = new ModelAndView("Quiz/index");
 		
-		mv.addObject("id", id);
+		mv.addObject("id", id.intValue());
 		
 		return mv;
 	}
@@ -51,7 +51,9 @@ public class AtividadeController {
 		}
 
 		List<Atividade> atividades = service.findByModulo(modulo.get());
-
+		
+		atividades.stream().forEach(atividade -> atividade.setModulo(null));
+		
 		return atividades;
 	}
 }

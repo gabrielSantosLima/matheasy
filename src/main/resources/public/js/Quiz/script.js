@@ -49,7 +49,7 @@ function Quiz(){
     const select = event => {
         selectedOptionIndex = $(event.target).data('index')
 
-        $('.option').removeClass('select')
+        $('.alternativa').removeClass('select')
         $(event.target).toggleClass('select');
     }
 
@@ -75,7 +75,10 @@ function Quiz(){
         //Carrega as opções da questão atual
         for (let count = 0; count < numberOptions; count++) {
             const option = question.options[count]
-            $($('.option')[count]).html(option)
+            
+            console.log(`> Questão ${count + 1} de ${numberOptions}`)
+            
+            $($('.alternativa')[count]).html(option)
         }
 
         setCorrectIndex(question.correct);
@@ -162,11 +165,12 @@ async function loadQuestion() {
         return array;
     } catch (err) {
         console.error(err)
+        return [];
     }
 }
 
 function clear() {
-    $('.option').removeClass('select')
+    $('.alternativa').removeClass('select')
     console.clear();
 }
 
@@ -176,7 +180,7 @@ async function addEvents() {
     numberQuestions = await questions.length;
 
     $('#start').on('click', quiz.start);
-    $('.option').on('click', quiz.select);
+    $('.alternativa').on('click', quiz.select);
     $('#next').on('click', quiz.corretAnswer);
     $('#again').on('click', quiz.start);
 }

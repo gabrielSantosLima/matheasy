@@ -3,8 +3,10 @@ package com.principal.math.model.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,22 +46,22 @@ public class Usuario implements IUsuario {
 	@Column(nullable = true, name = "perfil")
 	private byte[] perfil;
 	
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
 	private List<BlocoDeNotas> blocos;
 
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private List<Evento> eventos;
 
 	@OneToMany(mappedBy = "usuario")
 	private List<EstadoEstudo> estados;
 
-	@OneToMany(mappedBy="usuario1")
+	@OneToMany(mappedBy="usuario1", fetch = FetchType.LAZY)
 	private List<Mensagem> mensagens1;
 
-	@OneToMany(mappedBy="usuario2")
+	@OneToMany(mappedBy="usuario2", fetch = FetchType.LAZY)
 	private List<Mensagem> mensagens2;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			  name = "contatos", 
 			  joinColumns = @JoinColumn(name = "aluno_id"), 

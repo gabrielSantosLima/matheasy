@@ -1,3 +1,33 @@
+body #header *{
+	font-size: 200px !important;
+}
+
+body > *:first-child{
+	margin-top: 70px;
+}
+
+.nav-item{
+	display:flex;
+	justify-content: center;
+	text-align:center;
+	max-width: 17%;
+}
+
+.nav-item .nav-link{
+	display:flex;
+	justify-content: center;
+	text-align:center;
+	align-items: center;
+}
+
+.collapse{
+	display:flex;
+}
+
+.collapse form{
+	display:flex;
+}
+
 :root {
     --sidenav-background: #000080;
     --topmenu-background: linear-gradient(to right, #000080, #0892B4);
@@ -162,7 +192,8 @@ header .wrapper .top_menu span {
     position: fixed;
     z-index: 10;
     left: 0;
-    top: -200%;
+    top: 0;
+    width: 100%;
     height: auto;
 }
 
@@ -171,7 +202,7 @@ header .wrapper .top_menu span {
     z-index: 10;
     left: 0;
     top: 0;
-    width: 100vw;
+    width: 100%;
     height: auto;
     background-image: -webkit-gradient(linear, left top, right top, from(#514A9D), to(#36D1DC));
     background-image: var(--topmenu-background);
@@ -180,11 +211,13 @@ header .wrapper .top_menu span {
 #header .navbar {
     display: flex;
     align-items: center;
+    z-index: 10;
     justify-content: space-between;
     width: 100%;
     height: 100%;
     max-width: 1550px;
     padding: 0 10px;
+    margin-bottom: 100px;
 }
 
 .navbar-brand {
