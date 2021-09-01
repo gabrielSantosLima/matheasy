@@ -4,3 +4,4 @@ src/main/resources/public/js/flickity/* linguist-vendored
 src/main/resources/public/js/bootstrap-4.5.0-dist/js/* linguist-vendored
 src/main/resources/public/js/FullCalendar/* linguist-vendored
 src/main/resources/templates/Conteudos/* linguist-vendored
+src/main/resources/public/assets/* linguist-vendored
