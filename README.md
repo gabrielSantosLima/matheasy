@@ -1,1 +1,2 @@
-# sistema-web-2020
+# Matheasy
+Plataforma Web para estudo, prática e interatividade com assuntos relacionados a matemática.
